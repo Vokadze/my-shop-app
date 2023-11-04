@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+
 import { paginate } from "../utils/paginate";
 import Pagination from "./pagination";
-import Product from "./product";
 import api from "../api";
 import GroupList from "./groupList";
 import SearchStatus from "./searchStatus";
+import ProductsTable from "./productsTable";
+
+import _ from "lodash";
 
 const Products = ({ products: allProducts, ...rest }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [categories, setCategories] = useState();
     const [selectedCategory, setSelectedCategory] = useState();
+    const [sortBy, setSortBy] = useState({ iter: "price", order: "asc" });
 
-    const pageSize = 3;
+    const pageSize = 8;
 
     useEffect(() => {
         api.categories.fetchAll().then((data) => setCategories(data));
@@ -33,6 +37,11 @@ const Products = ({ products: allProducts, ...rest }) => {
         setCurrentPage(pageIndex);
     };
 
+    const handleSort = (item) => {
+        setSortBy(item);
+        console.log(item);
+    };
+
     const filteredProducts = selectedCategory
         ? allProducts.filter(
               (product) =>
@@ -43,7 +52,13 @@ const Products = ({ products: allProducts, ...rest }) => {
 
     const count = filteredProducts.length;
 
-    const productCrop = paginate(filteredProducts, currentPage, pageSize);
+    const sortedProducts = _.orderBy(
+        filteredProducts,
+        [sortBy.iter],
+        [sortBy.order]
+    );
+
+    const productCrop = paginate(sortedProducts, currentPage, pageSize);
     console.log(productCrop);
 
     const clearFilter = () => {
@@ -71,24 +86,12 @@ const Products = ({ products: allProducts, ...rest }) => {
                 )}
 
                 <div className="d-flex flex-column">
-                    <table className="table table-borderless">
-                        <thead>
-                            <tr>
-                                <th colSpan="3" className="text-center">
-                                    First
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {productCrop.map((product) => (
-                                <Product
-                                    key={product.id}
-                                    {...rest}
-                                    {...product}
-                                />
-                            ))}
-                        </tbody>
-                    </table>
+                    <ProductsTable
+                        products={productCrop}
+                        onSort={handleSort}
+                        selectedSort={sortBy}
+                        {...rest}
+                    />
                     <div className="d-flex justify-content-center">
                         <Pagination
                             itemsCount={count}
