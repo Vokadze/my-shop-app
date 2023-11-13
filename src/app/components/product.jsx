@@ -1,28 +1,30 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Product = ({ id, image, name, price, handleChange }) => {
+const Product = ({ id, image, name, price, handleClick }) => {
     return (
         <tr key={id}>
-            <td className="mx-auto w-25">
+            <td className="align-center">
                 <img
                     src={image}
                     alt=""
-                    className="rounded mx-auto d-block mx-auto"
+                    className="rounded mx-auto d-block"
                     width="130"
                     height="160"
                 />
             </td>
-            <td className="align-center p-4 w-50" width="auto">
-                <p>Наименование товара: {name}</p>
-                <p>id товара: {id}</p>
-                <p>Стоимость: {price}</p>
+            <td className="align-center p-4" width="auto">
+                <div>
+                    <p>Наименование товара: {name}</p>
+                    <p>id товара: {id}</p>
+                    <p>Стоимость: {price}</p>
+                </div>
             </td>
-            <td className="align-bottom">
+            <td>
                 <button
                     className="btn btn-primary btn-sm text-nowrap mb-4"
                     type="button"
-                    onClick={() => handleChange(id)}
+                    onClick={() => handleClick(id)}
                 >
                     Открыть карточку
                 </button>
@@ -36,7 +38,7 @@ Product.propTypes = {
     image: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    handleChange: PropTypes.func
+    handleClick: PropTypes.func
 };
 
 export default Product;

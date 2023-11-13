@@ -11,19 +11,15 @@ const App = () => {
         api.products.fetchAll().then((data) => setProducts(data));
     }, []);
 
-    // useEffect(() => {
-    //     api.products.fetchAll().then((data) => setProducts(data));
-    // }, []);
-
-    const handleChange = (prodId) => {
+    const handleClick = (prodId) => {
         setProducts(products.filter((product) => product.id === prodId));
     };
 
     return (
         <div>
             {products && (
-            // <h1>App</h1>
-            <Products handleChange={handleChange} products={products} />
+                // <h1>App</h1>
+                <Products handleClick={handleClick} products={products} />
             )}
         </div>
     );

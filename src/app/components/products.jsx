@@ -16,7 +16,7 @@ const Products = ({ products: allProducts, ...rest }) => {
     const [selectedCategory, setSelectedCategory] = useState();
     const [sortBy, setSortBy] = useState({ iter: "price", order: "asc" });
 
-    const pageSize = 8;
+    const pageSize = 4;
 
     useEffect(() => {
         api.categories.fetchAll().then((data) => setCategories(data));
@@ -54,7 +54,7 @@ const Products = ({ products: allProducts, ...rest }) => {
 
     const sortedProducts = _.orderBy(
         filteredProducts,
-        [sortBy.iter],
+        [sortBy.path],
         [sortBy.order]
     );
 
@@ -68,6 +68,7 @@ const Products = ({ products: allProducts, ...rest }) => {
     return (
         <>
             <SearchStatus length={count} />
+            <SearchStatus length={allProducts.length} />
             <div className="d-flex">
                 {categories && (
                     <div className="d-flex flex-column flex-shrink-0 p-3">
@@ -84,8 +85,8 @@ const Products = ({ products: allProducts, ...rest }) => {
                         </button>
                     </div>
                 )}
-
-                <div className="d-flex flex-column">
+                {/* <div className="container"> */}
+                <div className="d-flex flex-column flex-shrink-0">
                     <ProductsTable
                         products={productCrop}
                         onSort={handleSort}
@@ -102,6 +103,7 @@ const Products = ({ products: allProducts, ...rest }) => {
                     </div>
                 </div>
             </div>
+            {/* </div> */}
         </>
     );
 };
