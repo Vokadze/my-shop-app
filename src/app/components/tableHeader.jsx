@@ -3,32 +3,49 @@ import PropTypes from "prop-types";
 
 const TableHeader = ({ onSort, selectedSort, columns }) => {
     const handleSort = (item) => {
-        if (selectedSort.iter === item) {
+        if (selectedSort.path === item) {
             onSort({
                 ...selectedSort,
                 order: selectedSort.order === "asc" ? "desc" : "asc"
             });
         } else {
-            onSort({ iter: item, order: "asc" });
+            onSort({ path: item, order: "asc" });
         }
     };
+
+    const returnSortCaret = (selectedSort, currentPath) => {
+        if (selectedSort.path !== currentPath) {
+            if (selectedSort.order === "asc") {
+                return <i className="bi bi-caret-down-fill"></i>;
+            } else {
+                return <i className="bi bi-caret-up-fill"></i>;
+            }
+        }
+        return null;
+    };
+
     return (
         <thead>
             <tr>
                 {Object.keys(columns).map((column) => (
-                    <th
-                        key={column}
-                        onClick={
-                            columns[column].iter
-                                ? () => handleSort(columns[column].iter)
-                                : undefined
-                        }
-                        {...{ role: columns[column].iter && "button" }}
-                        colSpan="3"
-                        className="text-center"
-                    >
-                        Функция сортировка (по стоимости)
-                    </th>
+                    <td key={column} colSpan="3" className="align-bottom">
+                        <div
+                            key={column}
+                            className="d-flex flex-row border justify-content-center p-2"
+                            onClick={
+                                columns[column].path
+                                    ? () => handleSort(columns[column].path)
+                                    : undefined
+                            }
+                            {...{ role: columns[column].path && "button" }}
+                        >
+                            {columns[column].name}
+                            {returnSortCaret(
+                                selectedSort,
+                                columns[column].path
+                            )}
+                        </div>
+                    </td>
                 ))}
             </tr>
         </thead>
