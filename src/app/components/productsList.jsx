@@ -10,7 +10,7 @@ import ProductsTable from "./productsTable";
 
 import _ from "lodash";
 
-const Products = () => {
+const ProductsList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [categories, setCategories] = useState();
     const [selectedCategory, setSelectedCategory] = useState();
@@ -77,7 +77,8 @@ const Products = () => {
         };
 
         return (
-            <>
+            <div className="container">
+                <h1>Проверка связи</h1>
                 <SearchStatus length={count} />
                 <SearchStatus length={products.length} />
                 <div className="d-flex">
@@ -115,14 +116,14 @@ const Products = () => {
                     </div>
                 </div>
                 {/* </div> */}
-            </>
+            </div>
         );
     }
-    return "Loading products.jsx";
+    return "Loading productsList.jsx";
 };
 
-Products.propTypes = {
+ProductsList.propTypes = {
     products: PropTypes.array
 };
 
-export default Products;
+export default ProductsList;
