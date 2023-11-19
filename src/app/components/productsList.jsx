@@ -34,7 +34,7 @@ const ProductsList = () => {
 
     useEffect(() => {
         setCurrentPage(1);
-    }, [selectedCategory]);
+    }, [selectedCategory, products]);
 
     const handleCategoriesSelect = (item) => {
         setSelectedCategory(item);

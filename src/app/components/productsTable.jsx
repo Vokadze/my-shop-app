@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 // import TableBody from "./tableBody";
 // import TableHeader from "./tableHeader";
 import Table from "./table";
+import { Link } from "react-router-dom";
 
 const ProductsTable = ({
     products,
@@ -41,13 +42,15 @@ const ProductsTable = ({
         },
         button: {
             component: (product) => (
-                <button
-                    className="btn btn-primary btn-sm text-nowrap"
-                    type="button"
-                    onClick={() => handleClick(product.id)}
-                >
-                    Открыть карточку
-                </button>
+                <Link to={`/products/${product.id}`}>
+                    <button
+                        className="btn btn-primary btn-sm text-nowrap"
+                        type="button"
+                        onClick={() => handleClick(product.id)}
+                    >
+                        Открыть карточку
+                    </button>
+                </Link>
             )
         }
     };
