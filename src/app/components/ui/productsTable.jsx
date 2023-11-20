@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 // import Product from "./product";
 // import TableBody from "./tableBody";
 // import TableHeader from "./tableHeader";
-import Table from "./table";
+import Table from "../common/table";
 import { Link } from "react-router-dom";
 
 const ProductsTable = ({

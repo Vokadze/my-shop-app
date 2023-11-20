@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import api from "../api";
+import api from "../../../api";
 import { useHistory } from "react-router-dom";
 
 const ProductPage = ({ prodId }) => {
