@@ -28,10 +28,14 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
         <thead>
             <tr>
                 {Object.keys(columns).map((column) => (
-                    <td key={column} colSpan="3" className="align-bottom">
+                    <td
+                        key={column}
+                        colSpan="3"
+                        className="align-bottom p-0 pb-2 pt-2"
+                    >
                         <div
                             key={column}
-                            className="d-flex flex-row border justify-content-center p-2"
+                            className="d-flex flex-row border justify-content-center p-2 ms-0"
                             onClick={
                                 columns[column].path
                                     ? () => handleSort(columns[column].path)

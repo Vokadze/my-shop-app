@@ -13,6 +13,7 @@ import _ from "lodash";
 const ProductsList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [categories, setCategories] = useState();
+    const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState();
     const [sortBy, setSortBy] = useState({ iter: "price", order: "asc" });
     const pageSize = 4;
@@ -34,13 +35,19 @@ const ProductsList = () => {
 
     useEffect(() => {
         setCurrentPage(1);
-    }, [selectedCategory, products]);
+    }, [selectedCategory, searchQuery, products]);
 
     const handleCategoriesSelect = (item) => {
+        if (searchQuery !== "") setSearchQuery("");
         setSelectedCategory(item);
         console.log(item);
     };
     console.log(categories);
+
+    const handleSearchQuery = ({ target }) => {
+        setSelectedCategory(undefined);
+        setSearchQuery(target.value);
+    };
 
     const handlePageChange = (pageIndex) => {
         console.log("page: ", pageIndex);
@@ -53,13 +60,20 @@ const ProductsList = () => {
     };
 
     if (products) {
-        const filteredProducts = selectedCategory
+        const filteredProducts = searchQuery
             ? products.filter(
                   (product) =>
-                      JSON.stringify(product.category) ===
-                      JSON.stringify(selectedCategory)
+                      product.name
+                          .toLowerCase()
+                          .indexOf(searchQuery.toLowerCase()) !== -1
               )
-            : products;
+            : selectedCategory
+              ? products.filter(
+                    (product) =>
+                        JSON.stringify(product.category) ===
+                        JSON.stringify(selectedCategory)
+                )
+              : products;
 
         const count = filteredProducts.length;
 
@@ -77,45 +91,55 @@ const ProductsList = () => {
         };
 
         return (
-            <div className="container">
-                <h1>Проверка связи</h1>
-                <SearchStatus length={count} />
-                <SearchStatus length={products.length} />
-                <div className="d-flex">
-                    {categories && (
-                        <div className="d-flex flex-column flex-shrink-0 p-3">
-                            <GroupList
-                                selectedItem={selectedCategory}
-                                items={categories}
-                                onItemSelect={handleCategoriesSelect}
-                            />
-                            <button
-                                className="btn btn-secondary mt-2"
-                                onClick={clearFilter}
-                            >
-                                Очистить
-                            </button>
-                        </div>
-                    )}
-                    {/* <div className="container"> */}
-                    <div className="d-flex flex-column flex-shrink-0">
-                        <ProductsTable
-                            products={productCrop}
-                            onSort={handleSort}
-                            selectedSort={sortBy}
-                            handleClick={handleClick}
+            <div className="d-flex justify-content-center">
+                <div className="d-flex flex-column">
+                    <div className="d-flex flex-column">
+                        <SearchStatus length={count} />
+                        <SearchStatus length={products.length} />
+                        <input
+                            type="text"
+                            name="searchQuery"
+                            placeholder="Search..."
+                            className="mb-2"
+                            onChange={handleSearchQuery}
+                            value={searchQuery}
                         />
-                        <div className="d-flex justify-content-center">
-                            <Pagination
-                                itemsCount={count}
-                                pageSize={pageSize}
-                                currentPage={currentPage}
-                                onPageChange={handlePageChange}
+                    </div>
+                    <div className="d-flex flex-row justify-content-between">
+                        {categories && (
+                            <div className="d-flex flex-column flex-shrink-0 me-2">
+                                <GroupList
+                                    selectedItem={selectedCategory}
+                                    items={categories}
+                                    onItemSelect={handleCategoriesSelect}
+                                />
+                                <button
+                                    className="btn btn-secondary mt-2"
+                                    onClick={clearFilter}
+                                >
+                                    Очистить
+                                </button>
+                            </div>
+                        )}
+                        {/* <div className="container"> */}
+                        <div className="d-flex flex-column flex-shrink-0 justify-content-between">
+                            <ProductsTable
+                                products={productCrop}
+                                onSort={handleSort}
+                                selectedSort={sortBy}
+                                handleClick={handleClick}
                             />
+                            <div className="d-flex justify-content-center">
+                                <Pagination
+                                    itemsCount={count}
+                                    pageSize={pageSize}
+                                    currentPage={currentPage}
+                                    onPageChange={handlePageChange}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
-                {/* </div> */}
             </div>
         );
     }
