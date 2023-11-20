@@ -99,8 +99,8 @@ const ProductsList = () => {
                         <input
                             type="text"
                             name="searchQuery"
-                            placeholder="Search..."
-                            className="mb-2"
+                            placeholder="Поисковая строка (по названию)"
+                            className="mb-2 text-center"
                             onChange={handleSearchQuery}
                             value={searchQuery}
                         />
