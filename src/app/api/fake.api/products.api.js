@@ -243,21 +243,40 @@ const products = [
     }
 ];
 
+if (!localStorage.getItem("products")) {
+    localStorage.setItem("products", JSON.stringify(products));
+}
+
 const fetchAll = () =>
     new Promise((resolve) => {
         window.setTimeout(function () {
-            resolve(products);
+            resolve(JSON.parse(localStorage.getItem("products")));
         }, 2000);
+    });
+
+const update = (id, data) =>
+    new Promise((resolve) => {
+        const products = JSON.parse(localStorage.getItem("products"));
+        const productIndex = products.findIndex((p) => p.id === id);
+        products[productIndex] = { ...products[productIndex], ...data };
+        localStorage.setItem("products", JSON.stringify(products));
+        resolve(products[productIndex]);
     });
 
 const getById = (id) =>
     new Promise((resolve) => {
         window.setTimeout(function () {
-            resolve(products.find((product) => product.id === id));
+            // resolve(products.find((product) => product.id === id));
+            resolve(
+                JSON.parse(localStorage.getItem("products")).find(
+                    (product) => product.id === id
+                )
+            );
         }, 1000);
     });
 
 export default {
     fetchAll,
-    getById
+    getById,
+    update
 };
