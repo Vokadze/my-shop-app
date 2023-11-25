@@ -19,7 +19,7 @@ const TableBody = ({ data, columns }) => {
             {data.map((item) => (
                 <tr
                     key={item.id}
-                    className="d-flex flex-row justify-content-start border mb-2"
+                    className="d-flex flex-row justify-content-start border mb-3"
                 >
                     {Object.keys(columns).map((column) => (
                         <td

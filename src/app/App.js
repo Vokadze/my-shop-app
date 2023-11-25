@@ -8,15 +8,16 @@ import NavBar from "./components/ui/navBar";
 
 const App = () => {
     return (
-        <div className="container">
+        <>
+            {/* className="container mt-4" */}
             <NavBar />
             <Switch>
                 <Route path="/products/:prodId?" component={Products} />
-                <Route path="/login" component={Login} />
+                <Route path="/login/:type?" component={Login} />
                 <Route path="/" exact component={Main} />
                 <Redirect to="/" />
             </Switch>
-        </div>
+        </>
     );
 };
 

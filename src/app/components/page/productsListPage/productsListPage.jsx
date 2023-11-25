@@ -7,8 +7,10 @@ import api from "../../../api";
 import GroupList from "../../common/groupList";
 import SearchStatus from "../../ui/searchStatus";
 import ProductsTable from "../../ui/productsTable";
+import SearchInput from "../../ui/searchInput";
 
 import _ from "lodash";
+// import NavBar from "../../ui/navBar";
 
 const ProductsListPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -94,9 +96,8 @@ const ProductsListPage = () => {
             <div className="d-flex justify-content-center">
                 <div className="d-flex flex-column">
                     <div className="d-flex flex-column">
-                        <SearchStatus length={count} />
-                        <SearchStatus length={products.length} />
-                        <input
+                        {/* <NavBar /> */}
+                        <SearchInput
                             type="text"
                             name="searchQuery"
                             placeholder="Поисковая строка (по названию)"
@@ -104,6 +105,14 @@ const ProductsListPage = () => {
                             onChange={handleSearchQuery}
                             value={searchQuery}
                         />
+                        {/* <input
+                            type="text"
+                            name="searchQuery"
+                            placeholder="Поисковая строка (по названию)"
+                            className="mb-2 text-center"
+                            onChange={handleSearchQuery}
+                            value={searchQuery}
+                        /> */}
                     </div>
                     <div className="d-flex flex-row justify-content-between">
                         {categories && (
@@ -119,6 +128,8 @@ const ProductsListPage = () => {
                                 >
                                     Очистить
                                 </button>
+                                <SearchStatus length={count} />
+                                <SearchStatus length={products.length} />
                             </div>
                         )}
                         {/* <div className="container"> */}
