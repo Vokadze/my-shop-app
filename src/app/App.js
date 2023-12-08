@@ -12,7 +12,10 @@ const App = () => {
             {/* className="container mt-4" */}
             <NavBar />
             <Switch>
-                <Route path="/products/:prodId?" component={Products} />
+                <Route
+                    path="/products/:prodId?/:edit?/:cart?"
+                    component={Products}
+                />
                 <Route path="/login/:type?" component={Login} />
                 <Route path="/" exact component={Main} />
                 <Redirect to="/" />
