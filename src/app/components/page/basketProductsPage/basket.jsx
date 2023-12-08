@@ -7,6 +7,7 @@ const Basket = ({ productsItems, onAddProduct, onRemoveProduct }) => {
 
     return (
         <div className="d-flex flex-column">
+            <h1>Basket</h1>
             <div>
                 {productsItems.length === 0 && <div>Корзина пуста</div>}
                 {productsItems.map((product) => (

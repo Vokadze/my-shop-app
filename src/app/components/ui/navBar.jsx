@@ -1,7 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = ({ countCartItems }) => {
     return (
         <div className="d-flex flex-row border justify-content-center p-2 mb-4">
             <ul className="nav">
@@ -24,9 +25,30 @@ const NavBar = () => {
                         Products
                     </Link>
                 </li>
+                <li className="nav-item">
+                    <Link
+                        className="nav-link"
+                        href="#/cart"
+                        aria-current="page"
+                        to="/basketHeader"
+                    >
+                        Корзина
+                        {countCartItems ? (
+                            <button className="badge bg-primary">
+                                {countCartItems}
+                            </button>
+                        ) : (
+                            ""
+                        )}
+                    </Link>
+                </li>
             </ul>
         </div>
     );
+};
+
+NavBar.propTypes = {
+    countCartItems: PropTypes.number
 };
 
 export default NavBar;

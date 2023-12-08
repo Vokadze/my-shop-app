@@ -5,7 +5,6 @@ import api from "../../../api";
 import SearchInput from "../../ui/searchInput";
 import NavBar from "../../ui/navBar";
 import BasketList from "../basketProductsPage/basketList";
-import BasketHeader from "../basketProductsPage/basketHeader";
 import Basket from "../basketProductsPage/basket";
 
 const ProductPage = ({ prodId }) => {
@@ -49,7 +48,7 @@ const ProductPage = ({ prodId }) => {
 
     const onRemoveProduct = (product) => {
         const exist = productsItems.find((p) => p.id === product.id);
-        if (exist === 1) {
+        if (exist.qty === 1) {
             const newCartProducts = productsItems.filter(
                 (p) => p.id !== product.id
             );
@@ -82,7 +81,7 @@ const ProductPage = ({ prodId }) => {
             <div>
                 <div className="container">
                     <div className="row">
-                        <NavBar />
+                        <NavBar countCartItems={productsItems.length} />
                         <SearchInput
                             type="text"
                             name="searchQuery"
@@ -98,20 +97,17 @@ const ProductPage = ({ prodId }) => {
                             placeholder="Путь к товару"
                             className="mb-4 text-center border"
                         />
-                        <BasketHeader countCartItems={productsItems.length} />
-                        {/* <h1>name: {products.name}</h1> */}
-                        {/* {Object.keys(product).map((prod) => (
-                            <>
-                        <h1 key={prod.id}>{prod.name}</h1> */}
+
                         <Basket
-                            key={product.id}
+                            // key={product.id}
                             product={product}
                             productsItems={productsItems}
                             onAddProduct={onAddProduct}
                             onRemoveProduct={onRemoveProduct}
                         />
+
                         <BasketList
-                            key={product.id}
+                            // key={product.id}
                             product={product}
                             item={productsItems.find(
                                 (p) => p.id === product.id
@@ -120,41 +116,6 @@ const ProductPage = ({ prodId }) => {
                             onAddProduct={onAddProduct}
                             onRemoveProduct={onRemoveProduct}
                         />
-                        {/* </>
-                        ))} */}
-
-                        {/* <div className="col-md-12 offset-md-0 shadow p-4">
-                            <div className="d-flex flex-row">
-                                <div className="text-center align-center m-3">
-                                    <img
-                                        src={product.image}
-                                        className="rounded mx-auto d-block"
-                                        alt=""
-                                        width="150"
-                                    />
-                                </div>
-                                <div className="d-flex flex-column justify-content-start mx-4 w-100">
-                                    <p className="mt-2">{`Наименование товара: ${product.name}`}</p>
-                                    <p className="mt-2">{`Стоимость: ${product.price}`}</p>
-                                </div>
-                                <div className="d-flex flex-column justify-content-end mx-3">
-                                    <div>
-                                        <button
-                                            className="btn btn-primary btn-lg text-nowrap w-100 mb-5"
-                                            type="button"
-                                            onClick={() =>
-                                                handleClick(product.id)
-                                            }
-                                        >
-                                            Все пользователи
-                                        </button>
-                                    </div>
-                                    <div className="text-end">
-                                        <p className="mt-5 mb-1 text-end">{`id товара:  ${product.id}`}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> */}
                     </div>
                 </div>
             </div>
