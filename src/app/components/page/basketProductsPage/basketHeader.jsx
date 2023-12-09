@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+// import Basket from "./basket";
+// import Basket from "./basket";
 
-const BasketHeader = ({ countCartItems }) => {
+const BasketHeader = ({ productsItems }) => {
     // const { countCartItems } = props;
     return (
         <div className="row center block">
@@ -12,18 +14,30 @@ const BasketHeader = ({ countCartItems }) => {
         </a>
     </div> */}
             <div>
+                <h1>Basket</h1>
                 <div>
                     <Link to="#/cart">
                         Cart
-                        {countCartItems ? (
+                        {productsItems ? (
                             <button className="badge bg-primary">
-                                {countCartItems}
+                                {productsItems}
                             </button>
                         ) : (
                             ""
                         )}
                     </Link>
                 </div>
+                {/* <div> */}
+                {/* {productsItems.length === 0 && <div>Корзина пуста</div>}
+                <Basket productsItems={productsItems} itemsPrice={itemsPrice} /> */}
+                {/* </div> */}
+                {/* <Basket
+                    product={product}
+                    productsItems={productsItems}
+                    onAddProduct={onAddProduct}
+                    onRemoveProduct={onRemoveProduct}
+                    itemsPrice={i}
+                /> */}
                 {/* <button
                     type="button"
                     className="btn btn-primary position-relative"
@@ -44,7 +58,12 @@ const BasketHeader = ({ countCartItems }) => {
 };
 
 BasketHeader.propTypes = {
-    countCartItems: PropTypes.number.isRequired
+    // countCartItems: PropTypes.number
+    product: PropTypes.object,
+    productsItems: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    onAddProduct: PropTypes.func,
+    onRemoveProduct: PropTypes.func
+    // itemsPrice: PropTypes.func
 };
 
 export default BasketHeader;

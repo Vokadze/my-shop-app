@@ -2,8 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Basket = ({ productsItems, onAddProduct, onRemoveProduct }) => {
-    const itemsPrice = productsItems.reduce((a, c) => a + c.qty * c.price, 0);
-    console.log("basket", itemsPrice);
+    const handleItemPrice = () => {
+        return productsItems.reduce((a, c) => a + c.qty * c.price, 0);
+    };
+    // const itemsPrice = productsItems.reduce((a, c) => a + c.qty * c.price, 0);
+    // console.log("basket", itemsPrice);
 
     return (
         <div className="d-flex flex-column">
@@ -49,7 +52,7 @@ const Basket = ({ productsItems, onAddProduct, onRemoveProduct }) => {
                         <hr />
                         <div className="row">
                             <div>Итого</div>
-                            <div>${itemsPrice.toFixed(2)}</div>
+                            <div>${handleItemPrice().toFixed(2)}</div>
                         </div>
                     </>
                 )}
