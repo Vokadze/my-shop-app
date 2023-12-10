@@ -8,12 +8,11 @@ import ShopListItem from "../basket/shopListItem";
 
 const ProductPage = ({ prodId }) => {
     // const history = useHistory();
-
     const [productsItems, setProductItems] = useState([]);
-    console.log("productPage.jsx useState productsItem", productsItems);
+    //console.log("productPage.jsx useState productsItem", productsItems);
 
     const [product, setProduct] = useState();
-    console.log("productPage.jsx", product);
+    console.log("productPage.jsx useState product", product);
     const [searchQuery, setSearchQuery] = useState("");
 
     const handleSearchQuery = ({ target }) => {
@@ -26,7 +25,6 @@ const ProductPage = ({ prodId }) => {
     }, []);
 
     const onAddProduct = (product) => {
-        console.log("onAddCart");
         const exist = productsItems.find((p) => p.id === product.id);
         if (exist) {
             const newCartProducts = productsItems.map((p) =>
@@ -39,6 +37,29 @@ const ProductPage = ({ prodId }) => {
             );
         } else {
             const newCartProducts = [...productsItems, { ...product, qty: 1 }];
+            setProductItems(newCartProducts);
+            localStorage.setItem(
+                "productsItems",
+                JSON.stringify(newCartProducts)
+            );
+        }
+    };
+
+    const onRemoveProduct = (product) => {
+        const exist = productsItems.find((p) => p.id === product.id);
+        if (exist.qty === 1) {
+            const newCartProducts = productsItems.filter(
+                (p) => p.id !== product.id
+            );
+            setProductItems(newCartProducts);
+            localStorage.setItem(
+                "productsItems",
+                JSON.stringify(newCartProducts)
+            );
+        } else {
+            const newCartProducts = productsItems.map((p) =>
+                p.id === product.id ? { ...exist, qty: exist.qty - 1 } : p
+            );
             setProductItems(newCartProducts);
             localStorage.setItem(
                 "productsItems",
@@ -60,7 +81,7 @@ const ProductPage = ({ prodId }) => {
             <div>
                 <div className="container">
                     <div className="row">
-                        <NavBar countProductsItems={productsItems.length} />
+                        <NavBar countCartItems={productsItems.length} />
                         <SearchInput
                             type="text"
                             name="searchQuery"
@@ -76,16 +97,17 @@ const ProductPage = ({ prodId }) => {
                             placeholder="Путь к товару"
                             className="mb-4 text-center border"
                         />
-                        <section className="shop-list">
-                            <ul className="shop-list__list">
-                                <li
-                                    key={product.id}
-                                    onClick={() => onAddProduct(product.id)}
-                                >
-                                    <ShopListItem />
-                                </li>
-                            </ul>
-                        </section>
+
+                        <BasketList
+                            // key={product.id}
+                            product={product}
+                            item={productsItems.find(
+                                (p) => p.id === product.id
+                            )}
+                            // productsItems={productsItems}
+                            onAddProduct={onAddProduct}
+                            onRemoveProduct={onRemoveProduct}
+                        />
                     </div>
                 </div>
             </div>
@@ -96,7 +118,7 @@ const ProductPage = ({ prodId }) => {
 };
 
 ProductPage.propTypes = {
-    prodId: PropTypes.string.isRequired
+    prodId: PropTypes.string
 };
 
 export default ProductPage;

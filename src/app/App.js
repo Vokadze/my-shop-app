@@ -6,7 +6,7 @@ import Products from "./layouts/products";
 import Login from "./layouts/login";
 import Main from "./layouts/main";
 import NavBar from "./components/ui/navBar";
-import CartList from "./components/page/basket/cartList";
+import BasketHeader from "./components/page/basketProductsPage/basketHeader";
 
 const App = ({ productsItems, onAddProduct, onRemoveProduct }) => {
     return (
@@ -16,19 +16,7 @@ const App = ({ productsItems, onAddProduct, onRemoveProduct }) => {
             <Switch>
                 <Route path="/products/:prodId?/:edit?" component={Products} />
                 <Route path="/login/:type?" component={Login} />
-                <Route
-                    path="/cartList"
-                    exact
-                    render={() => {
-                        return (
-                            <CartList
-                                productsItems={productsItems}
-                                onAddProduct={onAddProduct}
-                                onRemoveProduct={onRemoveProduct}
-                            />
-                        );
-                    }}
-                />
+                <Route path="/basketHeader" component={BasketHeader} />
                 <Route path="/" exact component={Main} />
                 <Redirect to="/" />
             </Switch>
