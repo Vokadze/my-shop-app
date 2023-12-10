@@ -10,7 +10,7 @@ import ProductsTable from "../../ui/productsTable";
 import SearchInput from "../../ui/searchInput";
 
 import _ from "lodash";
-// import NavBar from "../../ui/navBar";
+import NavBar from "../../ui/navBar";
 
 const ProductsListPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -96,7 +96,7 @@ const ProductsListPage = () => {
             <div className="d-flex justify-content-center">
                 <div className="d-flex flex-column">
                     <div className="d-flex flex-column">
-                        {/* <NavBar /> */}
+                        <NavBar />
                         <SearchInput
                             type="text"
                             name="searchQuery"
