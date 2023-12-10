@@ -4,13 +4,12 @@ import api from "../../../api";
 // import { useHistory } from "react-router-dom";
 import SearchInput from "../../ui/searchInput";
 import NavBar from "../../ui/navBar";
-import BasketList from "../basketProductsPage/basketList";
-import Basket from "../basketProductsPage/basket";
+import ShopListItem from "../basket/shopListItem";
 
 const ProductPage = ({ prodId }) => {
     // const history = useHistory();
     const [productsItems, setProductItems] = useState([]);
-    // console.log("productPage.jsx useState productsItem", productsItems);
+    //console.log("productPage.jsx useState productsItem", productsItems);
 
     const [product, setProduct] = useState();
     console.log("productPage.jsx useState product", product);
@@ -68,6 +67,7 @@ const ProductPage = ({ prodId }) => {
             );
         }
     };
+
     useEffect(() => {
         setProductItems(
             localStorage.getItem("productsItems")
@@ -96,14 +96,6 @@ const ProductPage = ({ prodId }) => {
                             name="searchQuery"
                             placeholder="Путь к товару"
                             className="mb-4 text-center border"
-                        />
-
-                        <Basket
-                            // key={product.id}
-                            product={product}
-                            productsItems={productsItems}
-                            onAddProduct={onAddProduct}
-                            onRemoveProduct={onRemoveProduct}
                         />
 
                         <BasketList
