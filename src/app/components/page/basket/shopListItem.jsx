@@ -8,7 +8,7 @@ const ShopListItem = () => {
     const { prodId } = useParams();
     // const history = useHistory();
     const [product, setProduct] = useState();
-    console.log("ShopListItem.jsx", product);
+    console.log("ShopListItem.jsx useState product", product);
 
     useEffect(() => {
         api.products.getById(prodId).then((data) => setProduct(data));

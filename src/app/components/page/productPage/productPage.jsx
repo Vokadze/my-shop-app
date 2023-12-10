@@ -60,7 +60,7 @@ const ProductPage = ({ prodId }) => {
             <div>
                 <div className="container">
                     <div className="row">
-                        <NavBar />
+                        <NavBar countProductsItems={productsItems.length} />
                         <SearchInput
                             type="text"
                             name="searchQuery"
@@ -78,7 +78,10 @@ const ProductPage = ({ prodId }) => {
                         />
                         <section className="shop-list">
                             <ul className="shop-list__list">
-                                <li onClick={() => onAddProduct(product.id)}>
+                                <li
+                                    key={product.id}
+                                    onClick={() => onAddProduct(product.id)}
+                                >
                                     <ShopListItem />
                                 </li>
                             </ul>
