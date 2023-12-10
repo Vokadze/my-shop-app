@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import api from "../../../api";
-// import { useHistory } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import SearchInput from "../../ui/searchInput";
 import NavBar from "../../ui/navBar";
-import ShopListItem from "../basket/shopListItem";
+import BasketList from "../basketProductsPage/basketList";
+// import Basket from "../basketProductsPage/basket";
 
 const ProductPage = ({ prodId }) => {
     // const history = useHistory();
     const [productsItems, setProductItems] = useState([]);
-    //console.log("productPage.jsx useState productsItem", productsItems);
+    console.log("productPage.jsx useState productsItem", productsItems);
 
     const [product, setProduct] = useState();
     console.log("productPage.jsx useState product", product);

@@ -26,65 +26,17 @@ const BasketList = ({ product, onAddProduct, onRemoveProduct, item }) => {
                                     <p className="mt-2">{`Стоимость: ${product.price}`}</p>
                                 </div>
                                 <div className="d-flex flex-column justify-content-center mx-3">
-                                    {item ? (
-                                        <div className="d-flex flex-row">
-                                            <button
-                                                onClick={() =>
-                                                    onRemoveProduct(item)
-                                                }
-                                                className="remove"
-                                            >
-                                                -
-                                            </button>
-                                            <span className="px-3">
-                                                {item.qty}
-                                            </span>
-                                            <button
-                                                onClick={() =>
-                                                    onAddProduct(item)
-                                                }
-                                                className="add"
-                                            >
-                                                +
-                                            </button>
-                                        </div>
-                                    ) : (
-                                        <div>
-                                            <button
-                                                className="btn btn-primary btn-lg text-nowrap w-100 mb-5"
-                                                // type="button"
-                                                onClick={() =>
-                                                    onAddProduct(product)
-                                                }
-                                                // onClick={() =>
-                                                //     handleClick(item)
-                                                // }
-                                            >
-                                                Купить!!!!
-                                            </button>
-                                        </div>
-                                    )}
-
-                                    {/* <div>
-                                        <button
-                                            className="btn btn-primary btn-lg text-nowrap w-100 mb-5"
-                                            // type="button"
-                                            onClick={() => onAddProduct(item)}
-                                        >
-                                            Купить
-                                        </button>
-                                    </div>
                                     <div>
                                         <button
                                             className="btn btn-primary btn-lg text-nowrap w-100 mb-5"
                                             // type="button"
                                             onClick={() =>
-                                                onRemoveProduct(item)
+                                                onAddProduct(product)
                                             }
                                         >
-                                            Отменить
+                                            Купить!!!!
                                         </button>
-                                    </div> */}
+                                    </div>
 
                                     <div className="text-end">
                                         <p className="mt-5 mb-1 text-end">{`id товара:  ${product.id}`}</p>
@@ -97,7 +49,7 @@ const BasketList = ({ product, onAddProduct, onRemoveProduct, item }) => {
             </div>
         );
     } else {
-        return "loading productPage.jsx";
+        return "loading basketList.jsx";
     }
 };
 
