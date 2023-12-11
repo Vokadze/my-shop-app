@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 // import SearchInput from "../../ui/searchInput";
 // import NavBar from "../../ui/navBar";
 
-const BasketList = ({ product, onAddProduct, onRemoveProduct, item }) => {
+const BasketShopList = ({ product, onAddProduct, onRemoveProduct, item }) => {
     if (product) {
         return (
             <div>
@@ -49,11 +49,11 @@ const BasketList = ({ product, onAddProduct, onRemoveProduct, item }) => {
             </div>
         );
     } else {
-        return "loading basketList.jsx";
+        return "loading basketShopList.jsx";
     }
 };
 
-BasketList.propTypes = {
+BasketShopList.propTypes = {
     product: PropTypes.object,
     // prodId: PropTypes.string.isRequired,
     onAddProduct: PropTypes.func,
@@ -61,4 +61,4 @@ BasketList.propTypes = {
     item: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };
 
-export default BasketList;
+export default BasketShopList;

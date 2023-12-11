@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import api from "../../../api";
-// import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import SearchInput from "../../ui/searchInput";
 import NavBar from "../../ui/navBar";
-import BasketList from "../basketProductsPage/basketList";
+import BasketShopList from "../basketProductsPage/basketShopList";
 // import Basket from "../basketProductsPage/basket";
 
 const ProductPage = ({ prodId }) => {
-    // const history = useHistory();
+    const history = useHistory();
     const [productsItems, setProductItems] = useState([]);
     console.log("productPage.jsx useState productsItem", productsItems);
 
@@ -44,6 +44,7 @@ const ProductPage = ({ prodId }) => {
                 JSON.stringify(newCartProducts)
             );
         }
+        history.push(`/products/${product.id}/edit`);
     };
 
     const onRemoveProduct = (product) => {
@@ -99,7 +100,7 @@ const ProductPage = ({ prodId }) => {
                             className="mb-4 text-center border"
                         />
 
-                        <BasketList
+                        <BasketShopList
                             // key={product.id}
                             product={product}
                             item={productsItems.find(
