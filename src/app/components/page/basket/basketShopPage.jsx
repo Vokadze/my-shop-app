@@ -46,28 +46,28 @@ const BasketShopPage = ({ prodId }) => {
         history.push(`/basketHeader`);
     };
 
-    const onRemoveProduct = (product) => {
-        const exist = productsItems.find((p) => p.id === product.id);
-        if (exist.qty === 1) {
-            const newCartProducts = productsItems.filter(
-                (p) => p.id !== product.id
-            );
-            setProductItems(newCartProducts);
-            localStorage.setItem(
-                "productsItems",
-                JSON.stringify(newCartProducts)
-            );
-        } else {
-            const newCartProducts = productsItems.map((p) =>
-                p.id === product.id ? { ...exist, qty: exist.qty - 1 } : p
-            );
-            setProductItems(newCartProducts);
-            localStorage.setItem(
-                "productsItems",
-                JSON.stringify(newCartProducts)
-            );
-        }
-    };
+    // const onRemoveProduct = (product) => {
+    //     const exist = productsItems.find((p) => p.id === product.id);
+    //     if (exist.qty === 1) {
+    //         const newCartProducts = productsItems.filter(
+    //             (p) => p.id !== product.id
+    //         );
+    //         setProductItems(newCartProducts);
+    //         localStorage.setItem(
+    //             "productsItems",
+    //             JSON.stringify(newCartProducts)
+    //         );
+    //     } else {
+    //         const newCartProducts = productsItems.map((p) =>
+    //             p.id === product.id ? { ...exist, qty: exist.qty - 1 } : p
+    //         );
+    //         setProductItems(newCartProducts);
+    //         localStorage.setItem(
+    //             "productsItems",
+    //             JSON.stringify(newCartProducts)
+    //         );
+    //     }
+    // };
 
     useEffect(() => {
         setProductItems(
@@ -100,14 +100,12 @@ const BasketShopPage = ({ prodId }) => {
                         />
 
                         <BasketShopList
-                            // key={product.id}
                             product={product}
                             item={productsItems.find(
                                 (p) => p.id === product.id
                             )}
-                            // productsItems={productsItems}
                             onAddProduct={onAddProduct}
-                            onRemoveProduct={onRemoveProduct}
+                            // onRemoveProduct={onRemoveProduct}
                         />
                     </div>
                 </div>

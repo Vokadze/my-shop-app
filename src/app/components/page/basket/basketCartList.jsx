@@ -1,56 +1,61 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const BasketCartList = ({ productsItems, onRemoveProduct }) => {
+const BasketCartList = ({ productsItems, handleDelete }) => {
     console.log("BasketCartList.jsx", productsItems);
 
     const itemPrice = productsItems.reduce((a, c) => a + c.qty * c.price, 0);
 
-    const onAddProduct = (product) => {
-        console.log("add");
-    };
-
     return (
-        <>
-            {productsItems.length === 0 && <div>Корзина пуста</div>}
-            {productsItems.map((product) => (
-                // <h1 key={product.id}>name: {product.name}</h1>
-                <div key={product.id} className="card d-flex flex-row mb-2">
-                    <div className="text-center align-center m-3">
-                        <img
-                            src={product.image}
-                            className="rounded mx-auto d-block"
-                            alt=""
-                            width="60"
-                        />
-                    </div>
-                    <div className="d-flex flex-column justify-content-start mx-4 w-100">
-                        <p className="mt-2">{`id товара: ${product.id}`}</p>
-                        <div className="d-flex flex-row">
-                            <p className="mt-2">{`Наименование товара: ${product.name}`}</p>
-                            <p className="mt-2">{`Количество:  ${product.count}`}</p>
-                            <p className="mt-2">{`Стоимость: ${product.price}`}</p>
+        <div className="container">
+            <div className="d-flex flex-row">
+                <div className="d-flex flex-column">
+                    {productsItems.length === 0 && <div>Корзина пуста</div>}
+                    {productsItems.map((product) => (
+                        <div
+                            key={product.id}
+                            className="d-flex flex-row justify-content-between"
+                        >
+                            <div className="d-flex flex-row">
+                                <div className="text-center justify-content-between m-3">
+                                    <img
+                                        src={product.image}
+                                        className="rounded mx-auto d-block"
+                                        alt=""
+                                        width="60"
+                                    />
+                                </div>
+                                <div className="row align-items-start">
+                                    <div className="d-flex flex-column">
+                                        <div className="cart-id">
+                                            <p className="mt-2">{`id товара: ${product.id}`}</p>
+                                        </div>
+                                        <div className="d-flex flex-row">
+                                            <div className="col">
+                                                <p className="mt-2">{`Наименование товара: ${product.name}`}</p>
+                                            </div>
+                                            <div className="col">
+                                                <p className="mt-2">{`Количество:  ${product.count}`}</p>
+                                            </div>
+                                            <div className="col">
+                                                <p className="mt-2">{`Стоимость: ${product.price}`}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button
+                                        type="button"
+                                        className="btn-close"
+                                        aria-label="Close"
+                                        onClick={() => handleDelete(product.id)}
+                                    ></button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <button
-                            onClick={() => onRemoveProduct(product)}
-                            className="remove"
-                        >
-                            -
-                        </button>
-                        <button
-                            onClick={() => onAddProduct(product)}
-                            className="add"
-                        >
-                            +
-                        </button>
-                    </div>
-                    <div>
-                        {product.qty} x ${product.price.toFixed(2)}
-                    </div>
+                    ))}
                 </div>
-            ))}
+            </div>
             {productsItems.length !== 0 && (
                 <>
                     <hr />
@@ -60,14 +65,13 @@ const BasketCartList = ({ productsItems, onRemoveProduct }) => {
                     </div>
                 </>
             )}
-        </>
+        </div>
     );
 };
 
 BasketCartList.propTypes = {
     productsItems: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-    // onAddProduct: PropTypes.func,
-    onRemoveProduct: PropTypes.func
+    handleDelete: PropTypes.func
 };
 
 export default BasketCartList;
