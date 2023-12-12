@@ -5,7 +5,7 @@ import Products from "./layouts/products";
 import Login from "./layouts/login";
 import Main from "./layouts/main";
 import NavBar from "./components/ui/navBar";
-import BasketHeader from "./components/page/basketProductsPage/basketHeader";
+import BasketHeader from "./layouts/basketHeader";
 
 const App = () => {
     return (
