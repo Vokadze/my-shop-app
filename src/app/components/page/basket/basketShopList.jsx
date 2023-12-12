@@ -25,7 +25,6 @@ const BasketShopList = ({ product, onAddProduct, onRemoveProduct, item }) => {
                                     <div>
                                         <button
                                             className="btn btn-primary btn-lg text-nowrap w-100 mb-5"
-                                            // type="button"
                                             onClick={() =>
                                                 onAddProduct(product)
                                             }
@@ -51,7 +50,6 @@ const BasketShopList = ({ product, onAddProduct, onRemoveProduct, item }) => {
 
 BasketShopList.propTypes = {
     product: PropTypes.object,
-    // prodId: PropTypes.string.isRequired,
     onAddProduct: PropTypes.func,
     onRemoveProduct: PropTypes.func,
     item: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
