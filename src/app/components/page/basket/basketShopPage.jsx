@@ -4,16 +4,15 @@ import api from "../../../api";
 import { useHistory } from "react-router-dom";
 import SearchInput from "../../ui/searchInput";
 import NavBar from "../../ui/navBar";
-import BasketShopList from "../basketProductsPage/basketShopList";
-// import Basket from "../basketProductsPage/basket";
+import BasketShopList from "./basketShopList";
 
-const ProductPage = ({ prodId }) => {
+const BasketShopPage = ({ prodId }) => {
     const history = useHistory();
     const [productsItems, setProductItems] = useState([]);
-    console.log("productPage.jsx useState productsItem", productsItems);
+    console.log("BasketShopPage.jsx useState productsItem", productsItems);
 
     const [product, setProduct] = useState();
-    console.log("productPage.jsx useState product", product);
+    console.log("BasketShopPage.jsx useState product", product);
     const [searchQuery, setSearchQuery] = useState("");
 
     const handleSearchQuery = ({ target }) => {
@@ -44,7 +43,7 @@ const ProductPage = ({ prodId }) => {
                 JSON.stringify(newCartProducts)
             );
         }
-        history.push(`/products/${product.id}/edit`);
+        history.push(`/basketHeader`);
     };
 
     const onRemoveProduct = (product) => {
@@ -115,12 +114,12 @@ const ProductPage = ({ prodId }) => {
             </div>
         );
     } else {
-        return "loading productPage.jsx";
+        return "loading BasketShopPage.jsx";
     }
 };
 
-ProductPage.propTypes = {
+BasketShopPage.propTypes = {
     prodId: PropTypes.string
 };
 
-export default ProductPage;
+export default BasketShopPage;

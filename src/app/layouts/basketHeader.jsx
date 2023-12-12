@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import NavBar from "../../ui/navBar";
+import NavBar from "../components/ui/navBar";
+import BasketCartList from "../components/page/basket/basketCartList";
 
 const BasketHeader = ({ onAddProduct, onRemoveProduct }) => {
     const newProductsItem = localStorage.getItem("productsItems");
@@ -11,7 +12,7 @@ const BasketHeader = ({ onAddProduct, onRemoveProduct }) => {
         console.log(productsItems);
     }, []);
 
-    const itemPrice = productsItems.reduce((a, c) => a + c.qty * c.price, 0);
+    // const itemPrice = productsItems.reduce((a, c) => a + c.qty * c.price, 0);
 
     return (
         <div className="row center block">
@@ -22,8 +23,9 @@ const BasketHeader = ({ onAddProduct, onRemoveProduct }) => {
     </div> */}
             <div>
                 <NavBar countCartItems={productsItems.length} />
-                <h1>Basket Header</h1>
-                {productsItems.length === 0 && <div>Корзина пуста</div>}
+                <h1>Корзина</h1>
+                <BasketCartList productsItems={productsItems} />
+                {/* {productsItems.length === 0 && <div>Корзина пуста</div>}
                 {productsItems.map((product) => (
                     <div key={product.id} className="card d-flex flex-row mb-2">
                         <div className="text-center align-center m-3">
@@ -66,7 +68,7 @@ const BasketHeader = ({ onAddProduct, onRemoveProduct }) => {
                             <div>${itemPrice.toFixed(2)}</div>
                         </div>
                     </>
-                )}
+                )} */}
             </div>
         </div>
     );

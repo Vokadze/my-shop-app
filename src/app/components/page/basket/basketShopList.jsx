@@ -1,9 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-// import api from "../../../api";
-// import { useHistory } from "react-router-dom";
-// import SearchInput from "../../ui/searchInput";
-// import NavBar from "../../ui/navBar";
 
 const BasketShopList = ({ product, onAddProduct, onRemoveProduct, item }) => {
     if (product) {
