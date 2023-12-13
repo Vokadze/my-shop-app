@@ -26,9 +26,10 @@ const BasketHeader = () => {
     };
 
     return (
-        <div className="row center block">
-            <div>
+        <div className="d-flex justify-content-center">
+            <div className="d-flex flex-column">
                 <NavBar countCartItems={productsItems.length} />
+                {/* <div> */}
                 <h1>Корзина</h1>
                 <BasketCartList
                     productsItems={productsItems}

@@ -46,29 +46,6 @@ const BasketShopPage = ({ prodId }) => {
         history.push(`/basketHeader`);
     };
 
-    // const onRemoveProduct = (product) => {
-    //     const exist = productsItems.find((p) => p.id === product.id);
-    //     if (exist.qty === 1) {
-    //         const newCartProducts = productsItems.filter(
-    //             (p) => p.id !== product.id
-    //         );
-    //         setProductItems(newCartProducts);
-    //         localStorage.setItem(
-    //             "productsItems",
-    //             JSON.stringify(newCartProducts)
-    //         );
-    //     } else {
-    //         const newCartProducts = productsItems.map((p) =>
-    //             p.id === product.id ? { ...exist, qty: exist.qty - 1 } : p
-    //         );
-    //         setProductItems(newCartProducts);
-    //         localStorage.setItem(
-    //             "productsItems",
-    //             JSON.stringify(newCartProducts)
-    //         );
-    //     }
-    // };
-
     useEffect(() => {
         setProductItems(
             localStorage.getItem("productsItems")
@@ -79,9 +56,9 @@ const BasketShopPage = ({ prodId }) => {
 
     if (product) {
         return (
-            <div>
-                <div className="container">
-                    <div className="row">
+            <div className="d-flex justify-content-center">
+                <div className="d-flex flex-column">
+                    <div className="d-flex flex-column">
                         <NavBar countCartItems={productsItems.length} />
                         <SearchInput
                             type="text"
