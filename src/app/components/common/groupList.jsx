@@ -17,7 +17,7 @@ const GroupList = ({
                     <li
                         key={items[item][valueProperty]}
                         className={
-                            "list-group-item" +
+                            "list-group-item border border-light" +
                             (items[item] === selectedItem ? " active" : "")
                         }
                         onClick={() => onItemSelect(items[item])}
@@ -35,7 +35,7 @@ const GroupList = ({
                 <li
                     key={item[valueProperty]}
                     className={
-                        "list-group-item" +
+                        "list-group-item border border-light" +
                         (item === selectedItem ? " active" : "")
                     }
                     onClick={() => onItemSelect(item)}

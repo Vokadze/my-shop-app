@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 
 const SearchInput = ({ type, name, placeholder, onChange, value }) => {
     return (
-        <div className="d-flex flex-column px-0">
+        <div className="d-flex flex-column mb-2 px-0">
             <input
                 type={type}
                 name={name}
                 placeholder={placeholder}
-                className="mb-2 text-center border"
+                className="text-center border border-warning"
                 onChange={onChange}
                 value={value}
             />

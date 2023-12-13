@@ -56,35 +56,31 @@ const BasketShopPage = ({ prodId }) => {
 
     if (product) {
         return (
-            <div className="d-flex justify-content-center">
+            <div className="container">
                 <div className="d-flex flex-column">
-                    <div className="d-flex flex-column">
-                        <NavBar countCartItems={productsItems.length} />
-                        <SearchInput
-                            type="text"
-                            name="searchQuery"
-                            placeholder="Поисковая строка (по названию)"
-                            className="mb-2 text-center"
-                            onChange={handleSearchQuery}
-                            value={searchQuery}
-                        />
+                    <NavBar countCartItems={productsItems.length} />
+                    <SearchInput
+                        type="text"
+                        name="searchQuery"
+                        placeholder="Поисковая строка (по названию)"
+                        className="mb-2 text-center"
+                        onChange={handleSearchQuery}
+                        value={searchQuery}
+                    />
 
-                        <input
-                            type="text"
-                            name="searchQuery"
-                            placeholder="Путь к товару"
-                            className="mb-4 text-center border"
-                        />
+                    <input
+                        type="text"
+                        name="searchQuery"
+                        placeholder="Путь к товару"
+                        className="mb-4 text-center border"
+                    />
 
-                        <BasketShopList
-                            product={product}
-                            item={productsItems.find(
-                                (p) => p.id === product.id
-                            )}
-                            onAddProduct={onAddProduct}
-                            // onRemoveProduct={onRemoveProduct}
-                        />
-                    </div>
+                    <BasketShopList
+                        product={product}
+                        item={productsItems.find((p) => p.id === product.id)}
+                        onAddProduct={onAddProduct}
+                        // onRemoveProduct={onRemoveProduct}
+                    />
                 </div>
             </div>
         );

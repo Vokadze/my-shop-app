@@ -35,7 +35,7 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
                     >
                         <div
                             key={column}
-                            className="d-flex flex-row border justify-content-center p-0 ms-0"
+                            className="d-flex flex-row border border-warning justify-content-center p-0 ms-0"
                             onClick={
                                 columns[column].path
                                     ? () => handleSort(columns[column].path)

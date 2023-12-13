@@ -116,7 +116,7 @@ const ProductsListPage = () => {
                     </div>
                     <div className="d-flex flex-row justify-content-between">
                         {categories && (
-                            <div className="d-flex flex-column flex-shrink-0 me-2">
+                            <div className="d-flex flex-column flex-shrink-0 border border-warning me-2">
                                 <GroupList
                                     selectedItem={selectedCategory}
                                     items={categories}

@@ -14,7 +14,7 @@ const BasketCartList = ({ productsItems, handleDelete }) => {
                 {productsItems.map((product) => (
                     <div
                         key={product.id}
-                        className="d-flex flex-row justify-content-between shadow p-3 rounded mb-3 w-60"
+                        className="d-flex flex-row justify-content-between border border-warning p-3 rounded mb-3 w-60"
                     >
                         <div className="d-flex flex-row">
                             <div className="text-center justify-content-between m-3">
@@ -67,7 +67,7 @@ const BasketCartList = ({ productsItems, handleDelete }) => {
                     </div>
                 ))}
             </div>
-            <div className="d-flex flex-column justify-content-center cart-total shadow mx-2">
+            <div className="d-flex flex-column justify-content-center cart-total border border-warning mx-2">
                 {productsItems.length !== 0 && (
                     <div className="mx-3">
                         {/* <div className="row"> */}

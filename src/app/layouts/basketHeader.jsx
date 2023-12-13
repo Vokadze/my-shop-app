@@ -26,7 +26,7 @@ const BasketHeader = () => {
     };
 
     return (
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center m-2">
             <div className="d-flex flex-column">
                 <NavBar countCartItems={productsItems.length} />
                 {/* <div> */}

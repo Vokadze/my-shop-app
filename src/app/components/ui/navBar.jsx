@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const NavBar = ({ countCartItems }) => {
     return (
-        <div className="d-flex flex-row border justify-content-center p-2 mb-4">
+        <div className="d-flex flex-row border border-warning justify-content-center mb-2">
             <ul className="nav">
                 <li className="nav-item">
                     <Link className="nav-link" aria-current="page" to="/">
