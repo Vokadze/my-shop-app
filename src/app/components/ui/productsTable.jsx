@@ -1,8 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-// import Product from "./product";
-// import TableBody from "./tableBody";
-// import TableHeader from "./tableHeader";
 import Table from "../common/table";
 import { Link } from "react-router-dom";
 
@@ -20,20 +17,18 @@ const ProductsTable = ({
     const columnsInfo = {
         image: {
             component: (product) => (
-                <div className="text-center w-100 align-center">
-                    <img
-                        src={product.image}
-                        className="rounded mx-auto d-block"
-                        alt=""
-                        width="100"
-                    />
-                </div>
+                <img
+                    src={product.image}
+                    className="img-thumbnail border border-warning rounded mx-auto d-block"
+                    alt=""
+                    width="100"
+                />
             )
         },
         info: {
             path: "name",
             component: (product) => (
-                <div className="d-flex flex-column justify-content-start m-0">
+                <div className="col-8 mx-3">
                     <p className="mt-2">{`Наименование товара: ${product.name}`}</p>
                     <p className="mt-2">{`id товара:  ${product.id}`}</p>
                     <p className="mt-2">{`Стоимость: ${product.price}`}</p>
@@ -43,35 +38,34 @@ const ProductsTable = ({
         button: {
             component: (product) => (
                 <Link to={`/products/${product.id}`}>
-                    <button
-                        className="btn btn-primary btn-sm text-nowrap"
-                        type="button"
-                        onClick={() => handleClick(product.id)}
-                    >
-                        Открыть карточку
-                    </button>
+                    <div className="position-absolute bottom-0 end-0 p-4">
+                        <button
+                            className="btn btn-primary btn-sm text-nowrap "
+                            type="button"
+                            style={{
+                                background: "#ffc107",
+                                color: "#212529",
+                                border: "#ffc107"
+                            }}
+                            onClick={() => handleClick(product.id)}
+                        >
+                            Открыть карточку
+                        </button>
+                    </div>
                 </Link>
             )
         }
     };
     return (
-        // <Table className="table table-borderless">
-        <Table
-            onSort={onSort}
-            selectedSort={selectedSort}
-            columns={columns}
-            data={products}
-            columnsInfo={columnsInfo}
-        >
-            {/* <TableHeader {...{ onSort, selectedSort, columns }} />
-            <TableBody {...{ data: products }} columns={columnsInfo} /> */}
-        </Table>
-        // {/* <tbody>
-        //         {products.map((product) => (
-        //             <Product key={product.id} {...rest} {...product} />
-        //         ))}
-        //     </tbody> */}
-        // </table>
+        <div>
+            <Table
+                onSort={onSort}
+                selectedSort={selectedSort}
+                columns={columns}
+                data={products}
+                columnsInfo={columnsInfo}
+            ></Table>
+        </div>
     );
 };
 

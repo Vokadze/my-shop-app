@@ -12,7 +12,7 @@ const Table = ({
     children
 }) => {
     return (
-        <table className="table table-borderless">
+        <table className="table table-borderless mx-2">
             {children || (
                 <>
                     <TableHeader {...{ onSort, selectedSort, columns }} />

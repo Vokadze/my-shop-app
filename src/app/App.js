@@ -9,17 +9,16 @@ import BasketHeader from "./layouts/basketHeader";
 
 const App = () => {
     return (
-        <>
-            {/* className="container mt-4" */}
+        <div style={{ background: "#e9ecef" }}>
             <NavBar />
             <Switch>
-                <Route path="/products/:prodId?/:edit?" component={Products} />
+                <Route path="/products/:prodId?" component={Products} />
                 <Route path="/login/:type?" component={Login} />
                 <Route path="/basketHeader" component={BasketHeader} />
                 <Route path="/" exact component={Main} />
                 <Redirect to="/" />
             </Switch>
-        </>
+        </div>
     );
 };
 

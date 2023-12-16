@@ -16,7 +16,6 @@ const BasketShopPage = ({ prodId }) => {
     const [searchQuery, setSearchQuery] = useState("");
 
     const handleSearchQuery = ({ target }) => {
-        // setSelectedCategory(undefined);
         setSearchQuery(target.value);
     };
 
@@ -46,29 +45,6 @@ const BasketShopPage = ({ prodId }) => {
         history.push(`/basketHeader`);
     };
 
-    // const onRemoveProduct = (product) => {
-    //     const exist = productsItems.find((p) => p.id === product.id);
-    //     if (exist.qty === 1) {
-    //         const newCartProducts = productsItems.filter(
-    //             (p) => p.id !== product.id
-    //         );
-    //         setProductItems(newCartProducts);
-    //         localStorage.setItem(
-    //             "productsItems",
-    //             JSON.stringify(newCartProducts)
-    //         );
-    //     } else {
-    //         const newCartProducts = productsItems.map((p) =>
-    //             p.id === product.id ? { ...exist, qty: exist.qty - 1 } : p
-    //         );
-    //         setProductItems(newCartProducts);
-    //         localStorage.setItem(
-    //             "productsItems",
-    //             JSON.stringify(newCartProducts)
-    //         );
-    //     }
-    // };
-
     useEffect(() => {
         setProductItems(
             localStorage.getItem("productsItems")
@@ -79,36 +55,30 @@ const BasketShopPage = ({ prodId }) => {
 
     if (product) {
         return (
-            <div>
-                <div className="container">
-                    <div className="row">
-                        <NavBar countCartItems={productsItems.length} />
-                        <SearchInput
-                            type="text"
-                            name="searchQuery"
-                            placeholder="Поисковая строка (по названию)"
-                            className="mb-2 text-center"
-                            onChange={handleSearchQuery}
-                            value={searchQuery}
-                        />
+            <div className="d-flex flex-column">
+                <NavBar countCartItems={productsItems.length} />
+                <SearchInput
+                    type="text"
+                    name="searchQuery"
+                    placeholder="Поисковая строка (по названию)"
+                    className="mb-2 text-center"
+                    onChange={handleSearchQuery}
+                    value={searchQuery}
+                />
 
-                        <input
-                            type="text"
-                            name="searchQuery"
-                            placeholder="Путь к товару"
-                            className="mb-4 text-center border"
-                        />
+                <input
+                    type="text"
+                    name="searchQuery"
+                    placeholder="Путь к товару"
+                    className="mb-4 text-center border"
+                    style={{ background: "#dee2e6" }}
+                />
 
-                        <BasketShopList
-                            product={product}
-                            item={productsItems.find(
-                                (p) => p.id === product.id
-                            )}
-                            onAddProduct={onAddProduct}
-                            // onRemoveProduct={onRemoveProduct}
-                        />
-                    </div>
-                </div>
+                <BasketShopList
+                    product={product}
+                    item={productsItems.find((p) => p.id === product.id)}
+                    onAddProduct={onAddProduct}
+                />
             </div>
         );
     } else {

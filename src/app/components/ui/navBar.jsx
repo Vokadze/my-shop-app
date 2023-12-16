@@ -1,10 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { BiCartAlt } from "react-icons/bi";
 
 const NavBar = ({ countCartItems }) => {
     return (
-        <div className="d-flex flex-row border justify-content-center p-2 mb-4">
+        <div
+            className="d-flex flex-row border border-warning justify-content-center mb-2"
+            style={{ background: "#dee2e6" }}
+        >
             <ul className="nav">
                 <li className="nav-item">
                     <Link className="nav-link" aria-current="page" to="/">
@@ -27,19 +31,21 @@ const NavBar = ({ countCartItems }) => {
                 </li>
                 <li className="nav-item">
                     <Link
-                        className="nav-link"
+                        className="nav-link text-center"
                         href="#/cart"
                         aria-current="page"
                         to="/basketHeader"
                     >
-                        Корзина
-                        {countCartItems ? (
-                            <button className="badge bg-primary">
-                                {countCartItems}
-                            </button>
-                        ) : (
-                            ""
-                        )}
+                        <div className="position-relative">
+                            <BiCartAlt size={25} className="cart-icon" />
+                            {countCartItems ? (
+                                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    {countCartItems}
+                                </span>
+                            ) : (
+                                ""
+                            )}
+                        </div>
                     </Link>
                 </li>
             </ul>

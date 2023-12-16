@@ -26,9 +26,11 @@ const BasketHeader = () => {
     };
 
     return (
-        <div className="row center block">
-            <div>
-                <NavBar countCartItems={productsItems.length} />
+        <div className="d-flex justify-content-center px-4">
+            <div className="d-flex flex-column">
+                <div className="d-flex flex-column">
+                    <NavBar countCartItems={productsItems.length} />
+                </div>
                 <h1>Корзина</h1>
                 <BasketCartList
                     productsItems={productsItems}
@@ -42,7 +44,6 @@ const BasketHeader = () => {
 BasketHeader.propTypes = {
     onAddProduct: PropTypes.func,
     onRemoveProduct: PropTypes.func
-    // handleClick: PropTypes.func
 };
 
 export default BasketHeader;

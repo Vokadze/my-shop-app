@@ -15,11 +15,12 @@ const TableBody = ({ data, columns }) => {
     };
 
     return (
-        <tbody className="d-flex flex-column">
+        <tbody className="d-flex flex-column p-2">
             {data.map((item) => (
                 <tr
                     key={item.id}
-                    className="d-flex flex-row justify-content-start border mb-3"
+                    className="d-flex flex-row border border-warning mb-3 position-relative"
+                    style={{ background: "#dee2e6" }}
                 >
                     {Object.keys(columns).map((column) => (
                         <td
@@ -38,7 +39,6 @@ const TableBody = ({ data, columns }) => {
 TableBody.propTypes = {
     data: PropTypes.array.isRequired,
     columns: PropTypes.object.isRequired
-    // columnsInfo: PropTypes.object.isRequired
 };
 
 export default TableBody;
