@@ -11,6 +11,7 @@ const SearchInput = ({ type, name, placeholder, onChange, value }) => {
                 className="text-center border border-warning"
                 onChange={onChange}
                 value={value}
+                style={{ background: "#dee2e6" }}
             />
         </div>
     );

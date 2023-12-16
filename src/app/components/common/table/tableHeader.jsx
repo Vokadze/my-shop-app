@@ -31,11 +31,12 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
                     <td
                         key={column}
                         colSpan="3"
-                        className="align-bottom p-0 pb-4 pt-3"
+                        className="align-bottom p-2 pb-2 pt-2"
                     >
                         <div
                             key={column}
-                            className="d-flex flex-row border border-warning justify-content-center p-0 ms-0"
+                            className="d-flex flex-row border border-warning justify-content-center p-0 m-0"
+                            style={{ background: "#dee2e6" }}
                             onClick={
                                 columns[column].path
                                     ? () => handleSort(columns[column].path)

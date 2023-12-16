@@ -5,7 +5,6 @@ import { paginate } from "../../../utils/paginate";
 import Pagination from "../../common/pagination";
 import api from "../../../api";
 import GroupList from "../../common/groupList";
-import SearchStatus from "../../ui/searchStatus";
 import ProductsTable from "../../ui/productsTable";
 import SearchInput from "../../ui/searchInput";
 
@@ -93,7 +92,7 @@ const ProductsListPage = () => {
         };
 
         return (
-            <div className="d-flex justify-content-center">
+            <div className="d-flex justify-content-center px-4">
                 <div className="d-flex flex-column">
                     <div className="d-flex flex-column">
                         <NavBar />
@@ -105,18 +104,13 @@ const ProductsListPage = () => {
                             onChange={handleSearchQuery}
                             value={searchQuery}
                         />
-                        {/* <input
-                            type="text"
-                            name="searchQuery"
-                            placeholder="Поисковая строка (по названию)"
-                            className="mb-2 text-center"
-                            onChange={handleSearchQuery}
-                            value={searchQuery}
-                        /> */}
                     </div>
-                    <div className="d-flex flex-row justify-content-between">
+                    <div className="d-flex flex-row">
                         {categories && (
-                            <div className="d-flex flex-column flex-shrink-0 border border-warning me-2">
+                            <div
+                                className="d-flex flex-column border border-warning"
+                                style={{ background: "#dee2e6" }}
+                            >
                                 <GroupList
                                     selectedItem={selectedCategory}
                                     items={categories}
@@ -128,18 +122,17 @@ const ProductsListPage = () => {
                                 >
                                     Очистить
                                 </button>
-                                <SearchStatus length={count} />
-                                <SearchStatus length={products.length} />
                             </div>
                         )}
-                        {/* <div className="container"> */}
-                        <div className="d-flex flex-column flex-shrink-0 justify-content-between">
-                            <ProductsTable
-                                products={productCrop}
-                                onSort={handleSort}
-                                selectedSort={sortBy}
-                                handleClick={handleClick}
-                            />
+                        <div className="d-flex flex-column justify-content-between">
+                            <div className="container px-0 m-0">
+                                <ProductsTable
+                                    products={productCrop}
+                                    onSort={handleSort}
+                                    selectedSort={sortBy}
+                                    handleClick={handleClick}
+                                />
+                            </div>
                             <div className="d-flex justify-content-center">
                                 <Pagination
                                     itemsCount={count}
