@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Table from "../common/table";
 import { Link } from "react-router-dom";
+
+import Table from "../common/table";
 
 const ProductsTable = ({
     products,

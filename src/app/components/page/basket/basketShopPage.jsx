@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import api from "../../../api";
 import { useHistory } from "react-router-dom";
+
+import api from "../../../api";
 import SearchInput from "../../ui/searchInput";
 import NavBar from "../../ui/navBar";
 import BasketShopList from "./basketShopList";
@@ -27,7 +28,12 @@ const BasketShopPage = ({ prodId }) => {
         const exist = productsItems.find((p) => p.id === product.id);
         if (exist) {
             const newCartProducts = productsItems.map((p) =>
-                p.id === product.id ? { ...exist, qty: exist.qty + 1 } : p
+                p.id === product.id
+                    ? {
+                          ...exist,
+                          count: exist.count - 1
+                      }
+                    : p
             );
             setProductItems(newCartProducts);
             localStorage.setItem(
@@ -35,7 +41,14 @@ const BasketShopPage = ({ prodId }) => {
                 JSON.stringify(newCartProducts)
             );
         } else {
-            const newCartProducts = [...productsItems, { ...product, qty: 1 }];
+            const newCartProducts = [
+                ...productsItems,
+                {
+                    ...product,
+                    qty: 1,
+                    countPay: 1
+                }
+            ];
             setProductItems(newCartProducts);
             localStorage.setItem(
                 "productsItems",
@@ -43,6 +56,21 @@ const BasketShopPage = ({ prodId }) => {
             );
         }
         history.push(`/basketHeader`);
+    };
+
+    const onRemoveProduct = (product) => {
+        const exist = productsItems.find((p) => p.id === product.id);
+        if (exist.qty === 1) {
+            const newCartProducts = productsItems.filter(
+                (p) => p.id !== product.id
+            );
+            setProductItems(newCartProducts);
+        } else {
+            const newCartProducts = productsItems.map((p) =>
+                p.id === product.id ? { ...exist, count: exist.count + 1 } : p
+            );
+            setProductItems(newCartProducts);
+        }
     };
 
     useEffect(() => {
@@ -78,6 +106,7 @@ const BasketShopPage = ({ prodId }) => {
                     product={product}
                     item={productsItems.find((p) => p.id === product.id)}
                     onAddProduct={onAddProduct}
+                    onRemoveProduct={onRemoveProduct}
                 />
             </div>
         );
