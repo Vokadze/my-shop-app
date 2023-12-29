@@ -14,14 +14,12 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
     };
 
     const returnSortCaret = (selectedSort, currentPath) => {
-        if (selectedSort.path !== currentPath) {
-            if (selectedSort.order === "asc") {
-                return <i className="bi bi-caret-down-fill"></i>;
-            } else {
-                return <i className="bi bi-caret-up-fill"></i>;
-            }
+        if (selectedSort.path !== currentPath) return false;
+        if (selectedSort.order === "asc") {
+            return <i className="bi bi-caret-down-fill"></i>;
+        } else {
+            return <i className="bi bi-caret-up-fill"></i>;
         }
-        return null;
     };
 
     return (
@@ -30,21 +28,19 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
                 {Object.keys(columns).map((column) => (
                     <td
                         key={column}
-                        colSpan="3"
-                        className="align-bottom p-2 pb-2 pt-2"
+                        onClick={
+                            columns[column].path
+                                ? () => handleSort(columns[column].path)
+                                : undefined
+                        }
                     >
                         <div
-                            key={column}
                             className="d-flex flex-row border border-warning justify-content-center p-0 m-0"
                             style={{ background: "#dee2e6" }}
-                            onClick={
-                                columns[column].path
-                                    ? () => handleSort(columns[column].path)
-                                    : undefined
-                            }
                             {...{ role: columns[column].path && "button" }}
+                            scope="col"
                         >
-                            {columns[column].name}
+                            {columns[column].name}{" "}
                             {returnSortCaret(
                                 selectedSort,
                                 columns[column].path
