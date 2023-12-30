@@ -1,27 +1,25 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-
 import { paginate } from "../../../utils/paginate";
 import Pagination from "../../common/pagination";
 import api from "../../../api";
 import GroupList from "../../common/groupList";
-// import ProductsTable from "../../ui/productsTable";
 import SearchInput from "../../ui/searchInput";
 
 import _ from "lodash";
 import NavBar from "../../ui/navBar";
-import AdminPage0 from "./adminPage0";
+import Admin from "./admin";
 
-const AdminPage1 = () => {
+const AdminPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [categories, setCategories] = useState();
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState();
-    const [sortBy, setSortBy] = useState({ iter: "price", order: "asc" });
+    const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
     const pageSize = 4;
 
     const [products, setProducts] = useState();
-    console.log("products App.jsx", products);
+    // console.log("products App.jsx", products);
 
     useEffect(() => {
         api.products.fetchAll().then((data) => setProducts(data));
@@ -42,9 +40,9 @@ const AdminPage1 = () => {
     const handleCategoriesSelect = (item) => {
         if (searchQuery !== "") setSearchQuery("");
         setSelectedCategory(item);
-        console.log(item);
+        // console.log(item);
     };
-    console.log(categories);
+    // console.log(categories);
 
     const handleSearchQuery = ({ target }) => {
         setSelectedCategory(undefined);
@@ -52,7 +50,7 @@ const AdminPage1 = () => {
     };
 
     const handlePageChange = (pageIndex) => {
-        console.log("page: ", pageIndex);
+        // console.log("page: ", pageIndex);
         setCurrentPage(pageIndex);
     };
 
@@ -81,12 +79,12 @@ const AdminPage1 = () => {
 
         const sortedProducts = _.orderBy(
             filteredProducts,
-            [sortBy.path],
+            ["name"],
+            // [sortBy.path],
             [sortBy.order]
         );
 
         const productCrop = paginate(sortedProducts, currentPage, pageSize);
-        console.log(productCrop);
 
         const clearFilter = () => {
             setSelectedCategory();
@@ -125,22 +123,14 @@ const AdminPage1 = () => {
                                 </button>
                             </div>
                         )}
-
                         <div className="d-flex flex-column justify-content-between">
                             <div className="container px-0 m-0">
-                                <AdminPage0
+                                <Admin
                                     products={productCrop}
-                                    categories={categories}
                                     onSort={handleSort}
                                     selectedSort={sortBy}
                                     handleDelete={handleDelete}
                                 />
-                                {/* <ProductsTable
-                                    products={productCrop}
-                                    onSort={handleSort}
-                                    selectedSort={sortBy}
-                                    handleDelete={handleDelete}
-                                /> */}
                             </div>
                             <div className="d-flex justify-content-center">
                                 <Pagination
@@ -156,11 +146,11 @@ const AdminPage1 = () => {
             </div>
         );
     }
-    return "Loading AdminPage1.jsx";
+    return "Loading productsListPage.jsx";
 };
 
-AdminPage1.propTypes = {
+AdminPage.propTypes = {
     products: PropTypes.array
 };
 
-export default AdminPage1;
+export default AdminPage;
