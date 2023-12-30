@@ -1,0 +1,30 @@
+.border-style {
+    border-collapse: collapse;
+}
+
+table,
+td {
+    border: 1px solid #ffc107;
+    border-radius: red;
+    border-spacing: 5px 1rem;
+}
+
+/* table, */
+thead,
+tr,
+th {
+    background-color: #dee2e6;
+}
+
+/* tbody,
+tr,
+td {
+    border: 1px solid #ffc107;
+    border-radius: red;
+}
+
+table,
+thead {
+    border-spacing: 5px;
+    background-color: #dee2e6;
+} */

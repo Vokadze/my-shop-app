@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+// import BootstrapIcon from "bootstrap-icons"
+// import { IoEyeOffOutline } from "react-icons/io5";
+// import { IoEyeOutline } from "react-icons/io5";
 
 const TextField = ({ label, type, name, value, onChange, error }) => {
     const [showPassword, setShowPassword] = useState(false);

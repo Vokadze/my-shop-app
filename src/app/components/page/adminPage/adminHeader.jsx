@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const TableHeader = ({ onSort, selectedSort, columns }) => {
-    console.log("TableHeader.jsx columns", columns);
+const AdminHeader = ({ selectedSort, onSort, columns }) => {
+    console.log("AdminHeader.jsx columns", columns);
     const handleSort = (item) => {
         if (selectedSort.path === item) {
             onSort({
@@ -25,39 +25,34 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
 
     return (
         <thead>
-            <tr>
+            <tr className="border border-warning">
                 {Object.keys(columns).map((column) => (
-                    <td
+                    <th
                         key={column}
+                        // onClick={() => handleSort(columns[column].path)}
                         onClick={
                             columns[column].path
                                 ? () => handleSort(columns[column].path)
                                 : undefined
                         }
+                        {...{ role: columns[column].path && "button" }}
+                        scope="col"
                     >
-                        <div
-                            className="d-flex flex-row border border-warning justify-content-center p-0 m-0"
-                            style={{ background: "#dee2e6" }}
-                            {...{ role: columns[column].path && "button" }}
-                            scope="col"
-                        >
-                            {columns[column].name}{" "}
-                            {returnSortCaret(
-                                selectedSort,
-                                columns[column].path
-                            )}
-                        </div>
-                    </td>
+                        {columns[column].name}{" "}
+                        {returnSortCaret(selectedSort, columns[column].path)}
+                    </th>
                 ))}
             </tr>
         </thead>
     );
 };
 
-TableHeader.propTypes = {
-    onSort: PropTypes.func.isRequired,
+AdminHeader.propTypes = {
+    onSort: PropTypes.func,
     selectedSort: PropTypes.object.isRequired,
-    columns: PropTypes.object.isRequired
+    columns: PropTypes.object
+    // handleSort: PropTypes.func
+    // columns: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };
 
-export default TableHeader;
+export default AdminHeader;
