@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
 
-const AdminBody = ({ data, columns }) => {
+const TableBody = ({ data, columns }) => {
     const renderContent = (item, column) => {
         if (columns[column].component) {
             const component = columns[column].component;
@@ -28,9 +28,9 @@ const AdminBody = ({ data, columns }) => {
     );
 };
 
-AdminBody.propTypes = {
+TableBody.propTypes = {
     data: PropTypes.array,
     columns: PropTypes.object
 };
 
-export default AdminBody;
+export default TableBody;

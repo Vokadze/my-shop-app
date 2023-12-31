@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const AdminHeader = ({ selectedSort, onSort, columns }) => {
-    console.log("AdminHeader.jsx columns", columns);
+const TableHeader = ({ selectedSort, onSort, columns }) => {
+    console.log("TableHeader.jsx columns", columns);
     const handleSort = (item) => {
         if (selectedSort.path === item) {
             onSort({
@@ -47,7 +47,7 @@ const AdminHeader = ({ selectedSort, onSort, columns }) => {
     );
 };
 
-AdminHeader.propTypes = {
+TableHeader.propTypes = {
     onSort: PropTypes.func,
     selectedSort: PropTypes.object.isRequired,
     columns: PropTypes.object
@@ -55,4 +55,4 @@ AdminHeader.propTypes = {
     // columns: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };
 
-export default AdminHeader;
+export default TableHeader;

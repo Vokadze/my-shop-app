@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-import Table from "../common/table";
+import Table from "../common/table/tableProducts";
 
 const ProductsTable = ({
     products,
