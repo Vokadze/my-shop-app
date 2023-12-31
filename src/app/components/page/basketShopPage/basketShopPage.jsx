@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import api from "../../../api";
 import SearchInput from "../../ui/searchInput";
 import NavBar from "../../ui/navBar";
-import BasketShopList from "./basketShopList";
+import BasketShopList from "../basketShopList/basketShopList";
 
 const BasketShopPage = ({ prodId }) => {
     const history = useHistory();
@@ -55,7 +55,7 @@ const BasketShopPage = ({ prodId }) => {
                 JSON.stringify(newCartProducts)
             );
         }
-        history.push(`/basketHeader`);
+        history.push(`/basket`);
     };
 
     const onRemoveProduct = (product) => {

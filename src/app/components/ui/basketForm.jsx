@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import NavBar from "../components/ui/navBar";
-import BasketCartList from "../components/page/basket/basketCartList";
-import BasketOrder from "../components/page/basket/basketOrder";
+import NavBar from "./navBar";
+import BasketCartList from "../page/basketCartList/basketCartList";
+import BasketOrder from "../page/basketCartList/basketOrder";
 
-const BasketHeader = () => {
+const BasketForm = () => {
     const [productLocal, setProductLocal] = useState();
-    console.log("basketHeader.jsx productLocal useState", productLocal);
+    console.log("basket.jsx productLocal useState", productLocal);
     const newProductsItem = localStorage.getItem("productsItems");
     const productsItems = JSON.parse(newProductsItem);
     console.log(productsItems);
@@ -100,9 +100,9 @@ const BasketHeader = () => {
     }
 };
 
-BasketHeader.propTypes = {
+BasketForm.propTypes = {
     onAddProduct: PropTypes.func,
     onRemoveProduct: PropTypes.func
 };
 
-export default BasketHeader;
+export default BasketForm;
