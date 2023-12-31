@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { AiOutlineClose } from "react-icons/ai";
 
-import BasketCartListCounter from "./basketCartListCounter";
+import BasketCartListCounter from "../../ui/basketCartListCounter";
 
 const BasketCartList = ({ product, productsItems, handleDelete }) => {
     console.log("BasketCartList.jsx productsItems", productsItems);

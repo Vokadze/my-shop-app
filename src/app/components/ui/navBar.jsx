@@ -52,7 +52,7 @@ const NavBar = ({ countCartItems }) => {
                         className="nav-link text-center"
                         href="#/cart"
                         aria-current="page"
-                        to="/basketHeader"
+                        to="/basket"
                     >
                         <div className="position-relative">
                             <BiCartAlt size={25} className="cart-icon" />

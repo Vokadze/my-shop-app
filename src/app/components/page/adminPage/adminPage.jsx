@@ -8,7 +8,8 @@ import SearchInput from "../../ui/searchInput";
 
 import _ from "lodash";
 import NavBar from "../../ui/navBar";
-import Admin from "./admin";
+import AdminTable from "../../ui/adminTable";
+// import Admin from "./adminTables";
 
 const AdminPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -125,7 +126,7 @@ const AdminPage = () => {
                         )}
                         <div className="d-flex flex-column justify-content-between">
                             <div className="container px-0 m-0">
-                                <Admin
+                                <AdminTable
                                     products={productCrop}
                                     onSort={handleSort}
                                     selectedSort={sortBy}

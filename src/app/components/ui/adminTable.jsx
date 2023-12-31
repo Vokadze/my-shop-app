@@ -5,17 +5,18 @@ import PropTypes from "prop-types";
 // import AdminHeader from "./adminHeader";
 // import AdminBody from "./adminBody";
 import { Link } from "react-router-dom";
-import AdminTable from "./adminTable";
+import Table from "../common/table/tableAdmin";
+// import AdminTable from "../../common/table/tableAdmin/table";
 
-const Admin = ({
+const AdminTable = ({
     products,
     categories,
     handleDelete,
     selectedSort,
     onSort
 }) => {
-    console.log("admin.jsx products", products);
-    console.log("Admin", categories);
+    console.log("adminTable.jsx products", products);
+    console.log("AdminTable", categories);
 
     const columns = {
         id: {
@@ -87,7 +88,7 @@ const Admin = ({
 
     return (
         // <table className="table table-borderless mx-2">
-        <AdminTable
+        <Table
             onSort={onSort}
             selectedSort={selectedSort}
             columns={columns}
@@ -110,7 +111,7 @@ const Admin = ({
     );
 };
 
-Admin.propTypes = {
+AdminTable.propTypes = {
     products: PropTypes.array,
     categories: PropTypes.object,
     handleDelete: PropTypes.func,
@@ -118,4 +119,4 @@ Admin.propTypes = {
     onSort: PropTypes.func
 };
 
-export default Admin;
+export default AdminTable;
