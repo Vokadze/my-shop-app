@@ -29,15 +29,6 @@ const NavBar = ({ countCartItems }) => {
                         Products
                     </Link>
                 </li>
-                {/* <li className="nav-item">
-                    <Link
-                        className="nav-link"
-                        aria-current="page"
-                        to="/adminPage0"
-                    >
-                        Admin0
-                    </Link>
-                </li> */}
                 <li className="nav-item">
                     <Link
                         className="nav-link"

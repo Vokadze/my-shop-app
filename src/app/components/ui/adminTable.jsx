@@ -73,9 +73,7 @@ const AdminTable = ({
                         <i
                             className="bi bi-x-circle-fill mx-1"
                             style={{
-                                // backgroundColor: "black",
                                 color: "#ffc107"
-                                // borderRadius: 25
                             }}
                             role="button"
                             onClick={() => handleDelete(product.id)}
@@ -87,27 +85,12 @@ const AdminTable = ({
     };
 
     return (
-        // <table className="table table-borderless mx-2">
         <Table
             onSort={onSort}
             selectedSort={selectedSort}
             columns={columns}
             data={products}
         />
-        // <AdminHeader {...{ onSort, selectedSort, columns }} />
-        // <AdminBody {...{ columns, data: products }} />
-
-        // {/* <tbody>
-        //     {Object.keys(products).map((product) => (
-        //         <AdminPageList
-        //             key={product}
-        //             product={product}
-        //             products={products}
-        //             handleDelete={handleDelete}
-        //         />
-        //     ))}
-        // </tbody> */}
-        // </table>
     );
 };
 

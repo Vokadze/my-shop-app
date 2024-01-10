@@ -9,9 +9,8 @@ import SearchInput from "../../ui/searchInput";
 import _ from "lodash";
 import NavBar from "../../ui/navBar";
 import AdminTable from "../../ui/adminTable";
-// import Admin from "./adminTables";
 
-const AdminPage = () => {
+const AdminPageList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [categories, setCategories] = useState();
     const [searchQuery, setSearchQuery] = useState("");
@@ -20,7 +19,6 @@ const AdminPage = () => {
     const pageSize = 4;
 
     const [products, setProducts] = useState();
-    // console.log("products App.jsx", products);
 
     useEffect(() => {
         api.products.fetchAll().then((data) => setProducts(data));
@@ -41,9 +39,7 @@ const AdminPage = () => {
     const handleCategoriesSelect = (item) => {
         if (searchQuery !== "") setSearchQuery("");
         setSelectedCategory(item);
-        // console.log(item);
     };
-    // console.log(categories);
 
     const handleSearchQuery = ({ target }) => {
         setSelectedCategory(undefined);
@@ -51,7 +47,6 @@ const AdminPage = () => {
     };
 
     const handlePageChange = (pageIndex) => {
-        // console.log("page: ", pageIndex);
         setCurrentPage(pageIndex);
     };
 
@@ -81,7 +76,6 @@ const AdminPage = () => {
         const sortedProducts = _.orderBy(
             filteredProducts,
             ["name"],
-            // [sortBy.path],
             [sortBy.order]
         );
 
@@ -150,8 +144,8 @@ const AdminPage = () => {
     return "Loading productsListPage.jsx";
 };
 
-AdminPage.propTypes = {
+AdminPageList.propTypes = {
     products: PropTypes.array
 };
 
-export default AdminPage;
+export default AdminPageList;
