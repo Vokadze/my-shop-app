@@ -109,7 +109,7 @@ const RegisterForm = () => {
             <SelectField
                 label="Выберите категорию товара"
                 defaultOption="Choose..."
-                name="categories"
+                name="categor"
                 options={categories}
                 onChange={handleChange}
                 value={data.categor}

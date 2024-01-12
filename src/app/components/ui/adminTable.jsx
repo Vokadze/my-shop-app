@@ -1,12 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-// import "./index.css";
-// import AdminPageList from "./adminPageList";
-// import AdminHeader from "./adminHeader";
-// import AdminBody from "./adminBody";
 import { Link } from "react-router-dom";
 import Table from "../common/table/tableAdmin";
-// import AdminTable from "../../common/table/tableAdmin/table";
 
 const AdminTable = ({
     products,
@@ -22,33 +17,61 @@ const AdminTable = ({
         id: {
             path: "product.id",
             name: "№",
-            component: (products) => <span>{`${products.id}`}</span>
+            component: (products) => (
+                <span
+                    className="badge text-dark w-100 text-center border border-warning p-2"
+                    style={{ background: "#dee2e6" }}
+                >{`${products.id}`}</span>
+            )
         },
         name: {
             path: "product.name",
             name: "Наименование",
-            component: (product) => <span>{`${product.name}`}</span>
+            component: (product) => (
+                <span
+                    className="badge text-dark w-100 text-start border border-warning p-2"
+                    style={{ background: "#dee2e6" }}
+                >{`${product.name}`}</span>
+            )
         },
         categories: {
             path: "product.category.name",
             name: "Категория",
-            component: (product) => <span>{`${product.category.name}`}</span>
+            component: (product) => (
+                <span
+                    className="badge text-dark w-100 text-center border border-warning p-2"
+                    style={{ background: "#dee2e6" }}
+                >{`${product.category.name}`}</span>
+            )
         },
         count: {
             path: "product.count",
             name: "Количество",
-            component: (product) => <span>{`${product.count}`}</span>
+            component: (product) => (
+                <span
+                    className="badge text-dark w-100 text-center border border-warning p-2"
+                    style={{ background: "#dee2e6" }}
+                >{`${product.count}`}</span>
+            )
         },
         price: {
             path: "product.price",
             name: "Стоимость",
-            component: (product) => <span>{`${product.price}`}</span>
+            component: (product) => (
+                <span
+                    className="badge text-dark w-100 text-center border border-warning p-2"
+                    style={{ background: "#dee2e6" }}
+                >{`${product.price}`}</span>
+            )
         },
         url: {
             path: "product.image",
             name: "Фото",
             component: (product) => (
-                <span>
+                <span
+                    className="badge text-dark w-100 text-center border border-warning p-2"
+                    style={{ background: "#dee2e6" }}
+                >
                     <Link to={`${product.image}`} role="button">
                         url
                     </Link>
@@ -59,10 +82,13 @@ const AdminTable = ({
             path: "product.id",
             name: "Действия",
             component: (product) => (
-                <span className="button-admin">
+                <span
+                    className="badge text-dark w-100 text-start border border-warning p-2"
+                    style={{ background: "#dee2e6" }}
+                >
                     <span>
                         <i
-                            className="bi bi-pencil mx-1"
+                            className="bi bi-pencil m-2"
                             style={{
                                 background: "#dee2e6",
                                 color: "#ffc107"
@@ -71,7 +97,7 @@ const AdminTable = ({
                     </span>
                     <span>
                         <i
-                            className="bi bi-x-circle-fill mx-1"
+                            className="bi bi-x-circle-fill m-2"
                             style={{
                                 color: "#ffc107"
                             }}

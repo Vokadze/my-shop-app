@@ -25,7 +25,12 @@ const TableHeader = ({ selectedSort, onSort, columns }) => {
 
     return (
         <thead>
-            <tr className="border border-warning">
+            <tr
+                className="border border-warning text-center"
+                style={{
+                    background: "#dee2e6"
+                }}
+            >
                 {Object.keys(columns).map((column) => (
                     <th
                         key={column}
