@@ -290,7 +290,6 @@ const update = (id, data) =>
 const getById = (id) =>
     new Promise((resolve) => {
         window.setTimeout(function () {
-            // resolve(products.find((product) => product.id === id));
             resolve(
                 JSON.parse(localStorage.getItem("products")).find(
                     (product) => product.id === id

@@ -3,24 +3,21 @@ import PropTypes from "prop-types";
 import { paginate } from "../../../utils/paginate";
 import Pagination from "../../common/pagination";
 import api from "../../../api";
-import GroupList from "../../common/groupList";
 import SearchInput from "../../ui/searchInput";
 
 import _ from "lodash";
 import NavBar from "../../ui/navBar";
 import AdminTable from "../../ui/adminTable";
-// import Admin from "./adminTables";
+import AddEditForm from "../../ui/adminForm";
 
-const AdminPage = () => {
+const AdminPageList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [categories, setCategories] = useState();
     const [searchQuery, setSearchQuery] = useState("");
-    const [selectedCategory, setSelectedCategory] = useState();
     const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
-    const pageSize = 4;
+    const pageSize = 8;
 
     const [products, setProducts] = useState();
-    // console.log("products App.jsx", products);
 
     useEffect(() => {
         api.products.fetchAll().then((data) => setProducts(data));
@@ -36,22 +33,13 @@ const AdminPage = () => {
 
     useEffect(() => {
         setCurrentPage(1);
-    }, [selectedCategory, searchQuery, products]);
-
-    const handleCategoriesSelect = (item) => {
-        if (searchQuery !== "") setSearchQuery("");
-        setSelectedCategory(item);
-        // console.log(item);
-    };
-    // console.log(categories);
+    }, [searchQuery, products]);
 
     const handleSearchQuery = ({ target }) => {
-        setSelectedCategory(undefined);
         setSearchQuery(target.value);
     };
 
     const handlePageChange = (pageIndex) => {
-        // console.log("page: ", pageIndex);
         setCurrentPage(pageIndex);
     };
 
@@ -68,28 +56,17 @@ const AdminPage = () => {
                           .toLowerCase()
                           .indexOf(searchQuery.toLowerCase()) !== -1
               )
-            : selectedCategory
-              ? products.filter(
-                    (product) =>
-                        JSON.stringify(product.category) ===
-                        JSON.stringify(selectedCategory)
-                )
-              : products;
+            : products;
 
         const count = filteredProducts.length;
 
         const sortedProducts = _.orderBy(
             filteredProducts,
             ["name"],
-            // [sortBy.path],
             [sortBy.order]
         );
 
         const productCrop = paginate(sortedProducts, currentPage, pageSize);
-
-        const clearFilter = () => {
-            setSelectedCategory();
-        };
 
         return (
             <div className="d-flex justify-content-center px-4">
@@ -107,22 +84,23 @@ const AdminPage = () => {
                     </div>
                     <div className="d-flex flex-row">
                         {categories && (
-                            <div
-                                className="d-flex flex-column border border-warning"
-                                style={{ background: "#dee2e6" }}
-                            >
-                                <GroupList
-                                    selectedItem={selectedCategory}
-                                    items={categories}
-                                    onItemSelect={handleCategoriesSelect}
-                                />
-                                <button
-                                    className="btn btn-secondary mt-2"
-                                    onClick={clearFilter}
+                            <>
+                                <div
+                                    className="card text-center border border-warning"
+                                    style={{
+                                        width: "14rem",
+                                        background: "#dee2e6"
+                                    }}
                                 >
-                                    Очистить
-                                </button>
-                            </div>
+                                    <div className="card-body">
+                                        <h6 className="card-title">
+                                            Блок для добавления или
+                                            редактирования товара
+                                        </h6>
+                                        <AddEditForm />
+                                    </div>
+                                </div>
+                            </>
                         )}
                         <div className="d-flex flex-column justify-content-between">
                             <div className="container px-0 m-0">
@@ -150,8 +128,8 @@ const AdminPage = () => {
     return "Loading productsListPage.jsx";
 };
 
-AdminPage.propTypes = {
+AdminPageList.propTypes = {
     products: PropTypes.array
 };
 
-export default AdminPage;
+export default AdminPageList;

@@ -14,7 +14,6 @@ const TableBody = ({ data, columns }) => {
         return _.get(item, columns[column].path);
     };
     return (
-        // <>
         <tbody>
             {data.map((item) => (
                 <tr key={item.id}>
@@ -24,7 +23,6 @@ const TableBody = ({ data, columns }) => {
                 </tr>
             ))}
         </tbody>
-        // {/* </> */}
     );
 };
 
