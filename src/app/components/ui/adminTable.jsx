@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Table from "../common/table/tableAdmin";
 
 const AdminTable = ({
@@ -12,81 +12,99 @@ const AdminTable = ({
 }) => {
     console.log("adminTable.jsx products", products);
     console.log("AdminTable", categories);
+    const history = useHistory();
+
+    const handleClick = () => {
+        history.push(history.location.pathname + "/edit");
+    };
 
     const columns = {
         id: {
-            path: "product.id",
+            path: "id",
             name: "№",
-            component: (products) => (
+            component: (product) => (
                 <span
                     className="badge text-dark w-100 text-center border border-warning p-2"
                     style={{ background: "#dee2e6" }}
-                >{`${products.id}`}</span>
+                >
+                    {product.id}
+                </span>
             )
         },
         name: {
-            path: "product.name",
+            path: "name",
             name: "Наименование",
             component: (product) => (
                 <span
                     className="badge text-dark w-100 text-start border border-warning p-2"
                     style={{ background: "#dee2e6" }}
-                >{`${product.name}`}</span>
+                >
+                    {product.name}
+                </span>
             )
         },
-        categories: {
+        category: {
             path: "product.category.name",
             name: "Категория",
             component: (product) => (
                 <span
                     className="badge text-dark w-100 text-center border border-warning p-2"
                     style={{ background: "#dee2e6" }}
-                >{`${product.category.name}`}</span>
+                >
+                    {product.category?.name}
+                </span>
             )
         },
         count: {
-            path: "product.count",
+            path: "count",
             name: "Количество",
             component: (product) => (
                 <span
                     className="badge text-dark w-100 text-center border border-warning p-2"
                     style={{ background: "#dee2e6" }}
-                >{`${product.count}`}</span>
+                >
+                    {product.count}
+                </span>
             )
         },
         price: {
-            path: "product.price",
+            path: "price",
             name: "Стоимость",
             component: (product) => (
                 <span
                     className="badge text-dark w-100 text-center border border-warning p-2"
                     style={{ background: "#dee2e6" }}
-                >{`${product.price}`}</span>
+                >
+                    {product.price}
+                </span>
             )
         },
         url: {
-            path: "product.image",
+            path: "image",
             name: "Фото",
             component: (product) => (
                 <span
                     className="badge text-dark w-100 text-center border border-warning p-2"
                     style={{ background: "#dee2e6" }}
                 >
-                    <Link to={`${product.image}`} role="button">
+                    <Link to={product.image} role="button">
                         url
                     </Link>
                 </span>
             )
         },
         actions: {
-            path: "product.id",
+            path: "id",
             name: "Действия",
             component: (product) => (
                 <span
                     className="badge text-dark w-100 text-start border border-warning p-2"
                     style={{ background: "#dee2e6" }}
                 >
-                    <span>
+                    <Link
+                        to={`/admin/${product.id}`}
+                        onClick={() => handleClick()}
+                    >
                         <i
                             className="bi bi-pencil m-2"
                             style={{
@@ -94,7 +112,7 @@ const AdminTable = ({
                                 color: "#ffc107"
                             }}
                         ></i>
-                    </span>
+                    </Link>
                     <span>
                         <i
                             className="bi bi-x-circle-fill m-2"

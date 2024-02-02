@@ -6,16 +6,18 @@ import Login from "./layouts/login";
 import Main from "./layouts/main";
 import NavBar from "./components/ui/navBar";
 import Basket from "./layouts/basket";
-import AdminPageList from "./components/page/adminPageList/adminPageList";
+import Admin from "./layouts/admin";
+// import AdminPageList from "./components/page/adminPageList/adminPageList";
 
 const App = () => {
     return (
         <div style={{ background: "#e9ecef" }}>
             <NavBar />
             <Switch>
+                <Route path="/admin/:prodId?/:edit?" component={Admin} />
                 <Route path="/products/:prodId?" component={Products} />
                 <Route path="/login/:type?" component={Login} />
-                <Route path="/adminPage" component={AdminPageList} />
+                {/* <Route path="/adminPagelist" component={AdminPageList} /> */}
                 <Route path="/basket" component={Basket} />
                 <Route path="/" exact component={Main} />
                 <Redirect to="/" />

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const SelectField = ({
+const SelectFieldAdmin = ({
     label,
     value,
     name,
@@ -30,7 +30,11 @@ const SelectField = ({
 
     return (
         <>
-            <label htmlFor={name} className="form-label">
+            <label
+                htmlFor={name}
+                className="form-label"
+                aria-label="Default select example"
+            >
                 {label}
             </label>
             <select
@@ -56,7 +60,7 @@ const SelectField = ({
     );
 };
 
-SelectField.propTypes = {
+SelectFieldAdmin.propTypes = {
     label: PropTypes.string,
     value: PropTypes.string,
     name: PropTypes.string,
@@ -66,4 +70,4 @@ SelectField.propTypes = {
     error: PropTypes.string
 };
 
-export default SelectField;
+export default SelectFieldAdmin;
