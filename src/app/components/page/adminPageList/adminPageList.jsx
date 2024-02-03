@@ -8,16 +8,18 @@ import SearchInput from "../../ui/searchInput";
 import _ from "lodash";
 import NavBar from "../../ui/navBar";
 import AdminTable from "../../ui/adminTable";
-import AddEditForm from "../../ui/adminForm";
+import AdminForm from "../../ui/adminForm";
 
-const AdminPageList = () => {
+const AdminPageList = ({ prodId }) => {
+    console.log(prodId);
     const [currentPage, setCurrentPage] = useState(1);
     const [categories, setCategories] = useState();
     const [searchQuery, setSearchQuery] = useState("");
     const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
-    const pageSize = 8;
+    const pageSize = 25;
 
-    const [products, setProducts] = useState();
+    const [products, setProducts] = useState("");
+    const [product, setProduct] = useState("");
 
     useEffect(() => {
         api.products.fetchAll().then((data) => setProducts(data));
@@ -25,6 +27,10 @@ const AdminPageList = () => {
 
     const handleDelete = (prodId) => {
         setProducts(products.filter((product) => product.id !== prodId));
+    };
+    const handleClick = () => {
+        api.products.getById(prodId).then((data) => setProduct(data));
+        // history.push(history.location.pathname + "/edit");
     };
 
     useEffect(() => {
@@ -97,7 +103,11 @@ const AdminPageList = () => {
                                             Блок для добавления или
                                             редактирования товара
                                         </h6>
-                                        <AddEditForm />
+                                        <AdminForm
+                                            product={product}
+                                            prodId={prodId}
+                                            handleClick={handleClick}
+                                        />
                                     </div>
                                 </div>
                             </>
@@ -129,7 +139,9 @@ const AdminPageList = () => {
 };
 
 AdminPageList.propTypes = {
-    products: PropTypes.array
+    products: PropTypes.array,
+    product: PropTypes.array,
+    prodId: PropTypes.string
 };
 
 export default AdminPageList;

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const SelectField = ({
+const SelectFieldAdmin = ({
     label,
     value,
     name,
@@ -23,7 +23,7 @@ const SelectField = ({
     const optionsArray =
         !Array.isArray(options) && typeof options === "object"
             ? Object.keys(options).map((optionName) => ({
-                  name: options[optionName].name,
+                  label: options[optionName].name,
                   value: options[optionName].id
               }))
             : options;
@@ -56,9 +56,9 @@ const SelectField = ({
     );
 };
 
-SelectField.propTypes = {
+SelectFieldAdmin.propTypes = {
     label: PropTypes.string,
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     name: PropTypes.string,
     onChange: PropTypes.func,
     defaultOption: PropTypes.string,
@@ -66,4 +66,4 @@ SelectField.propTypes = {
     error: PropTypes.string
 };
 
-export default SelectField;
+export default SelectFieldAdmin;

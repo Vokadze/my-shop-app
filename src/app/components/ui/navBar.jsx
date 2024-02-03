@@ -30,11 +30,7 @@ const NavBar = ({ countCartItems }) => {
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link
-                        className="nav-link"
-                        aria-current="page"
-                        to="/adminPage"
-                    >
+                    <Link className="nav-link" aria-current="page" to="/admin">
                         Admin
                     </Link>
                 </li>
