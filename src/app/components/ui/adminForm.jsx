@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { useParams, useHistory } from "react-router-dom";
 
 import api from "../../api";
@@ -16,20 +17,26 @@ const AdminForm = () => {
     const [data, setData] = useState({
         id: "",
         name: "",
-        categor: "",
+        category: "",
         price: "",
         count: "",
         image: ""
     });
     console.log(data);
-    const [categories, setCategories] = useState({});
+    const [categories, setCategories] = useState([]);
     console.log(categories);
+    const [products, setProducts] = useState([]);
+    console.log(products);
     // const [errors, setErrors] = useState({});
 
     useEffect(() => {
-        api.categories.fetchAll().then((data) => setCategories(data));
-        api.categories.fetchAll(prodId).then((data) => setCategories(data));
+        api.products.fetchAll().then((data) => setProducts(data));
     }, []);
+
+    useEffect(() => {
+        // api.categories.fetchAll().then((data) => setCategories(data));
+        api.categories.fetchAll(prodId).then((data) => setCategories(data));
+    }, [prodId]);
 
     // useEffect(() => {
     //     console.log(categories);
@@ -38,7 +45,7 @@ const AdminForm = () => {
     const getCategoryById = (id) => {
         for (const categ of categories) {
             if (categ.value === id) {
-                return { id: categ.value, name: categ.name };
+                return { id: categ.value, name: categ.label };
             }
         }
     };
@@ -54,6 +61,11 @@ const AdminForm = () => {
                 category: getCategoryById(category)
             })
             .then((data) => history.push(`/admin/${data.id}`));
+
+        localStorage.setItem(
+            "products",
+            JSON.stringify([...products, { ...data }])
+        );
         console.log({ ...data, category: getCategoryById(category) });
         console.log(data);
     };
@@ -61,21 +73,22 @@ const AdminForm = () => {
     useEffect(() => {
         setIsLoading(true);
         if (prodId) {
-            api.products.getById(prodId).then(({ categor, ...data }) => {
+            api.products.getById(prodId).then(({ category, ...data }) => {
                 setData((prevState) => ({
                     ...prevState,
                     ...data,
-                    category: categories.id
+                    category: category.id
                 }));
             });
         } else {
-            api.products.getById(prodId).then((...data) => {
+            api.products.getById().then((...data) => {
                 setData((prevState) => ({
                     ...prevState,
                     ...data
                 }));
             });
         }
+        // api.categories.fetchAll().then((data)=>setCategories(data))
         api.categories.fetchAll().then((data) => {
             const categoryList = Object.keys(data).map((categoryName) => ({
                 name: data[categoryName].name,
@@ -84,7 +97,7 @@ const AdminForm = () => {
             setCategories(categoryList);
         });
         console.log(data);
-    }, []);
+    }, [prodId]);
 
     useEffect(() => {
         if (data) {
@@ -128,7 +141,7 @@ const AdminForm = () => {
     // };
 
     // const isValid = Object.keys(errors).length === 0;
-
+    // if (!data.length > 0) {
     return (
         <>
             {!isLoading && Object.keys(categories).length > 0 ? (
@@ -145,10 +158,10 @@ const AdminForm = () => {
                     />
                     <SelectFieldAdmin
                         defaultOption="categories"
-                        name="categor"
+                        name="category"
                         options={categories}
                         onChange={handleChange}
-                        value={data.categor?.id}
+                        value={data.category}
                     />
                     <TextFieldAdmin
                         name="price"
@@ -178,6 +191,13 @@ const AdminForm = () => {
             )}
         </>
     );
+    // } else {
+    //     return "Loading AdminForm.jsx";
+    // }
+};
+
+AdminForm.propTypes = {
+    products: PropTypes.array
 };
 
 export default AdminForm;

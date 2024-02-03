@@ -23,18 +23,14 @@ const SelectFieldAdmin = ({
     const optionsArray =
         !Array.isArray(options) && typeof options === "object"
             ? Object.keys(options).map((optionName) => ({
-                  name: options[optionName].name,
+                  label: options[optionName].name,
                   value: options[optionName].id
               }))
             : options;
 
     return (
         <>
-            <label
-                htmlFor={name}
-                className="form-label"
-                aria-label="Default select example"
-            >
+            <label htmlFor={name} className="form-label">
                 {label}
             </label>
             <select
@@ -62,7 +58,7 @@ const SelectFieldAdmin = ({
 
 SelectFieldAdmin.propTypes = {
     label: PropTypes.string,
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     name: PropTypes.string,
     onChange: PropTypes.func,
     defaultOption: PropTypes.string,

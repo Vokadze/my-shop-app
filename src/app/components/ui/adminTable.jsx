@@ -2,17 +2,30 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link, useHistory } from "react-router-dom";
 import Table from "../common/table/tableAdmin";
+// import api from "../../api";
 
 const AdminTable = ({
     products,
     categories,
     handleDelete,
     selectedSort,
-    onSort
+    onSort,
+    prodId
 }) => {
     console.log("adminTable.jsx products", products);
     console.log("AdminTable", categories);
     const history = useHistory();
+
+    // const [productId, setProductId] = useState();
+    // console.log(productId);
+
+    // useEffect(() => {
+    //     api.products.getById(prodId).then((data) => setProductId(data));
+    // }, [productId]);
+
+    // const handleClick = () => {
+    //     history.push(history.location.pathname + "/edit");
+    // };
 
     const handleClick = () => {
         history.push(history.location.pathname + "/edit");
@@ -44,14 +57,14 @@ const AdminTable = ({
             )
         },
         category: {
-            path: "product.category.name",
+            path: "category.name",
             name: "Категория",
             component: (product) => (
                 <span
                     className="badge text-dark w-100 text-center border border-warning p-2"
                     style={{ background: "#dee2e6" }}
                 >
-                    {product.category?.name}
+                    {product.category.name}
                 </span>
             )
         },
@@ -101,10 +114,7 @@ const AdminTable = ({
                     className="badge text-dark w-100 text-start border border-warning p-2"
                     style={{ background: "#dee2e6" }}
                 >
-                    <Link
-                        to={`/admin/${product.id}`}
-                        onClick={() => handleClick()}
-                    >
+                    <Link to={`/admin/${product.id}`} onClick={handleClick}>
                         <i
                             className="bi bi-pencil m-2"
                             style={{
@@ -143,7 +153,11 @@ AdminTable.propTypes = {
     categories: PropTypes.object,
     handleDelete: PropTypes.func,
     selectedSort: PropTypes.object.isRequired,
-    onSort: PropTypes.func
+    onSort: PropTypes.func,
+    prodId: PropTypes.oneOfType([
+        PropTypes.string.isRequired,
+        PropTypes.object.isRequired
+    ])
 };
 
 export default AdminTable;

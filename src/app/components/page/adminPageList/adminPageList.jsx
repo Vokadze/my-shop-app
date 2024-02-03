@@ -16,7 +16,7 @@ const AdminPageList = ({ prodId }) => {
     const [categories, setCategories] = useState();
     const [searchQuery, setSearchQuery] = useState("");
     const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
-    const pageSize = 8;
+    const pageSize = 25;
 
     const [products, setProducts] = useState("");
     const [product, setProduct] = useState("");
@@ -30,7 +30,7 @@ const AdminPageList = ({ prodId }) => {
     };
     const handleClick = () => {
         api.products.getById(prodId).then((data) => setProduct(data));
-        history.push(history.location.pathname + "/edit");
+        // history.push(history.location.pathname + "/edit");
     };
 
     useEffect(() => {

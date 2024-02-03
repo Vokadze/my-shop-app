@@ -14,9 +14,9 @@ const App = () => {
         <div style={{ background: "#e9ecef" }}>
             <NavBar />
             <Switch>
-                <Route path="/admin/:prodId?/:edit?" component={Admin} />
                 <Route path="/products/:prodId?" component={Products} />
                 <Route path="/login/:type?" component={Login} />
+                <Route path="/admin/:prodId?" component={Admin} />
                 {/* <Route path="/adminPagelist" component={AdminPageList} /> */}
                 <Route path="/basket" component={Basket} />
                 <Route path="/" exact component={Main} />

@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 
 import AdminPageList from "../components/page/adminPageList/adminPageList";
 // import AdminForm from "../components/ui/adminForm";
-import AddAdminPage from "../components/page/adminPageList/addAdminPage";
+// import AddAdminPage from "../components/page/adminPageList/addAdminPage";
 
 const Admin = () => {
     const params = useParams();
@@ -25,13 +25,9 @@ const Admin = () => {
         <>
             {prodId ? (
                 edit ? (
-                    <AdminPageList
-                        prodId={prodId}
-                        // product={product}
-                        // handleClick={handleClick}
-                    />
+                    <AdminPageList prodId={prodId} />
                 ) : (
-                    <AddAdminPage prodId={prodId} />
+                    <AdminPageList prodId={prodId} />
                 )
             ) : (
                 <AdminPageList />
