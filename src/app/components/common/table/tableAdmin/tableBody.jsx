@@ -13,15 +13,25 @@ const TableBody = ({ data, columns }) => {
         }
         return _.get(item, columns[column].path);
     };
+
     return (
         <tbody>
-            {data.map((item) => (
-                <tr key={item.id}>
-                    {Object.keys(columns).map((column) => (
-                        <td key={column}>{renderContent(item, column)}</td>
-                    ))}
-                </tr>
-            ))}
+            <>
+                {data.map((item) => (
+                    <tr key={item.id}>
+                        {Object.keys(columns).map((column) => (
+                            <td key={column}>
+                                <span
+                                    className="badge text-dark w-100 text-center border border-warning p-2"
+                                    style={{ background: "#dee2e6" }}
+                                >
+                                    {renderContent(item, column)}
+                                </span>
+                            </td>
+                        ))}
+                    </tr>
+                ))}
+            </>
         </tbody>
     );
 };
