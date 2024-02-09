@@ -18,16 +18,13 @@ const Admin = () => {
     //     api.products.update(prodId).then((data) => setProduct(data));
     // }, []);
 
-    // const handleClick = () => {
-    //     history.push(history.location.pathname + "/edit");
-    // };
     return (
         <>
             {prodId ? (
                 edit ? (
                     <AdminPageList prodId={prodId} />
                 ) : (
-                    <AdminPageList prodId={prodId} />
+                    <AdminPageList />
                 )
             ) : (
                 <AdminPageList />

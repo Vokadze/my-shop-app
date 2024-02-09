@@ -14,23 +14,6 @@ const AdminTable = ({
 }) => {
     console.log("adminTable.jsx products", products);
     console.log("AdminTable", categories);
-    // const history = useHistory();
-
-    // const [productId, setProductId] = useState();
-    // console.log(productId);
-
-    // useEffect(() => {
-    //     api.products.getById(prodId).then((data) => setProductId(data));
-    // }, [productId]);
-
-    // const handleClick = () => {
-    //     history.push(history.location.pathname + "/edit");
-    // };
-
-    // const handleClick = (prodId) => {
-    //     history.push(history.location.pathname + "/edit");
-    //     console.log("prodId", prodId);
-    // };
 
     const columns = {
         id: {
@@ -40,6 +23,14 @@ const AdminTable = ({
         name: {
             path: "name",
             name: "Наименование"
+            // component: (product) => (
+            //     <span
+            //         className="text-dark w-100 text-start"
+            //         style={{ background: "#dee2e6" }}
+            //     >
+            //         {product.name}
+            //     </span>
+            // )
         },
         category: {
             path: "category.name",
@@ -54,7 +45,6 @@ const AdminTable = ({
             name: "Стоимость"
         },
         url: {
-            // path: "image",
             name: "Фото",
             component: (product) => (
                 <span>
@@ -69,7 +59,10 @@ const AdminTable = ({
             name: "Действия",
             component: (product) => (
                 <span>
-                    <Link to={`/admin/${product.id}`} onClick={handleClick}>
+                    <Link
+                        to={`/admin/${product.id}/edit`}
+                        onClick={handleClick}
+                    >
                         <i
                             className="bi bi-pencil m-2"
                             style={{
