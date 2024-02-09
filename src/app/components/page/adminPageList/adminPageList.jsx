@@ -8,7 +8,9 @@ import SearchInput from "../../ui/searchInput";
 import _ from "lodash";
 import NavBar from "../../ui/navBar";
 import AdminTable from "../../ui/adminTable";
-import AdminForm from "../../ui/adminForm";
+// import AdminForm from "../../ui/adminForm";
+import AdminFormChange from "../../ui/adminFormChange";
+import AdminFormAdd from "../../ui/adminFormAdd";
 
 const AdminPageList = ({ prodId }) => {
     console.log(prodId);
@@ -103,11 +105,23 @@ const AdminPageList = ({ prodId }) => {
                                         Блок для добавления или редактирования
                                         товара
                                     </h6>
-                                    <AdminForm
+                                    {!prodId ? (
+                                        <AdminFormChange
+                                            prodId={prodId}
+                                            product={product}
+                                            handleClick={handleClick}
+                                        />
+                                    ) : (
+                                        <AdminFormAdd
+                                            product={product}
+                                            // handleClick={handleClick}
+                                        />
+                                    )}
+                                    {/* <AdminForm
                                         product={product}
                                         prodId={prodId}
                                         handleClick={handleClick}
-                                    />
+                                    /> */}
                                 </div>
                             </div>
                         </>
