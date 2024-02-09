@@ -15,7 +15,7 @@ export const categories = [
 const fetchAll = () =>
     new Promise((resolve) => {
         window.setTimeout(function () {
-            resolve(categoriesObject);
+            resolve(categories);
         }, 2000);
     });
 

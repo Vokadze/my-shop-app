@@ -13,10 +13,10 @@ import AdminForm from "../../ui/adminForm";
 const AdminPageList = ({ prodId }) => {
     console.log(prodId);
     const [currentPage, setCurrentPage] = useState(1);
-    const [categories, setCategories] = useState();
+    // const [categories, setCategories] = useState();
     const [searchQuery, setSearchQuery] = useState("");
-    const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
-    const pageSize = 25;
+    const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
+    const pageSize = 4;
 
     const [products, setProducts] = useState("");
     const [product, setProduct] = useState("");
@@ -33,9 +33,9 @@ const AdminPageList = ({ prodId }) => {
         // history.push(history.location.pathname + "/edit");
     };
 
-    useEffect(() => {
-        api.categories.fetchAll().then((data) => setCategories(data));
-    }, []);
+    // useEffect(() => {
+    //     api.categories.fetchAll().then((data) => setCategories(data));
+    // }, []);
 
     useEffect(() => {
         setCurrentPage(1);
@@ -68,7 +68,7 @@ const AdminPageList = ({ prodId }) => {
 
         const sortedProducts = _.orderBy(
             filteredProducts,
-            ["name"],
+            [sortBy.path],
             [sortBy.order]
         );
 
@@ -89,29 +89,29 @@ const AdminPageList = ({ prodId }) => {
                         />
                     </div>
                     <div className="d-flex flex-row">
-                        {categories && (
-                            <>
-                                <div
-                                    className="card text-center border border-warning"
-                                    style={{
-                                        width: "14rem",
-                                        background: "#dee2e6"
-                                    }}
-                                >
-                                    <div className="card-body">
-                                        <h6 className="card-title">
-                                            Блок для добавления или
-                                            редактирования товара
-                                        </h6>
-                                        <AdminForm
-                                            product={product}
-                                            prodId={prodId}
-                                            handleClick={handleClick}
-                                        />
-                                    </div>
+                        {/* {categories && ( */}
+                        <>
+                            <div
+                                className="card text-center border border-warning"
+                                style={{
+                                    width: "14rem",
+                                    background: "#dee2e6"
+                                }}
+                            >
+                                <div className="card-body">
+                                    <h6 className="card-title">
+                                        Блок для добавления или редактирования
+                                        товара
+                                    </h6>
+                                    <AdminForm
+                                        product={product}
+                                        prodId={prodId}
+                                        handleClick={handleClick}
+                                    />
                                 </div>
-                            </>
-                        )}
+                            </div>
+                        </>
+                        {/* )} */}
                         <div className="d-flex flex-column justify-content-between">
                             <div className="container px-0 m-0">
                                 <AdminTable

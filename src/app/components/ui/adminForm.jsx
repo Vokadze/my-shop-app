@@ -8,50 +8,52 @@ import TextFieldAdmin from "../common/form/textFieldAdmin";
 // import { validator } from "../../utils/validator";
 import SelectFieldAdmin from "../common/form/selectFieldAdmin";
 
+const initialState = {
+    id: "",
+    name: "",
+    category: "",
+    price: "",
+    count: "",
+    image: ""
+};
+
 const AdminForm = () => {
     const { prodId } = useParams();
-    console.log(prodId);
+    // console.log(prodId);
     const history = useHistory();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [data, setData] = useState({
-        id: "",
-        name: "",
-        category: "",
-        price: "",
-        count: "",
-        image: ""
-    });
-    console.log(data);
-    const [categories, setCategories] = useState([]);
-    console.log(categories);
+    const [data, setData] = useState(initialState);
+    // console.log(data);
+    const [categoriesList, setCategoriesList] = useState([]);
+    // console.log(categoriesList);
     const [products, setProducts] = useState([]);
-    console.log(products);
+    // console.log(products);
     // const [errors, setErrors] = useState({});
 
     useEffect(() => {
-        api.products.fetchAll().then((data) => setProducts(data));
-    }, []);
-
-    useEffect(() => {
-        // api.categories.fetchAll().then((data) => setCategories(data));
-        api.categories.fetchAll(prodId).then((data) => setCategories(data));
+        api.products.getById(prodId).then((data) => setProducts(data));
     }, [prodId]);
+
+    // useEffect(() => {
+    //     api.categories.fetchAll().then((data) => setCategories(data));
+    //     // api.categories.fetchAll(prodId).then((data) => setCategories(data));
+    // }, [prodId]);
 
     // useEffect(() => {
     //     console.log(categories);
     // }, [categories]);
 
     const getCategoryById = (id) => {
-        for (const categ of categories) {
-            if (categ.value === id) {
-                return { id: categ.value, name: categ.label };
+        for (const categori of categoriesList) {
+            if (categori.value === id) {
+                return { id: categori.value, name: categori.name };
             }
         }
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault(e.target.name);
+        e.preventDefault();
         // const isValid = validator();
         // if (!isValid) return;
         const { category } = data;
@@ -62,47 +64,41 @@ const AdminForm = () => {
             })
             .then((data) => history.push(`/admin/${data.id}`));
 
-        localStorage.setItem(
-            "products",
-            JSON.stringify([...products, { ...data }])
-        );
-        console.log({ ...data, category: getCategoryById(category) });
-        console.log(data);
+        console.log({ category: getCategoryById(category), ...data });
     };
 
     useEffect(() => {
         setIsLoading(true);
-        if (prodId) {
-            api.products.getById(prodId).then(({ category, ...data }) => {
-                setData((prevState) => ({
-                    ...prevState,
-                    ...data,
-                    category: category.id
-                }));
-            });
-        } else {
-            api.products.getById().then((...data) => {
-                setData((prevState) => ({
-                    ...prevState,
-                    ...data
-                }));
-            });
-        }
-        // api.categories.fetchAll().then((data)=>setCategories(data))
+        api.products.getById(prodId).then((category, ...data) => {
+            setData((prevState) => ({
+                ...prevState,
+                ...data,
+                ...category
+            }));
+        });
+
         api.categories.fetchAll().then((data) => {
             const categoryList = Object.keys(data).map((categoryName) => ({
                 name: data[categoryName].name,
                 value: data[categoryName].id
             }));
-            setCategories(categoryList);
+            setCategoriesList(categoryList);
         });
-        console.log(data);
-    }, [prodId]);
+
+        // if (data.length === "") {
+        //     localStorage.setItem(
+        //         "products",
+        //         JSON.stringify([...products, { ...data }])
+        //     );
+        //     console.log(data);
+        // }
+
+        // if (data) setIsLoading(false);
+        // console.log(data);
+    }, [prodId, products]);
 
     useEffect(() => {
-        if (data) {
-            setIsLoading(false);
-        } else if (data.id) setIsLoading(false);
+        if (data) setIsLoading(false);
     }, [data]);
 
     // const validatorConfig = {
@@ -134,21 +130,21 @@ const AdminForm = () => {
     };
 
     // const validate = () => {
-    //     const formErrors = validator(data, validatorConfig);
+    //     const formErrors = validator(data);
 
     //     setErrors(formErrors);
     //     return Object.keys(errors).length === 0;
     // };
 
-    // const isValid = Object.keys(errors).length === 0;
-    // if (!data.length > 0) {
+    // const isValid = Object.keys().length === 0;
+
     return (
         <>
-            {!isLoading && Object.keys(categories).length > 0 ? (
+            {!isLoading && Object.keys(categoriesList).length > 0 ? (
                 <form onSubmit={handleSubmit}>
                     <TextFieldAdmin
                         name="id"
-                        value={data.id}
+                        value={data.id || data.value}
                         onChange={handleChange}
                     />
                     <TextFieldAdmin
@@ -159,9 +155,9 @@ const AdminForm = () => {
                     <SelectFieldAdmin
                         defaultOption="categories"
                         name="category"
-                        options={categories}
-                        onChange={handleChange}
                         value={data.category}
+                        options={categoriesList}
+                        onChange={handleChange}
                     />
                     <TextFieldAdmin
                         name="price"
@@ -191,9 +187,6 @@ const AdminForm = () => {
             )}
         </>
     );
-    // } else {
-    //     return "Loading AdminForm.jsx";
-    // }
 };
 
 AdminForm.propTypes = {

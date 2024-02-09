@@ -23,8 +23,8 @@ const SelectFieldAdmin = ({
     const optionsArray =
         !Array.isArray(options) && typeof options === "object"
             ? Object.keys(options).map((optionName) => ({
-                  label: options[optionName].name,
-                  value: options[optionName].id
+                  value: options[optionName].name,
+                  id: options[optionName].id
               }))
             : options;
 

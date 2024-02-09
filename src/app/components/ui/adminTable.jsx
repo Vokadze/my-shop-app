@@ -1,105 +1,53 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link, useHistory } from "react-router-dom";
-import Table from "../common/table/tableAdmin";
-// import api from "../../api";
+import { Link } from "react-router-dom";
+import Table, { TableBody, TableHeader } from "../common/table/tableAdmin";
 
 const AdminTable = ({
     products,
     categories,
     handleDelete,
+    handleClick,
     selectedSort,
     onSort,
     prodId
 }) => {
     console.log("adminTable.jsx products", products);
     console.log("AdminTable", categories);
-    const history = useHistory();
-
-    // const [productId, setProductId] = useState();
-    // console.log(productId);
-
-    // useEffect(() => {
-    //     api.products.getById(prodId).then((data) => setProductId(data));
-    // }, [productId]);
-
-    // const handleClick = () => {
-    //     history.push(history.location.pathname + "/edit");
-    // };
-
-    const handleClick = () => {
-        history.push(history.location.pathname + "/edit");
-    };
 
     const columns = {
         id: {
             path: "id",
-            name: "№",
-            component: (product) => (
-                <span
-                    className="badge text-dark w-100 text-center border border-warning p-2"
-                    style={{ background: "#dee2e6" }}
-                >
-                    {product.id}
-                </span>
-            )
+            name: "№"
         },
         name: {
             path: "name",
-            name: "Наименование",
-            component: (product) => (
-                <span
-                    className="badge text-dark w-100 text-start border border-warning p-2"
-                    style={{ background: "#dee2e6" }}
-                >
-                    {product.name}
-                </span>
-            )
+            name: "Наименование"
+            // component: (product) => (
+            //     <span
+            //         className="text-dark w-100 text-start"
+            //         style={{ background: "#dee2e6" }}
+            //     >
+            //         {product.name}
+            //     </span>
+            // )
         },
         category: {
             path: "category.name",
-            name: "Категория",
-            component: (product) => (
-                <span
-                    className="badge text-dark w-100 text-center border border-warning p-2"
-                    style={{ background: "#dee2e6" }}
-                >
-                    {product.category.name}
-                </span>
-            )
+            name: "Категория"
         },
         count: {
             path: "count",
-            name: "Количество",
-            component: (product) => (
-                <span
-                    className="badge text-dark w-100 text-center border border-warning p-2"
-                    style={{ background: "#dee2e6" }}
-                >
-                    {product.count}
-                </span>
-            )
+            name: "Количество"
         },
         price: {
             path: "price",
-            name: "Стоимость",
-            component: (product) => (
-                <span
-                    className="badge text-dark w-100 text-center border border-warning p-2"
-                    style={{ background: "#dee2e6" }}
-                >
-                    {product.price}
-                </span>
-            )
+            name: "Стоимость"
         },
         url: {
-            path: "image",
             name: "Фото",
             component: (product) => (
-                <span
-                    className="badge text-dark w-100 text-center border border-warning p-2"
-                    style={{ background: "#dee2e6" }}
-                >
+                <span>
                     <Link to={product.image} role="button">
                         url
                     </Link>
@@ -107,14 +55,14 @@ const AdminTable = ({
             )
         },
         actions: {
-            path: "id",
+            // path: "id",
             name: "Действия",
             component: (product) => (
-                <span
-                    className="badge text-dark w-100 text-start border border-warning p-2"
-                    style={{ background: "#dee2e6" }}
-                >
-                    <Link to={`/admin/${product.id}`} onClick={handleClick}>
+                <span>
+                    <Link
+                        to={`/admin/${product.id}/edit`}
+                        onClick={handleClick}
+                    >
                         <i
                             className="bi bi-pencil m-2"
                             style={{
@@ -139,12 +87,17 @@ const AdminTable = ({
     };
 
     return (
-        <Table
-            onSort={onSort}
-            selectedSort={selectedSort}
-            columns={columns}
-            data={products}
-        />
+        <>
+            <Table
+                onSort={onSort}
+                selectedSort={selectedSort}
+                columns={columns}
+                data={products}
+            >
+                <TableHeader {...{ onSort, selectedSort, columns }} />
+                <TableBody {...{ data: products }} columns={columns} />
+            </Table>
+        </>
     );
 };
 
@@ -152,6 +105,7 @@ AdminTable.propTypes = {
     products: PropTypes.array,
     categories: PropTypes.object,
     handleDelete: PropTypes.func,
+    handleClick: PropTypes.func,
     selectedSort: PropTypes.object.isRequired,
     onSort: PropTypes.func,
     prodId: PropTypes.oneOfType([

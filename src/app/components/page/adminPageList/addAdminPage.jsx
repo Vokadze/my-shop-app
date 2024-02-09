@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import api from "../../../api";
 
 const AddAdminPage = ({ prodId }) => {
     console.log(prodId);
-    const history = useHistory();
+    // const history = useHistory();
     const [product, setProduct] = useState();
 
     useEffect(() => {
         api.products.getById(prodId).then((data) => setProduct(data));
     }, []);
 
-    const handleClick = () => {
-        history.push(history.location.pathname + "/edit");
-    };
+    // const handleClick = () => {
+    //         history.push(history.location.pathname + "/edit");
+    //     }
+    //     return history.push("/admin");
+    // };
 
     if (product) {
         return (
