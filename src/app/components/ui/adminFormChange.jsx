@@ -19,11 +19,6 @@ const AdminFormChange = () => {
         price: "",
         count: "",
         image: ""
-        // email: "",
-        // password: ""
-        // categor: "",
-        // sex: "male",
-        // licence: false
     });
     const [categoriesList, setCategoriesList] = useState([]);
     // const [errors, setErrors] = useState({});

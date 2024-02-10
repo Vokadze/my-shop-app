@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-// import { useHistory } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
 import api from "../../api";
 
-// import { validator } from "../../utils/validator";
+import { validator } from "../../utils/validator";
 import TextFieldAdmin from "../common/form/textFieldAdmin";
 import SelectFieldAdmin from "../common/form/selectFieldAdmin";
 
 const AdminFormAdd = () => {
+    // const { prodId } = useParams();
     // const history = useHistory();
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState({
@@ -24,7 +25,7 @@ const AdminFormAdd = () => {
     const [categoriesList, setCategoriesList] = useState([]);
     const [products, setProducts] = useState({});
     console.log(products);
-    // const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         api.products.fetchAll().then((data) => setProducts(data));
@@ -48,8 +49,8 @@ const AdminFormAdd = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // const isValid = validate();
-        // if (!isValid) return;
+        const isValid = validate();
+        if (!isValid) return;
         const { category } = data;
         api.products.update({
             ...data,
@@ -98,53 +99,41 @@ const AdminFormAdd = () => {
         console.log(target.name);
     };
 
-    // const validatorConfig = {
-    //     email: {
-    //         isRequired: {
-    //             message: "Электронная почта обязательна для заполнения"
-    //         },
-    //         isEmail: {
-    //             message: "Email введен не корректно"
-    //         }
-    //     },
-    //     password: {
-    //         isRequired: { message: "Пароль обязателен для заполнения" },
-    //         isCapitalSymbol: {
-    //             message: "Пароль должен содержать хотя бы одну заглавную букву"
-    //         },
-    //         isContainDigit: {
-    //             message: "Пароль должен содержать хотя бы одну цифру"
-    //         },
-    //         min: {
-    //             message: "Пароль должен состоять минимум из 8 символов",
-    //             value: 8
-    //         }
-    //     },
-    //     categor: {
-    //         isRequired: {
-    //             message: "Обязательно выберите категорию товара"
-    //         }
-    //     },
-    //     licence: {
-    //         isRequired: {
-    //             message:
-    //                 "Вы не можете использовать наш сервис без подтверждения лицензионного соглашения"
-    //         }
-    //     }
-    // };
+    const validatorConfig = {
+        // id: {
+        //     isRequired: { message: "Введите порядковый номер продукта" }
+        // },
+        // name: {
+        //     isRequired: { message: "Введите название продукта" }
+        // },
+        category: {
+            isRequired: {
+                message: "Выберите категорию товара"
+            }
+        }
+        // price: {
+        //     isRequired: { message: "Введите стоимость продукта" }
+        // },
+        // count: {
+        //     isRequired: { message: "Введите количество продукта" }
+        // },
+        // image: {
+        //     isRequired: { message: "Введите url продукта" }
+        // }
+    };
 
-    // useEffect(() => {
-    //     validate();
-    // }, [data]);
+    useEffect(() => {
+        validate();
+    }, [data]);
 
-    // const validate = () => {
-    //     const errors = validator(data, validatorConfig);
+    const validate = () => {
+        const errors = validator(data, validatorConfig);
 
-    //     setErrors(errors);
-    //     return Object.keys(errors).length === 0;
-    // };
+        setErrors(errors);
+        return Object.keys(errors).length === 0;
+    };
 
-    // const isValid = Object.keys(errors).length === 0;
+    const isValid = Object.keys(errors).length === 0;
 
     return (
         <>
@@ -153,14 +142,15 @@ const AdminFormAdd = () => {
                     <TextFieldAdmin
                         // label="Электронная почта"
                         name="id"
-                        value={data.id}
                         onChange={handleChange}
-                        // error={errors.name}
+                        value={data.id}
+                        // error={errors.id}
                     />
                     <TextFieldAdmin
                         name="name"
-                        value={data.name}
                         onChange={handleChange}
+                        value={data.name}
+                        // error={errors.name}
                     />
                     <SelectFieldAdmin
                         // label="Выберите категорию товара"
@@ -169,28 +159,31 @@ const AdminFormAdd = () => {
                         options={categoriesList}
                         onChange={handleChange}
                         value={data.category}
-                        // error={errors.categor}
+                        error={errors.category}
                     />
                     <TextFieldAdmin
                         name="price"
-                        value={data.price}
                         onChange={handleChange}
+                        value={data.price}
+                        // error={errors.price}
                     />
                     <TextFieldAdmin
                         name="count"
-                        value={data.count}
                         onChange={handleChange}
+                        value={data.count}
+                        // error={errors.count}
                     />
                     <TextFieldAdmin
                         name="image"
-                        value={data.image}
                         onChange={handleChange}
+                        value={data.image}
+                        // error={errors.image}
                     />
 
                     <button
                         type="submit"
-                        // disabled={!isValid}
-                        className="btn btn-primary w-100 mx-auto"
+                        disabled={!isValid}
+                        className="btn btn-primary w-100 mx-auto mt-3"
                     >
                         Add
                     </button>

@@ -16,7 +16,7 @@ const TextFieldAdmin = ({ label, name, value, onChange }) => {
                     name={name}
                     value={value}
                     onChange={handleChange}
-                    className="form-control border border-warning"
+                    className="form-control border border-warning mt-0 mb-0"
                     style={{ background: "#dee2e6" }}
                     placeholder={name}
                 />
