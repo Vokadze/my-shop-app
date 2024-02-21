@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Table, { TableBody, TableHeader } from "../common/table/tableAdmin";
+import Category from "./category";
 
 const AdminTable = ({
     products,
@@ -33,8 +34,11 @@ const AdminTable = ({
             // )
         },
         category: {
-            path: "category.name",
-            name: "Категория"
+            // path: "category.name",
+            name: "Категория",
+            component: (product) => {
+                <Category id={product.category} />;
+            }
         },
         count: {
             path: "count",
