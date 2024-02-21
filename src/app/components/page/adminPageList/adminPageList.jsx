@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { paginate } from "../../../utils/paginate";
 import Pagination from "../../common/pagination";
-import api from "../../../api";
+// import api from "../../../api";
 import SearchInput from "../../ui/searchInput";
 
 import _ from "lodash";
@@ -11,6 +11,8 @@ import AdminTable from "../../ui/adminTable";
 // import AdminForm from "../../ui/adminForm";
 import AdminFormChange from "../../ui/adminFormChange";
 import AdminFormAdd from "../../ui/adminFormAdd";
+import { useProduct } from "../../../hook/useProducts";
+import { useCategories } from "../../../hook/useCategory";
 
 const AdminPageList = ({ prodId }) => {
     console.log(prodId);
@@ -20,19 +22,28 @@ const AdminPageList = ({ prodId }) => {
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
     const pageSize = 4;
 
-    const [products, setProducts] = useState("");
-    const [product, setProduct] = useState("");
+    // const [products, setProducts] = useState("");
+    // const [product, setProduct] = useState("");
 
-    useEffect(() => {
-        api.products.fetchAll().then((data) => setProducts(data));
-    }, []);
+    const { products } = useProduct();
+    console.log(products);
+
+    const { product } = useProduct();
+
+    const { categories } = useCategories();
+
+    // useEffect(() => {
+    //     api.products.fetchAll().then((data) => setProducts(data));
+    // }, []);
 
     const handleDelete = (prodId) => {
-        setProducts(products.filter((product) => product.id !== prodId));
+        // setProducts(products.filter((product) => product.id !== prodId));
+        console.log(prodId);
     };
-    const handleClick = () => {
-        api.products.getById(prodId).then((data) => setProduct(data));
+    const handleClick = (prodId) => {
+        // api.products.getById(prodId).then((data) => setProduct(data));
         // history.push(history.location.pathname + "/edit");
+        console.log(prodId);
     };
 
     // useEffect(() => {
@@ -91,41 +102,41 @@ const AdminPageList = ({ prodId }) => {
                         />
                     </div>
                     <div className="d-flex flex-row">
-                        {/* {categories && ( */}
-                        <>
-                            <div
-                                className="card text-center border border-warning"
-                                style={{
-                                    width: "14rem",
-                                    background: "#dee2e6"
-                                }}
-                            >
-                                <div className="card-body">
-                                    <h6 className="card-title">
-                                        Блок для добавления или редактирования
-                                        товара
-                                    </h6>
-                                    {!prodId ? (
-                                        <AdminFormChange
-                                            prodId={prodId}
-                                            product={product}
-                                            handleClick={handleClick}
-                                        />
-                                    ) : (
-                                        <AdminFormAdd
-                                            product={product}
-                                            // handleClick={handleClick}
-                                        />
-                                    )}
-                                    {/* <AdminForm
+                        {categories && (
+                            <>
+                                <div
+                                    className="card text-center border border-warning"
+                                    style={{
+                                        width: "14rem",
+                                        background: "#dee2e6"
+                                    }}
+                                >
+                                    <div className="card-body">
+                                        <h6 className="card-title">
+                                            Блок для добавления или
+                                            редактирования товара
+                                        </h6>
+                                        {!prodId ? (
+                                            <AdminFormChange
+                                                prodId={prodId}
+                                                product={product}
+                                                handleClick={handleClick}
+                                            />
+                                        ) : (
+                                            <AdminFormAdd
+                                                product={product}
+                                                // handleClick={handleClick}
+                                            />
+                                        )}
+                                        {/* <AdminForm
                                         product={product}
                                         prodId={prodId}
                                         handleClick={handleClick}
                                     /> */}
+                                    </div>
                                 </div>
-                            </div>
-                        </>
-                        {/* )} */}
+                            </>
+                        )}
                         <div className="d-flex flex-column justify-content-between">
                             <div className="container px-0 m-0">
                                 <AdminTable
