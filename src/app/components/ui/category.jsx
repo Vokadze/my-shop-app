@@ -5,11 +5,12 @@ const Category = ({ id }) => {
     console.log(id);
     const { isLoading, getCategories } = useCategories();
     const categor = getCategories(id);
-    console.log("categor.name", categor.name);
 
     if (!isLoading) {
-        return <p>{categor.name}</p>;
+        console.log("categor.name", categor.name);
+        return <p className="m-0">{categor.name}</p>;
     } else return "loading";
+    // return null;
 };
 
 Category.propTypes = {

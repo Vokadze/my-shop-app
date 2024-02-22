@@ -9,13 +9,15 @@ import _ from "lodash";
 import NavBar from "../../ui/navBar";
 import AdminTable from "../../ui/adminTable";
 // import AdminForm from "../../ui/adminForm";
-import AdminFormChange from "../../ui/adminFormChange";
-import AdminFormAdd from "../../ui/adminFormAdd";
+// import AdminFormAdd from "../../ui/adminFormAdd";
 import { useProduct } from "../../../hook/useProducts";
 import { useCategories } from "../../../hook/useCategory";
+import AdminFormEdit from "../../ui/adminFormEdit";
+// import axios from "axios";
+// import configFile from "../../../config.json";
 
-const AdminPageList = ({ prodId }) => {
-    console.log(prodId);
+const AdminPageList = () => {
+    // console.log(prodId);
     const [currentPage, setCurrentPage] = useState(1);
     // const [categories, setCategories] = useState();
     const [searchQuery, setSearchQuery] = useState("");
@@ -34,6 +36,13 @@ const AdminPageList = ({ prodId }) => {
 
     // useEffect(() => {
     //     api.products.fetchAll().then((data) => setProducts(data));
+    // }, []);
+
+    // useEffect(() => {
+    //     const promise = axios
+    //         .get(configFile.apiEndpoint2)
+    //         .then((res) => console.log(res.data));
+    //     console.log(promise);
     // }, []);
 
     const handleDelete = (prodId) => {
@@ -116,18 +125,18 @@ const AdminPageList = ({ prodId }) => {
                                             Блок для добавления или
                                             редактирования товара
                                         </h6>
-                                        {!prodId ? (
-                                            <AdminFormChange
-                                                prodId={prodId}
-                                                product={product}
-                                                handleClick={handleClick}
-                                            />
-                                        ) : (
+                                        {/* {!prodId ? ( */}
+                                        <AdminFormEdit
+                                            // prodId={prodId}
+                                            product={product}
+                                            handleClick={handleClick}
+                                        />
+                                        {/* ) : (
                                             <AdminFormAdd
                                                 product={product}
                                                 // handleClick={handleClick}
                                             />
-                                        )}
+                                        )} */}
                                         {/* <AdminForm
                                         product={product}
                                         prodId={prodId}

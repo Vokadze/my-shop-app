@@ -6,7 +6,7 @@ import api from "../../api";
 import TextFieldAdmin from "../common/form/textFieldAdmin";
 import SelectFieldAdmin from "../common/form/selectFieldAdmin";
 
-const AdminFormChange = () => {
+const AdminFormEdit = () => {
     const { prodId } = useParams();
     // console.log(prodId);
     const history = useHistory();
@@ -198,10 +198,10 @@ const AdminFormChange = () => {
                     </button>
                 </form>
             ) : (
-                "Loading AdminFormChange.jsx"
+                "Loading AdminFormEdit.jsx"
             )}
         </>
     );
 };
 
-export default AdminFormChange;
+export default AdminFormEdit;

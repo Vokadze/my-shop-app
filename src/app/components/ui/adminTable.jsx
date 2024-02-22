@@ -36,9 +36,7 @@ const AdminTable = ({
         category: {
             // path: "category.name",
             name: "Категория",
-            component: (product) => {
-                <Category id={product.category} />;
-            }
+            component: (product) => <Category id={product.category} />
         },
         count: {
             path: "count",
