@@ -16,20 +16,15 @@ export const CategoryProvider = ({ children }) => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        // if (error !== null) {
-        toast(error);
-        setError(null);
-        // }
+        if (error !== null) {
+            toast(error);
+            setError(null);
+        }
     }, [error]);
 
     useEffect(() => {
         getCategoriesList();
     }, []);
-
-    function getCategories(id) {
-        console.log("getCategories", id);
-        console.log(categories.find((c) => c.id === id));
-    }
 
     function errorCatcher(error) {
         const { message } = error.response.data;
@@ -37,12 +32,15 @@ export const CategoryProvider = ({ children }) => {
         setIsLoading(false);
     }
 
+    function getCategories(id) {
+        return categories.find((c) => c.id === id);
+    }
+
     async function getCategoriesList() {
         try {
-            const content = await categoryService.get();
-            console.log(content);
+            const { content } = await categoryService.get();
             setCategories(content);
-            // setIsLoading(false);
+            setIsLoading(false);
         } catch (error) {
             errorCatcher(error);
         }

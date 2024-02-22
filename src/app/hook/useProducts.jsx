@@ -41,7 +41,7 @@ const ProductProvider = ({ children }) => {
     function errorCatcher(error) {
         const { message } = error.response.data;
         setError(message);
-        // setIsLoading(false);
+        setIsLoading(false);
     }
 
     // function getProductById(prodId) {

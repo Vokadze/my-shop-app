@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import TextField from "../common/form/textField";
 import { validator } from "../../utils/validator";
-import api from "../../api";
+// import api from "../../api";
 import SelectField from "../common/form/selectField";
 import RadioField from "../common/form/radioField";
 import CheckBoxField from "../common/form/checkBoxField";
+import { useCategories } from "../../hook/useCategory";
 
 const RegisterForm = () => {
     const [data, setData] = useState({
@@ -14,12 +15,17 @@ const RegisterForm = () => {
         sex: "male",
         licence: false
     });
-    const [categories, setCategories] = useState();
+    const { categories } = useCategories();
+    console.log(categories);
+    const categoriesList = categories.map((c) => ({
+        label: c.name,
+        value: c.id
+    }));
     const [errors, setErrors] = useState({});
 
-    useEffect(() => {
-        api.categories.fetchAll().then((data) => setCategories(data));
-    }, []);
+    // useEffect(() => {
+    //     api.categories.fetchAll().then((data) => setCategories(data));
+    // }, []);
 
     useEffect(() => {
         console.log(categories);
@@ -110,7 +116,7 @@ const RegisterForm = () => {
                 label="Выберите категорию товара"
                 defaultOption="Choose..."
                 name="categor"
-                options={categories}
+                options={categoriesList}
                 onChange={handleChange}
                 value={data.categor}
                 error={errors.categor}
