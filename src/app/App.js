@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 import Products from "./layouts/products";
 import Login from "./layouts/login";
@@ -11,30 +12,40 @@ import AdminFormAdd from "./components/ui/adminFormAdd";
 import AdminFormEdit from "./components/ui/adminFormEdit";
 import ProductProvider from "./hook/useProducts";
 import { CategoryProvider } from "./hook/useCategory";
+import AuthProvider from "./hook/useAuth";
 // import AdminPageList from "./components/page/adminPageList/adminPageList";
 
 const App = () => {
     return (
         <div style={{ background: "#e9ecef" }}>
-            <NavBar />
-            <ProductProvider>
+            <AuthProvider>
+                <NavBar />
                 <CategoryProvider>
-                    <Switch>
-                        <Route path="/products/:prodId?" component={Products} />
-                        <Route path="/login/:type?" component={Login} />
-                        <Route path="/admin/:prodId?" component={Admin} />
-                        <Route path="/adminFormAdd" component={AdminFormAdd} />
-                        <Route
-                            path="/adminFormChange"
-                            component={AdminFormEdit}
-                        />
-                        {/* <Route path="/adminPagelist" component={AdminPageList} /> */}
-                        <Route path="/basket" component={Basket} />
-                        <Route path="/" exact component={Main} />
-                        <Redirect to="/" />
-                    </Switch>
+                    <ProductProvider>
+                        <Switch>
+                            <Route
+                                path="/products/:prodId?"
+                                component={Products}
+                            />
+                            <Route path="/login/:type?" component={Login} />
+                            <Route path="/admin/:prodId?" component={Admin} />
+                            <Route
+                                path="/adminFormAdd"
+                                component={AdminFormAdd}
+                            />
+                            <Route
+                                path="/adminFormChange"
+                                component={AdminFormEdit}
+                            />
+                            {/* <Route path="/adminPagelist" component={AdminPageList} /> */}
+                            <Route path="/basket" component={Basket} />
+                            <Route path="/" exact component={Main} />
+                            <Redirect to="/" />
+                        </Switch>
+                    </ProductProvider>
                 </CategoryProvider>
-            </ProductProvider>
+            </AuthProvider>
+            <ToastContainer />
         </div>
     );
 };

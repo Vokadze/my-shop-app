@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import TextField from "../common/form/textField";
 import { validator } from "../../utils/validator";
 // import api from "../../api";
@@ -6,8 +7,10 @@ import SelectField from "../common/form/selectField";
 import RadioField from "../common/form/radioField";
 import CheckBoxField from "../common/form/checkBoxField";
 import { useCategories } from "../../hook/useCategory";
+import { useAuth } from "../../hook/useAuth";
 
 const RegisterForm = () => {
+    const history = useHistory();
     const [data, setData] = useState({
         email: "",
         password: "",
@@ -15,6 +18,7 @@ const RegisterForm = () => {
         sex: "male",
         licence: false
     });
+    const { signUp } = useAuth();
     const { categories } = useCategories();
     console.log(categories);
     const categoriesList = categories.map((c) => ({
@@ -88,11 +92,19 @@ const RegisterForm = () => {
 
     const isValid = Object.keys(errors).length === 0;
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) return;
         console.log(data);
+
+        try {
+            await signUp(data);
+            history.push("/");
+        } catch (error) {
+            setErrors(error);
+            console.log(error);
+        }
     };
 
     return (
