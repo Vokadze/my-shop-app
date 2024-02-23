@@ -7,7 +7,7 @@ const productService = {
         const { data } = await httpService.get(productEndpoint);
         console.log("req.data", data);
         return data;
-    }
+    },
     // update: async (id, content) => {
     //     const { data } = await httpService.put(productEndpoint + id, content);
     //     // console.log("data", data);
@@ -19,11 +19,14 @@ const productService = {
     //     // console.log("data", data);
     //     return data;
     // },
-    // create: async (content) => {
-    //     const { data } = await httpService.post(productEndpoint, content);
-    //     // console.log("data", data);
-    //     return data;
-    // },
+    create: async (payload) => {
+        const { data } = await httpService.put(
+            productEndpoint + payload.id,
+            payload
+        );
+        // console.log("data", data);
+        return data;
+    }
     // delete: async (id) => {
     //     const { data } = await httpService.delete(
     //         productEndpoint + id + "asdfg"
