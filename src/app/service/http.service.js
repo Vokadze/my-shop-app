@@ -1,6 +1,8 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import configFile from "../config.json";
+import { httpAuth } from "../hook/useAuth";
+import localStorageService from "./localStorage.service";
 
 const http = axios.create({
     baseURL: configFile.apiEndpoint2
@@ -9,7 +11,7 @@ const http = axios.create({
 // axios.defaults.baseURL = configFile.apiEndpoint2;
 
 http.interceptors.request.use(
-    function (config) {
+    async function (config) {
         // console.log(config.url);
 
         if (configFile.isFirebase) {
@@ -18,6 +20,27 @@ http.interceptors.request.use(
                 (containSlash ? config.url.slice(0, -1) : config.url) + ".json";
             // config.url == config.url.slice(0, -1) + ".json";
             console.log("config", config.url);
+
+            const expiresDate = localStorageService.getTokenExpiresDate();
+            const refreshToken = localStorageService.getRefreshToken();
+
+            if (refreshToken && expiresDate < Date.now()) {
+                const { data } = await httpAuth.post("token", {
+                    grant_type: "refresh_token",
+                    refresh_token: refreshToken
+                });
+                // console.log(data);
+                localStorageService.setTokens({
+                    refreshToken: data.refresh_token,
+                    idToken: data.id_token,
+                    expiresIn: data.expires_in,
+                    localId: data.user_id
+                });
+            }
+            const accessToken = localStorageService.getAccessToken();
+            if (accessToken) {
+                config.params = { ...config.params, auth: accessToken };
+            }
         }
         return config;
     },
@@ -27,11 +50,11 @@ http.interceptors.request.use(
 );
 
 function transformData(data) {
-    return data
+    return data && !data.id
         ? Object.keys(data).map((key) => ({
               ...data[key]
           }))
-        : [];
+        : data;
 }
 http.interceptors.response.use(
     (res) => {

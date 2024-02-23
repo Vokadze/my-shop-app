@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import TextField from "../common/form/textField";
 import { validator } from "../../utils/validator";
 // import api from "../../api";
+
 import SelectField from "../common/form/selectField";
 import RadioField from "../common/form/radioField";
 import CheckBoxField from "../common/form/checkBoxField";
@@ -16,6 +17,7 @@ const RegisterForm = () => {
         password: "",
         categor: "",
         sex: "male",
+        name: "",
         licence: false
     });
     const { signUp } = useAuth();
@@ -51,6 +53,15 @@ const RegisterForm = () => {
             },
             isEmail: {
                 message: "Email введен не корректно"
+            }
+        },
+        name: {
+            isRequired: {
+                message: "Имя обязательно для заполнения"
+            },
+            min: {
+                message: "Имя должно состоять минимум из 3 символов",
+                value: 3
             }
         },
         password: {
@@ -115,6 +126,13 @@ const RegisterForm = () => {
                 value={data.email}
                 onChange={handleChange}
                 error={errors.email}
+            />
+            <TextField
+                label="Имя"
+                name="name"
+                value={data.name}
+                onChange={handleChange}
+                error={errors.name}
             />
             <TextField
                 label="Пароль"
