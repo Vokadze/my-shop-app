@@ -19,7 +19,7 @@ http.interceptors.request.use(
             config.url =
                 (containSlash ? config.url.slice(0, -1) : config.url) + ".json";
             // config.url == config.url.slice(0, -1) + ".json";
-            console.log("config", config.url);
+            // console.log("config", config.url);
 
             const expiresDate = localStorageService.getTokenExpiresDate();
             const refreshToken = localStorageService.getRefreshToken();
@@ -60,7 +60,7 @@ http.interceptors.response.use(
     (res) => {
         if (configFile.isFirebase) {
             res.data = { content: transformData(res.data) };
-            console.log("res.data", res.data);
+            // console.log("res.data", res.data);
         }
         return res;
     },
@@ -82,7 +82,8 @@ const httpService = {
     get: http.get,
     post: http.post,
     put: http.put,
-    delete: http.delete
+    delete: http.delete,
+    patch: http.patch
 };
 
 export default httpService;

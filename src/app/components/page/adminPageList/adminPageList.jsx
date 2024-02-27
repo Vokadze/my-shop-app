@@ -27,12 +27,12 @@ const AdminPageList = () => {
     // const [products, setProducts] = useState("");
     // const [product, setProduct] = useState("");
 
-    const { products } = useProduct();
-    console.log(products);
+    const { products, product, removeProduct } = useProduct();
+    // console.log(products);
 
-    const { product } = useProduct();
+    // const { product } = useProduct();
 
-    const { categories } = useCategories();
+    const { isLoading: categoriesLoading, categories } = useCategories();
 
     // useEffect(() => {
     //     api.products.fetchAll().then((data) => setProducts(data));
@@ -46,8 +46,9 @@ const AdminPageList = () => {
     // }, []);
 
     const handleDelete = (prodId) => {
+        removeProduct(prodId);
         // setProducts(products.filter((product) => product.id !== prodId));
-        console.log(prodId);
+        // console.log(prodId);
     };
     const handleClick = (prodId) => {
         // api.products.getById(prodId).then((data) => setProduct(data));
@@ -111,7 +112,7 @@ const AdminPageList = () => {
                         />
                     </div>
                     <div className="d-flex flex-row">
-                        {categories && (
+                        {categories && !categoriesLoading && (
                             <>
                                 <div
                                     className="card text-center border border-warning"

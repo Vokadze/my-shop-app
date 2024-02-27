@@ -9,7 +9,7 @@ const ProductsTable = ({
     product,
     onSort,
     selectedSort,
-    handleClick,
+    // handleClick,
     ...rest
 }) => {
     const columns = {
@@ -48,7 +48,7 @@ const ProductsTable = ({
                                 color: "#212529",
                                 border: "#ffc107"
                             }}
-                            onClick={() => handleClick(product.id)}
+                            // onClick={() => handleClick(product.id)}
                         >
                             Открыть карточку
                         </button>

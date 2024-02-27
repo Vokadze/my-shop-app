@@ -1,98 +1,90 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { useParams, useHistory } from "react-router-dom";
 
-import api from "../../api";
+// import api from "../../api";
 
 import TextFieldAdmin from "../common/form/textFieldAdmin";
 import SelectFieldAdmin from "../common/form/selectFieldAdmin";
+import { useAuth } from "../../hook/useAuth";
+import { useCategories } from "../../hook/useCategory";
+import { useProduct } from "../../hook/useProducts";
 
+// const initialState = {
+//     id: "",
+//     name: "",
+//     category: "",
+//     price: "",
+//     count: "",
+//     image: ""
+// };
 const AdminFormEdit = () => {
     const { prodId } = useParams();
     // console.log(prodId);
     const history = useHistory();
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [data, setData] = useState({
-        id: "",
-        name: "",
-        category: "",
-        price: "",
-        count: "",
-        image: ""
-    });
-    const [categoriesList, setCategoriesList] = useState([]);
-    // const [errors, setErrors] = useState({});
-    const [products, setProducts] = useState([]);
+    const { products, getProductById } = useProduct();
+    console.log(products);
+    const product = getProductById(prodId);
+    console.log(product);
 
-    useEffect(() => {
-        api.products.getById(prodId).then((data) => setProducts(data));
-    }, [prodId]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [data, setData] = useState();
+    // {
+    //     id: "",
+    //     name: "",
+    //     category: "",
+    //     price: "",
+    //     count: "",
+    //     image: ""
+    // }
 
-    const getCategoryById = (id) => {
-        for (const categori of categoriesList) {
-            if (categori.value === id) {
-                return { id: categori.value, name: categori.name };
-            }
-        }
-    };
+    const { updateProductData } = useAuth();
+    const { categories, isLoading: categoriesLoading } = useCategories();
+    const categoriesList = categories.map((c) => ({
+        name: c.name,
+        value: c.id
+    }));
 
-    // useEffect(() => {
-    //     api.categories.fetchAll().then((data) => setCategories(data));
-    // }, []);
-
-    // useEffect(() => {
-    //     console.log(categories);
-    // }, [categories]);
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         // const isValid = validate();
         // if (!isValid) return;
-        const { category } = data;
-        api.products
-            .update(prodId, {
-                ...data,
-                category: getCategoryById(category)
-            })
-            .then((data) => history.push(`/admin/${data.id}`));
+        // const { category } = data;
+        await updateProductData({
+            ...data
+        });
 
-        console.log({ category: getCategoryById(category), ...data });
+        history.push("/admin");
         console.log(data);
     };
 
     useEffect(() => {
-        setIsLoading(true);
-        api.products.getById(prodId).then((category, ...data) => {
-            setData((prevState) => ({
-                ...prevState,
-                ...data,
-                ...category
-            }));
-        });
-
-        api.categories.fetchAll().then((data) => {
-            const categoryList = Object.keys(data).map((categoryName) => ({
-                name: data[categoryName].name,
-                value: data[categoryName].id
-            }));
-            setCategoriesList(categoryList);
-        });
-
-        // if (data.length === "") {
-        //     localStorage.setItem(
-        //         "products",
-        //         JSON.stringify([...products, { ...data }])
-        //     );
-        //     console.log(data);
+        if (!categoriesLoading && product && !data) {
+            // setData(...data);
+            setData(...product);
+        } else if (!categoriesLoading && product && data) {
+            // setData(...data);
+            setData(...product);
+        }
+        // if (!categoriesLoading && product && data) {
+        //     // setData(...data);
+        //     setData(initialState || "");
         // }
+        console.log(data);
+    }, [categoriesLoading, product, data]);
 
-        // if (data) setIsLoading(false);
-        // console.log(data);
-    }, [prodId, products]);
+    console.log([categoriesLoading, product, data]);
 
     useEffect(() => {
-        if (data) setIsLoading(false);
-    }, [data]);
+        if (data && isLoading) {
+            setIsLoading(false);
+        }
+    }, [data, product]);
+
+    // useEffect(() => {
+    //     if (data === "") setIsLoading(false);
+    // }, [data]);
 
     // const validatorConfig = {
     //     email: {
@@ -150,58 +142,65 @@ const AdminFormEdit = () => {
     // };
 
     // const isValid = Object.keys(errors).length === 0;
+    if (product) {
+        return (
+            <>
+                {!isLoading && Object.keys(categories).length > 0 ? (
+                    <form onSubmit={handleSubmit}>
+                        <TextFieldAdmin
+                            name="id"
+                            value={data.id || ""}
+                            onChange={handleChange}
+                        />
+                        <TextFieldAdmin
+                            name="name"
+                            value={data.name || ""}
+                            onChange={handleChange}
+                        />
+                        <SelectFieldAdmin
+                            // label="Выберите категорию товара"
+                            defaultOption="Choose..."
+                            name="categor"
+                            options={categoriesList || ""}
+                            onChange={handleChange}
+                            value={data.categor}
+                            // error={errors.category}
+                        />
+                        <TextFieldAdmin
+                            name="price"
+                            value={data.price || ""}
+                            onChange={handleChange}
+                        />
+                        <TextFieldAdmin
+                            name="count"
+                            value={data.count || ""}
+                            onChange={handleChange}
+                        />
+                        <TextFieldAdmin
+                            name="image"
+                            value={data.image || ""}
+                            onChange={handleChange}
+                        />
+                        <button
+                            type="submit"
+                            // disabled={!isValid}
+                            className="btn btn-primary w-100 mx-auto"
+                        >
+                            Edit
+                        </button>
+                    </form>
+                ) : (
+                    "Loading AdminFormEdit.jsx"
+                )}
+            </>
+        );
+    } else {
+        return "loading adminFormEdit.jsx update....";
+    }
+};
 
-    return (
-        <>
-            {!isLoading && Object.keys(categoriesList).length > 0 ? (
-                <form onSubmit={handleSubmit}>
-                    <TextFieldAdmin
-                        name="id"
-                        value={data.id}
-                        onChange={handleChange}
-                    />
-                    <TextFieldAdmin
-                        name="name"
-                        value={data.name}
-                        onChange={handleChange}
-                    />
-                    <SelectFieldAdmin
-                        // label="Выберите категорию товара"
-                        defaultOption="Choose..."
-                        name="category"
-                        options={categoriesList}
-                        onChange={handleChange}
-                        value={data.category}
-                        // error={errors.category}
-                    />
-                    <TextFieldAdmin
-                        name="price"
-                        value={data.price}
-                        onChange={handleChange}
-                    />
-                    <TextFieldAdmin
-                        name="count"
-                        value={data.count}
-                        onChange={handleChange}
-                    />
-                    <TextFieldAdmin
-                        name="image"
-                        value={data.image}
-                        onChange={handleChange}
-                    />
-                    <button
-                        type="submit"
-                        // disabled={!isValid}
-                        className="btn btn-primary w-100 mx-auto"
-                    >
-                        Edit
-                    </button>
-                </form>
-            ) : (
-                "Loading AdminFormEdit.jsx"
-            )}
-        </>
-    );
+AdminFormEdit.propTypes = {
+    prodId: PropTypes.number
 };
 
 export default AdminFormEdit;

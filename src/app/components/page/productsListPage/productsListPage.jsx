@@ -15,6 +15,9 @@ import { useCategories } from "../../../hook/useCategory";
 
 const ProductsListPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
+
+    // const { getProductById } = useProduct();
+    // const product = getProductById()
     // const [categories, setCategories] = useState();
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState();
@@ -24,16 +27,17 @@ const ProductsListPage = () => {
     // const [products, setProducts] = useState();
 
     const { products } = useProduct();
-    console.log("products App.jsx", products);
+    // console.log("products App.jsx", products);
 
-    const { categories } = useCategories();
-    console.log("categories App.jsx", categories);
+    const { isLoading: categoriesLoading, categories } = useCategories();
+    // console.log("categories App.jsx", categories);
 
     // useEffect(() => {
     //     api.products.fetchAll().then((data) => setProducts(data));
     // }, []);
 
     const handleClick = (prodId) => {
+        // getProductById(prodId);
         // setProducts(products.filter((product) => product.id === prodId));
         console.log(prodId);
     };
@@ -113,7 +117,7 @@ const ProductsListPage = () => {
                         />
                     </div>
                     <div className="d-flex flex-row">
-                        {categories && (
+                        {categories && !categoriesLoading && (
                             <div
                                 className="d-flex flex-column border border-warning"
                                 style={{ background: "#dee2e6" }}

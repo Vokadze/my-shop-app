@@ -1,13 +1,23 @@
 import httpService from "./http.service";
+import localStorageService from "./localStorage.service";
 
 const productEndpoint = "product/";
 
 const productService = {
     get: async () => {
         const { data } = await httpService.get(productEndpoint);
-        console.log("req.data", data);
+        // console.log("req.data", data);
         return data;
     },
+    update: async (payload) => {
+        const { data } = await httpService.patch(
+            productEndpoint + localStorageService.getUserId(),
+            payload
+        );
+        return data;
+        // console.log("data", data);
+    },
+
     // update: async (id, content) => {
     //     const { data } = await httpService.put(productEndpoint + id, content);
     //     // console.log("data", data);
@@ -25,6 +35,10 @@ const productService = {
             payload
         );
         // console.log("data", data);
+        return data;
+    },
+    removeProduct: async (prodId) => {
+        const { data } = await httpService.delete(productEndpoint + prodId);
         return data;
     }
     // delete: async (id) => {

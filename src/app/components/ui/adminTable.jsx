@@ -6,15 +6,15 @@ import Category from "./category";
 
 const AdminTable = ({
     products,
-    categories,
+    // categories,
     handleDelete,
     handleClick,
     selectedSort,
     onSort,
     prodId
 }) => {
-    console.log("adminTable.jsx products", products);
-    console.log("AdminTable", categories);
+    // console.log("adminTable.jsx products", products);
+    // console.log("AdminTable", categories);
 
     const columns = {
         id: {
@@ -105,7 +105,7 @@ const AdminTable = ({
 
 AdminTable.propTypes = {
     products: PropTypes.array,
-    categories: PropTypes.object,
+    // categories: PropTypes.object,
     handleDelete: PropTypes.func,
     handleClick: PropTypes.func,
     selectedSort: PropTypes.object.isRequired,

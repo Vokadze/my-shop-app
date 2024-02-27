@@ -28,7 +28,7 @@ const Admin = () => {
                         edit ? (
                             <AdminPageList prodId={prodId} />
                         ) : (
-                            <AdminPageList />
+                            <AdminPageList prodId={prodId} />
                         )
                     ) : (
                         <AdminPageList />

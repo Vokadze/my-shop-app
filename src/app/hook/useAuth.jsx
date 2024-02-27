@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -7,6 +8,7 @@ import localStorageService, {
     setTokens
 } from "../service/localStorage.service";
 import userService from "../service/user.service";
+import productService from "../service/product.service";
 
 export const httpAuth = axios.create({
     baseURL: "https://identitytoolkit.googleapis.com/v1/",
@@ -22,8 +24,10 @@ export const useAuth = () => {
 };
 
 const AuthProvider = ({ children }) => {
-    const [currentUser, setCurrentUser] = useState({});
+    const [currentUser, setCurrentUser] = useState();
     const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const history = useHistory();
 
     async function logIn({ email, password }) {
         try {
@@ -37,7 +41,7 @@ const AuthProvider = ({ children }) => {
             );
             setTokens(data);
 
-            getUserData();
+            await getUserData();
         } catch (error) {
             errorCatcher(error);
             const { code, message } = error.response.data.error;
@@ -57,8 +61,23 @@ const AuthProvider = ({ children }) => {
         }
     }
 
+    function logOut() {
+        localStorageService.removeAuthData();
+        setCurrentUser(null);
+        history.push("/");
+    }
+
     function randomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    async function updateProductData(data) {
+        try {
+            const { content } = await productService.update(data);
+            setCurrentUser(content);
+        } catch (error) {
+            errorCatcher(error);
+        }
     }
 
     async function signUp({ email, password, ...rest }) {
@@ -116,11 +135,15 @@ const AuthProvider = ({ children }) => {
             setCurrentUser(content);
         } catch (error) {
             errorCatcher(error);
+        } finally {
+            setIsLoading(false);
         }
     }
     useEffect(() => {
         if (localStorageService.getAccessToken()) {
             getUserData();
+        } else {
+            setIsLoading(false);
         }
     }, []);
 
@@ -132,8 +155,10 @@ const AuthProvider = ({ children }) => {
     }, [error]);
 
     return (
-        <AuthContext.Provider value={{ signUp, logIn, currentUser }}>
-            {children}
+        <AuthContext.Provider
+            value={{ signUp, logIn, logOut, currentUser, updateProductData }}
+        >
+            {!isLoading ? children : "Loading Project..."}
         </AuthContext.Provider>
     );
 };
