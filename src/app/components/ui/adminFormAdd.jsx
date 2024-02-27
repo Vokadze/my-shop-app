@@ -1,61 +1,69 @@
 import React, { useEffect, useState } from "react";
 // import { useParams } from "react-router-dom";
 
-import api from "../../api";
+// import api from "../../api";
 
 import { validator } from "../../utils/validator";
 import TextFieldAdmin from "../common/form/textFieldAdmin";
 import SelectFieldAdmin from "../common/form/selectFieldAdmin";
+import { useAuth } from "../../hook/useAuth";
+import { useCategories } from "../../hook/useCategory";
+import { useProduct } from "../../hook/useProducts";
 
 const AdminFormAdd = () => {
     // const { prodId } = useParams();
     // const history = useHistory();
-    const [isLoading, setIsLoading] = useState(false);
-    const [data, setData] = useState({
-        id: "",
-        name: "",
-        category: "",
-        price: "",
-        count: "",
-        image: ""
-        // categor: "",
-        // sex: "male",
-        // licence: false
-    });
-    const [categoriesList, setCategoriesList] = useState([]);
-    const [products, setProducts] = useState({});
-    console.log(products);
+    const [isLoading, setIsLoading] = useState(true);
+    const [data, setData] = useState();
+    // {
+    //     id: "",
+    //     name: "",
+    //     category: "",
+    //     price: "",
+    //     count: "",
+    //     image: ""
+    //     // categor: "",
+    //     // sex: "male",
+    //     // licence: false
+    // }
+    const { currentUser } = useAuth();
+    const { categories, isLoading: categoriesLoading } = useCategories();
+    // const [categories, setCategories] = useState([]);
+    // const [products, setProducts] = useState({});
     const [errors, setErrors] = useState({});
 
-    useEffect(() => {
-        api.products.fetchAll().then((data) => setProducts(data));
-    }, []);
+    const { products } = useProduct();
+    console.log(products);
 
-    useEffect(() => {
-        api.categories.fetchAll().then((data) => setCategoriesList(data));
-    }, []);
+    // useEffect(() => {
+    //     api.products.fetchAll().then((data) => setProducts(data));
+    // }, []);
 
-    useEffect(() => {
-        console.log(categoriesList);
-    }, [categoriesList]);
+    // useEffect(() => {
+    //     api.categories.fetchAll().then((data) => setCategories(data));
+    // }, []);
 
-    const getCategoryById = (id) => {
-        for (const categori of categoriesList) {
-            if (categori.value === id) {
-                return { id: categori.value, name: categori.name };
-            }
-        }
-    };
+    // useEffect(() => {
+    //     console.log(categories);
+    // }, [categories]);
+
+    // const getCategoryById = (id) => {
+    //     for (const categori of categories) {
+    //         if (categori.value === id) {
+    //             return { id: categori.value, name: categori.name };
+    //         }
+    //     }
+    // };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) return;
-        const { category } = data;
-        api.products.update({
-            ...data,
-            category: getCategoryById(category)
-        });
+        // const { category } = data;
+        // api.products.update({
+        //     ...data,
+        //     category: getCategoryById(category)
+        // });
         // .then((data) => history.push(`/admin/${data.id}`));
 
         localStorage.setItem(
@@ -68,27 +76,41 @@ const AdminFormAdd = () => {
     };
 
     useEffect(() => {
-        setIsLoading(true);
-        api.products.getById().then((...data) => {
-            setData((prevState) => ({
-                ...prevState,
-                ...data
-                // ...category
-            }));
-        });
+        if (!categoriesLoading && currentUser && !data) {
+            setData({
+                ...currentUser
+            });
+        }
+        // setIsLoading(true);
+        // api.products.getById().then((...data) => {
+        //     setData((prevState) => ({
+        //         ...prevState,
+        //         ...data
+        //         // ...category
+        //     }));
+        // });
 
-        api.categories.fetchAll().then((data) => {
-            const categoryList = Object.keys(data).map((categoryName) => ({
-                name: data[categoryName].name,
-                value: data[categoryName].id
-            }));
-            setCategoriesList(categoryList);
-        });
-    }, [products]);
+        // api.categories.fetchAll().then((data) => {
+        //     const categoryList = Object.keys(data).map((categoryName) => ({
+        //         name: data[categoryName].name,
+        //         value: data[categoryName].id
+        //     }));
+        //     setCategories(categoryList);
+        // });
+    }, [categoriesLoading, currentUser, data]);
+
+    console.log([categoriesLoading, currentUser, data]);
+    console.log(data);
 
     useEffect(() => {
-        if (data) setIsLoading(false);
+        if (data && isLoading) {
+            setIsLoading(false);
+        }
     }, [data]);
+
+    // useEffect(() => {
+    //     if (data) setIsLoading(false);
+    // }, [data]);
 
     const handleChange = (target) => {
         setData((prevState) => ({
@@ -137,7 +159,7 @@ const AdminFormAdd = () => {
 
     return (
         <>
-            {!isLoading && Object.keys(categoriesList).length > 0 ? (
+            {!isLoading && Object.keys(categories).length > 0 ? (
                 <form onSubmit={handleSubmit}>
                     <TextFieldAdmin
                         // label="Электронная почта"
@@ -156,7 +178,7 @@ const AdminFormAdd = () => {
                         // label="Выберите категорию товара"
                         defaultOption="Choose..."
                         name="category"
-                        options={categoriesList}
+                        options={categories}
                         onChange={handleChange}
                         value={data.category}
                         error={errors.category}
