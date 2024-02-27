@@ -67,10 +67,6 @@ const AdminFormEdit = () => {
             // setData(...data);
             setData(...product);
         }
-        // if (!categoriesLoading && product && data) {
-        //     // setData(...data);
-        //     setData(initialState || "");
-        // }
         console.log(data);
     }, [categoriesLoading, product, data]);
 
