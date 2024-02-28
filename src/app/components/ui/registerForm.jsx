@@ -15,7 +15,7 @@ const RegisterForm = () => {
     const [data, setData] = useState({
         email: "",
         password: "",
-        categor: "",
+        category: "",
         sex: "male",
         name: "",
         licence: false
@@ -77,7 +77,7 @@ const RegisterForm = () => {
                 value: 8
             }
         },
-        categor: {
+        category: {
             isRequired: {
                 message: "Обязательно выберите категорию товара"
             }
@@ -145,11 +145,11 @@ const RegisterForm = () => {
             <SelectField
                 label="Выберите категорию товара"
                 defaultOption="Choose..."
-                name="categor"
+                name="category"
                 options={categoriesList}
                 onChange={handleChange}
-                value={data.categor}
-                error={errors.categor}
+                value={data.category}
+                error={errors.category}
             />
             <RadioField
                 label="Выберите ваш пол"
