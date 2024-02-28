@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Table, { TableBody, TableHeader } from "../common/table/tableAdmin";
-import Category from "./category";
+// import Category from "./category";
 
 const AdminTable = ({
     products,
@@ -34,9 +34,9 @@ const AdminTable = ({
             // )
         },
         category: {
-            // path: "category.name",
-            name: "Категория",
-            component: (product) => <Category id={product.category} />
+            path: "category.name",
+            name: "Категория"
+            // component: (product) => <Category id={product.category} />
         },
         count: {
             path: "count",
@@ -62,7 +62,7 @@ const AdminTable = ({
             component: (product) => (
                 <span>
                     <Link
-                        to={`/admin/${product.id}/edit`}
+                        to={`/admin/edit/${product.id}`}
                         onClick={handleClick}
                     >
                         <i
@@ -89,17 +89,15 @@ const AdminTable = ({
     };
 
     return (
-        <>
-            <Table
-                onSort={onSort}
-                selectedSort={selectedSort}
-                columns={columns}
-                data={products}
-            >
-                <TableHeader {...{ onSort, selectedSort, columns }} />
-                <TableBody {...{ data: products }} columns={columns} />
-            </Table>
-        </>
+        <Table
+            onSort={onSort}
+            selectedSort={selectedSort}
+            columns={columns}
+            data={products}
+        >
+            <TableHeader {...{ onSort, selectedSort, columns }} />
+            <TableBody {...{ data: products }} columns={columns} />
+        </Table>
     );
 };
 

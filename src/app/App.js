@@ -25,12 +25,15 @@ const App = () => {
                 <CategoryProvider>
                     <ProductProvider>
                         <Switch>
+                            <Route
+                                path="/admin/:edit?/:prodId?"
+                                component={Admin}
+                            />
                             <ProtectedRoute
                                 path="/products/:prodId?"
                                 component={Products}
                             />
                             <Route path="/login/:type?" component={Login} />
-                            <Route path="/admin/:prodId?" component={Admin} />
                             {/* <Route
                                 path="/adminFormAdd"
                                 component={AdminFormAdd}

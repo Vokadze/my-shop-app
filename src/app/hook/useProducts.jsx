@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import productService from "../service/product.service";
-import { useAuth } from "./useAuth";
+// import { useAuth } from "./useAuth";
 
 const ProductContext = React.createContext();
 
@@ -13,7 +13,7 @@ export const useProduct = () => {
 const ProductProvider = ({ children }) => {
     // console.log(children);
     const [products, setProducts] = useState([]);
-    const { currentUser } = useAuth();
+    // const { currentUser } = useAuth();
     const [isLoading, setIsLoading] = useState(true);
     // console.log(products);
     const [error, setError] = useState(null);
@@ -33,15 +33,15 @@ const ProductProvider = ({ children }) => {
         }
     }
 
-    useEffect(() => {
-        if (!isLoading) {
-            const indexProduct = products.findIndex(
-                (p) => p._id !== currentUser._id
-            );
-            console.log(indexProduct);
-        }
-        // return product;
-    }, [currentUser]);
+    // useEffect(() => {
+    //     if (!isLoading) {
+    //         const indexProduct = products.findIndex(
+    //             (p) => p.id !== currentUser.id
+    //         );
+    //         console.log(indexProduct);
+    //     }
+    //     // return product;
+    // }, [currentUser]);
 
     useEffect(() => {
         if (error !== null) {
