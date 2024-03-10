@@ -6,7 +6,7 @@ import Pagination from "../../common/pagination";
 import api from "../../../api";
 import GroupList from "../../common/groupList";
 import ProductsTable from "../../ui/productsTable";
-import SearchInput from "../../ui/searchInput";
+import SearchInput from "../../common/form/searchInput";
 
 import _ from "lodash";
 import NavBar from "../../ui/navBar";

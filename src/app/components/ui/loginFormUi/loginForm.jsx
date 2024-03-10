@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import TextField from "../common/form/textField";
+import TextField from "../../common/form/textField";
 
-import { validator } from "../../utils/validator";
-import CheckBoxField from "../common/form/checkBoxField";
-import { useAuth } from "../../hook/useAuth";
+import { validator } from "../../../utils/validator";
+import CheckBoxField from "../../common/form/checkBoxField";
+import { useAuth } from "../../../hook/useAuth";
 
 const LoginForm = () => {
     // console.log(process.env);

@@ -4,16 +4,15 @@ import PropTypes from "prop-types";
 import { paginate } from "../../../utils/paginate";
 import Pagination from "../../common/pagination";
 import api from "../../../api";
-import SearchInput from "../../ui/searchInput";
+import SearchInput from "../../common/form/searchInput";
 
 import _ from "lodash";
 import NavBar from "../../ui/navBar";
-import AdminTable from "../../ui/adminTable";
+import AdminTable from "../../ui/adminPageUi/adminTable";
 // import AdminForm from "../../ui/adminForm";
-// import AdminFormAdd from "../../ui/adminFormAdd";
 // import { useProduct } from "../../../hook/useProducts";
 // import { useCategories } from "../../../hook/useCategory";
-import AdminFormEdit from "../../ui/adminFormEdit";
+import AdminFormEdit from "../../ui/adminPageUi/adminFormEdit";
 // import axios from "axios";
 // import configFile from "../../../config.json";
 
@@ -130,23 +129,11 @@ const AdminPageList = () => {
                                             Блок для добавления или
                                             редактирования товара
                                         </h6>
-                                        {/* {!prodId ? ( */}
                                         <AdminFormEdit
                                             // prodId={prodId}
                                             products={products}
                                             handleClick={handleClick}
                                         />
-                                        {/* ) : (
-                                            <AdminFormAdd
-                                                product={product}
-                                                // handleClick={handleClick}
-                                            />
-                                        )} */}
-                                        {/* <AdminForm
-                                        product={product}
-                                        prodId={prodId}
-                                        handleClick={handleClick}
-                                    /> */}
                                     </div>
                                 </div>
                             </>

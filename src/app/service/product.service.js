@@ -1,5 +1,5 @@
 import httpService from "./http.service";
-import localStorageService from "./localStorage.service";
+// import localStorageService from "./localStorage.service";
 
 const productEndpoint = "product/";
 
@@ -9,13 +9,10 @@ const productService = {
         // console.log("req.data", data);
         return data;
     },
-    update: async (payload) => {
-        const { data } = await httpService.patch(
-            productEndpoint + localStorageService.getUserId(),
-            payload
-        );
+    update: async (content) => {
+        const { data } = await httpService.patch(productEndpoint, content);
+        console.log("data", content);
         return data;
-        // console.log("data", data);
     },
 
     // update: async (id, content) => {

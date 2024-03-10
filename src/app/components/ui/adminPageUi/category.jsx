@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useCategories } from "../../hook/useCategory";
+import React, { useCategories } from "../../../hook/useCategory";
 
 const Category = ({ id }) => {
     // console.log(id);

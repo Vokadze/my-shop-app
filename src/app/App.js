@@ -8,8 +8,7 @@ import Main from "./layouts/main";
 import NavBar from "./components/ui/navBar";
 import Basket from "./layouts/basket";
 import Admin from "./layouts/admin";
-// import AdminFormAdd from "./components/ui/adminFormAdd";
-import AdminFormEdit from "./components/ui/adminFormEdit";
+import AdminFormEdit from "./components/ui/adminPageUi/adminFormEdit";
 import ProductProvider from "./hook/useProducts";
 import { CategoryProvider } from "./hook/useCategory";
 import AuthProvider from "./hook/useAuth";
@@ -34,10 +33,6 @@ const App = () => {
                                 component={Products}
                             />
                             <Route path="/login/:type?" component={Login} />
-                            {/* <Route
-                                path="/adminFormAdd"
-                                component={AdminFormAdd}
-                            /> */}
                             <Route
                                 path="/adminFormChange"
                                 component={AdminFormEdit}

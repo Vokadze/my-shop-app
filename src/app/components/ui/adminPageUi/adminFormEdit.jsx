@@ -1,13 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import TextFieldAdmin from "../common/form/textFieldAdmin";
-import SelectFieldAdmin from "../common/form/selectFieldAdmin";
+import TextFieldAdmin from "../../common/form/textFieldAdmin";
+import SelectFieldAdmin from "../../common/form/selectFieldAdmin";
 
-import useForm from "../../hook/useForm";
+import useForm from "../../../hook/useForm";
 
-const AdminFormEdit = ({ data, onSubmit, categoriesList }) => {
-    const { form, handleSubmit, handleChange } = useForm(data, onSubmit);
+const AdminFormEdit = ({ onSubmit }) => {
+    const { form, handleSubmit, handleChange, categoriesList } = useForm(
+        // data,
+        onSubmit
+    );
 
     return (
         <>
@@ -27,7 +30,7 @@ const AdminFormEdit = ({ data, onSubmit, categoriesList }) => {
                     name="category"
                     options={categoriesList}
                     onChange={handleChange}
-                    value={form.categoriesList && ""}
+                    value={form.category || ""}
                 />
                 <TextFieldAdmin
                     name="price"

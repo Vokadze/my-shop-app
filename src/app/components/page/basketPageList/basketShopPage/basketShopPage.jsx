@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 
-import api from "../../../api";
-import SearchInput from "../../ui/searchInput";
-import NavBar from "../../ui/navBar";
+import api from "../../../../api";
+import SearchInput from "../../../common/form/searchInput";
+import NavBar from "../../../ui/navBar";
 import BasketShopList from "../basketShopList/basketShopList";
 
 const BasketShopPage = ({ prodId }) => {
