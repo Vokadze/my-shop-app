@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import TextField from "../common/form/textField";
-import { validator } from "../../utils/validator";
+import TextField from "../../common/form/textField";
+import { validator } from "../../../utils/validator";
 // import api from "../../api";
 
-import SelectField from "../common/form/selectField";
-import RadioField from "../common/form/radioField";
-import CheckBoxField from "../common/form/checkBoxField";
-import { useCategories } from "../../hook/useCategory";
-import { useAuth } from "../../hook/useAuth";
+import SelectField from "../../common/form/selectField";
+import RadioField from "../../common/form/radioField";
+import CheckBoxField from "../../common/form/checkBoxField";
+import { useCategories } from "../../../hook/useCategory";
+import { useAuth } from "../../../hook/useAuth";
 
 const RegisterForm = () => {
     const history = useHistory();

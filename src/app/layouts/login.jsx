@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import LoginForm from "../components/ui/loginForm";
-import RegisterForm from "../components/ui/registerForm";
+import LoginForm from "../components/ui/loginFormUi/loginForm";
+import RegisterForm from "../components/ui/loginFormUi/registerForm";
 
 const Login = () => {
     const { type } = useParams();

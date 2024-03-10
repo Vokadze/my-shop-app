@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import NavBar from "./navBar";
-import BasketCartList from "../page/basketCartList/basketCartList";
-import BasketOrder from "../page/basketCartList/basketOrder";
+import NavBar from "../navBar";
+import BasketCartList from "../../page/basketPageList/basketCartList/basketCartList";
+import BasketOrder from "../../page/basketPageList/basketCartList/basketOrder";
 
 const BasketForm = () => {
     const [productLocal, setProductLocal] = useState();

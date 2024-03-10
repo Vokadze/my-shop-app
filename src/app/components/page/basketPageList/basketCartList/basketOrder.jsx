@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import BasketSearchStatus from "../../ui/basketSearchStatus";
+import BasketSearchStatus from "../../../ui/basketPageUi/basketSearchStatus";
 
 const BasketOrder = ({ productsItems, handleClick, itemPrice }) => {
     console.log("BasketOrder.jsx productsItems", productsItems);

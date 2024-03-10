@@ -17,6 +17,7 @@ const ProductProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(true);
     // console.log(products);
     const [error, setError] = useState(null);
+    // const prevState = useRef();
 
     useEffect(() => {
         getProducts();
@@ -33,6 +34,37 @@ const ProductProvider = ({ children }) => {
         }
     }
 
+    function getProductById(id) {
+        return products.find((p) => p.id === id);
+    }
+
+    const updateProduct = async ({ _id: id, ...data }) => {
+        try {
+            const { content } = await productService.update(id, data);
+            setProducts((prevState) =>
+                prevState.map((item) => {
+                    if (item.id === content._id) {
+                        return content;
+                    }
+                    return item;
+                })
+            );
+            return content;
+        } catch (error) {
+            errorCatcher(error);
+        }
+    };
+
+    const addProduct = async (data) => {
+        try {
+            const { content } = await productService.createProduct(data);
+            setProducts((prevState) => [...prevState, content]);
+            return content;
+        } catch (error) {
+            errorCatcher(error);
+        }
+    };
+
     // useEffect(() => {
     //     if (!isLoading) {
     //         const indexProduct = products.findIndex(
@@ -42,23 +74,6 @@ const ProductProvider = ({ children }) => {
     //     }
     //     // return product;
     // }, [currentUser]);
-
-    useEffect(() => {
-        if (error !== null) {
-            toast(error);
-            setError(null);
-        }
-    }, [error]);
-
-    function errorCatcher(error) {
-        const { message } = error.response.data;
-        setError(message);
-        setIsLoading(false);
-    }
-
-    function getProductById(prodId) {
-        return products.filter((p) => p.id === prodId);
-    }
 
     async function removeProduct(prodId) {
         // console.log(prodId);
@@ -79,9 +94,29 @@ const ProductProvider = ({ children }) => {
         // return products.filter((p)=>p.id!==prodId)
     }
 
+    useEffect(() => {
+        if (error !== null) {
+            toast(error);
+            setError(null);
+        }
+    }, [error]);
+
+    function errorCatcher(error) {
+        const { message } = error.response.data;
+        setError(message);
+        setIsLoading(false);
+    }
+
     return (
         <ProductContext.Provider
-            value={{ products, getProductById, removeProduct }}
+            value={{
+                products,
+                isLoading,
+                getProductById,
+                removeProduct,
+                updateProduct,
+                addProduct
+            }}
         >
             {/* {children} */}
             {!isLoading ? children : "loading useProducts.jsx..."}

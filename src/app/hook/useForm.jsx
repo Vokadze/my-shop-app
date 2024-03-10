@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import api from "../api";
+// import api from "../api";
+import { useCategories } from "./useCategory";
+import { useProduct } from "./useProducts";
+// import productService from "../service/product.service";
 
-const useForm = (data, onSubmit) => {
+const useForm = (onSubmit) => {
     const { prodId } = useParams();
-    const history = useHistory();
+    // const history = useHistory();
 
     const [isLoading, setIsLoading] = useState(true);
     const [form, setForm] = useState(
-        data || {
+        {} || {
             id: "",
             name: "",
             category: "",
@@ -19,18 +22,30 @@ const useForm = (data, onSubmit) => {
             image: ""
         }
     );
-    const [categoriesList, setCategoriesList] = useState({});
+    // const [categoriesList, setCategoriesList] = useState([]);
+    const { categories, isLoading: categoriesLoading } = useCategories();
+    // console.log(categoriesList);
+    const categoriesList = categories.map((c) => ({
+        name: c.name,
+        value: c.id
+    }));
+    // console.log(categoriesListMap);
 
-    const [products, setProducts] = useState([]);
+    // const [products, setProducts] = useState([]);
+    const { products, getProductById, updateProduct } = useProduct();
+    console.log(products);
+    const product = getProductById(prodId);
+    console.log({ product });
 
-    useEffect(() => {
-        api.products.getById(prodId).then((data) => setProducts(data));
-    }, [prodId]);
+    // useEffect(() => {
+    //     getProductById();
+    //     // api.products.getById(prodId).then((data) => setProducts(data));
+    // }, [prodId]);
 
     const getCategoryById = (id) => {
-        for (const categori of categoriesList) {
-            if (categori.value === id) {
-                return { id: categori.value, name: categori.name };
+        for (const category of categories) {
+            if (category.value === id) {
+                return { id: category.value, name: category.name };
             }
         }
     };
@@ -41,37 +56,43 @@ const useForm = (data, onSubmit) => {
         // if (!isValid) return;
 
         const { category } = form;
-        api.products
-            .update(prodId, {
-                ...form,
-                category: getCategoryById(category)
-            })
-            .then((data) => history.push(`/admin/edit/${data.id}`));
+        await updateProduct(prodId, {
+            ...form,
+            ...product,
+            category: getCategoryById(category)
+        });
+        // .then((data) => history.push(`/admin/edit/${data.id}`));
+        // history.push(`/admin/edit/${data._id}`);
 
         console.log({ category: getCategoryById(category), ...form });
-        console.log(form);
+        // console.log(data);
     };
 
     useEffect(() => {
-        setIsLoading(true);
-        api.products.getById(prodId).then((category, ...data) => {
-            setForm((prevState) => ({
-                ...prevState,
-                ...data,
-                ...category
-            }));
-        });
+        if (!categoriesLoading && product && form) {
+            setForm({ ...form, ...product });
+        }
+        // setIsLoading(true);
+        // api.products.getById(prodId).then((category, ...data) => {
+        //     setForm((prevState) => ({
+        //         ...prevState,
+        //         ...data,
+        //         ...category
+        //     }));
+        // });
 
-        api.categories.fetchAll().then((data) => {
-            const categoryList = Object.keys(data).map((categoryName) => ({
-                name: data[categoryName].name,
-                value: data[categoryName].id
-            }));
-            setCategoriesList(categoryList);
-        });
+        // api.categories.fetchAll().then((data) => {
+        //     const categoryList = Object.keys(data).map((categoryName) => ({
+        //         name: data[categoryName].name,
+        //         value: data[categoryName].id
+        //     }));
+        //     setCategoriesList(categoryList);
+        // });
 
         console.log(form);
-    }, [prodId, products]);
+    }, [categoriesLoading, product, !form]);
+
+    console.log([categoriesLoading, product, form]);
 
     useEffect(() => {
         if (form && isLoading) setIsLoading(false);
@@ -90,7 +111,7 @@ const useForm = (data, onSubmit) => {
 };
 
 useForm.propTypes = {
-    data: PropTypes.array,
+    // data: PropTypes.array,
     onSubmit: PropTypes.func
 };
 
