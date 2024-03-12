@@ -12,7 +12,6 @@ export const useProduct = () => {
 
 const ProductProvider = ({ children }) => {
     // console.log(children);
-    const [setErrors] = useState(null);
     const [products, setProducts] = useState([]);
     // const { currentUser } = useAuth();
     const [isLoading, setIsLoading] = useState(true);
@@ -21,59 +20,22 @@ const ProductProvider = ({ children }) => {
     // const prevState = useRef();
 
     useEffect(() => {
-        const getProducts = async () => {
-            try {
-                const { content } = await productService.fetchAll();
-                // console.log(content);
-                setProducts(content);
-                setIsLoading(false);
-            } catch (error) {
-                errorCatcher(error);
-                const { message } = error.response.data;
-                setErrors(message);
-            }
-        };
         getProducts();
     }, []);
 
-    // const getProducts = async () => {
-    //     try {
-    //         const { data } = await productService.get();
-    //         return data;
-    //     } catch (error) {
-    //         const { message } = error.response.data;
-    //         toast.error(message);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     getProducts().then((data) => setProducts(data));
-    // }, []);
-
-    // const updateProduct = async (id, content) => {
-    //     try {
-    //         const { data } = await productService.update(id, content);
-    //         return data.content;
-    //     } catch (error) {
-    //         const { message } = error.response.data;
-    //         toast.error(message);
-    //     }
-    //     // console.log(data);
-    // };
-
-    // async function getProducts() {
-    //     try {
-    //         const { content } = await productService.get();
-    //         // console.log(content);
-    //         setProducts(content);
-    //         setIsLoading(false);
-    //     } catch (error) {
-    //         errorCatcher(error);
-    //     }
-    // }
+    async function getProducts() {
+        try {
+            const { content } = await productService.get();
+            // console.log(content);
+            setProducts(content);
+            setIsLoading(false);
+        } catch (error) {
+            errorCatcher(error);
+        }
+    }
 
     function getProductById(id) {
-        return products.find((p) => p._id === id);
+        return products.find((p) => p.id === id);
     }
 
     const updateProduct = async ({ _id: id, ...data }) => {
@@ -81,7 +43,7 @@ const ProductProvider = ({ children }) => {
             const { content } = await productService.update(id, data);
             setProducts((prevState) =>
                 prevState.map((item) => {
-                    if (item._id === content._id) {
+                    if (item.id === content._id) {
                         return content;
                     }
                     return item;
@@ -95,7 +57,7 @@ const ProductProvider = ({ children }) => {
 
     const addProduct = async (data) => {
         try {
-            const { content } = await productService.create(data);
+            const { content } = await productService.createProduct(data);
             setProducts((prevState) => [...prevState, content]);
             return content;
         } catch (error) {
@@ -149,6 +111,7 @@ const ProductProvider = ({ children }) => {
         <ProductContext.Provider
             value={{
                 products,
+                isLoading,
                 getProductById,
                 removeProduct,
                 updateProduct,

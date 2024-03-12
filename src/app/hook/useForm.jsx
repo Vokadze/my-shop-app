@@ -7,21 +7,21 @@ import { useCategories } from "./useCategory";
 import { useProduct } from "./useProducts";
 // import productService from "../service/product.service";
 
-const useForm = ({ onSubmit }) => {
-    // console.log(data);
+const useForm = (onSubmit) => {
     const { prodId } = useParams();
-    console.log(prodId);
     // const history = useHistory();
 
     const [isLoading, setIsLoading] = useState(true);
-    const [form, setForm] = useState({
-        id: "",
-        name: "",
-        category: "",
-        price: "",
-        count: "",
-        image: ""
-    });
+    const [form, setForm] = useState(
+        {} || {
+            id: "",
+            name: "",
+            category: "",
+            price: "",
+            count: "",
+            image: ""
+        }
+    );
     // const [categoriesList, setCategoriesList] = useState([]);
     const { categories, isLoading: categoriesLoading } = useCategories();
     // console.log(categoriesList);
@@ -32,14 +32,15 @@ const useForm = ({ onSubmit }) => {
     // console.log(categoriesListMap);
 
     // const [products, setProducts] = useState([]);
-    const { getProductById, updateProduct, addProduct } = useProduct();
+    const { products, getProductById, updateProduct } = useProduct();
+    console.log(products);
     const product = getProductById(prodId);
-    // console.log(product);
+    console.log({ product });
 
-    useEffect(() => {
-        getProductById();
-        // api.products.getById(prodId).then((data) => setProducts(data));
-    }, [prodId]);
+    // useEffect(() => {
+    //     getProductById();
+    //     // api.products.getById(prodId).then((data) => setProducts(data));
+    // }, [prodId]);
 
     const getCategoryById = (id) => {
         for (const category of categories) {
@@ -49,26 +50,22 @@ const useForm = ({ onSubmit }) => {
         }
     };
 
-    const handleSubmit = async () => {
-        // e.preventDefault();
-        // console.log(data);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         // const isValid = validate();
         // if (!isValid) return;
-        addProduct({ ...form });
 
         const { category } = form;
-        await updateProduct(prodId, [
-            {
-                ...form,
-                ...product,
-                category: getCategoryById(category)
-            }
-        ]);
-        // .then((data) => history.push(`/admin/edit/${data._id}`));
-        // history.push(`/admin`);
+        await updateProduct(prodId, {
+            ...form,
+            ...product,
+            category: getCategoryById(category)
+        });
+        // .then((data) => history.push(`/admin/edit/${data.id}`));
+        // history.push(`/admin/edit/${data._id}`);
 
         console.log({ category: getCategoryById(category), ...form });
-        console.log(form);
+        // console.log(data);
     };
 
     useEffect(() => {

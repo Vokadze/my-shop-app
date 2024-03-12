@@ -65,7 +65,6 @@ http.interceptors.response.use(
         return res;
     },
     function (error) {
-        // console.log("Intenceptor");
         const expectedErrors =
             error.response &&
             error.response.status >= 400 &&
@@ -73,15 +72,7 @@ http.interceptors.response.use(
 
         if (!expectedErrors) {
             console.log(error);
-            console.log("Unexpected error");
-            // toast.info("Something was wrong, try it later");
             toast.error("Something was wrong, try it later");
-        } else {
-            // console.log("Error");
-            // toast.info("Expected Error. Something was wrong, try it later");
-            toast.error("Expected Error. Something was wrong, try it later");
-            toast.info("Expected Error");
-            console.log("Expected Error");
         }
         return Promise.reject(error);
     }

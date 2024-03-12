@@ -2,14 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Table, { TableBody, TableHeader } from "../../common/table/tableAdmin";
-import Category from "./category";
+// import Category from "./category";
 
 const AdminTable = ({
     products,
     // categories,
     handleDelete,
-    // handleClick,
-    onEdit,
+    handleClick,
     selectedSort,
     onSort,
     prodId
@@ -35,9 +34,9 @@ const AdminTable = ({
             // )
         },
         category: {
-            // path: "category.name",
-            name: "Категория",
-            component: (product) => <Category id={product.category} />
+            path: "category.name",
+            name: "Категория"
+            // component: (product) => <Category id={product.category} />
         },
         count: {
             path: "count",
@@ -63,8 +62,8 @@ const AdminTable = ({
             component: (product) => (
                 <span>
                     <Link
-                        to={`/admin/edit/${product._id}`}
-                        onClick={() => onEdit(product._id)}
+                        to={`/admin/edit/${product.id}`}
+                        onClick={handleClick}
                     >
                         <i
                             className="bi bi-pencil m-2"
@@ -106,8 +105,7 @@ AdminTable.propTypes = {
     products: PropTypes.array,
     // categories: PropTypes.object,
     handleDelete: PropTypes.func,
-    // handleClick: PropTypes.func,
-    onEdit: PropTypes.func,
+    handleClick: PropTypes.func,
     selectedSort: PropTypes.object.isRequired,
     onSort: PropTypes.func,
     prodId: PropTypes.oneOfType([
