@@ -6,12 +6,14 @@ import { useParams } from "react-router-dom";
 import AdminPageList from "../components/page/adminPageList/adminPageList";
 import ProductProvider from "../hook/useProducts";
 import { CategoryProvider } from "../hook/useCategory";
+import AdminFormEdit from "../components/ui/adminPageUi/adminFormEdit";
 // import AdminForm from "../components/ui/adminForm";
 // import AddAdminPage from "../components/page/adminPageList/addAdminPage";
 
 const Admin = () => {
     const params = useParams();
     const { prodId, edit } = params;
+    console.log(prodId);
     // const history = useHistory();
     // const [product, setProduct] = useState("");
     // console.log(product);
@@ -28,7 +30,7 @@ const Admin = () => {
                         edit ? (
                             <AdminPageList prodId={prodId} />
                         ) : (
-                            <AdminPageList prodId={prodId} />
+                            <AdminFormEdit prodId={prodId} />
                         )
                     ) : (
                         <AdminPageList />

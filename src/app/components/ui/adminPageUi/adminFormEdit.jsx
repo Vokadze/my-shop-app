@@ -5,12 +5,16 @@ import TextFieldAdmin from "../../common/form/textFieldAdmin";
 import SelectFieldAdmin from "../../common/form/selectFieldAdmin";
 
 import useForm from "../../../hook/useForm";
+// import { useProduct } from "../../../hook/useProducts";
 
-const AdminFormEdit = ({ onSubmit }) => {
+const AdminFormEdit = (data, onSubmit) => {
+    // console.log(data);
     const { form, handleSubmit, handleChange, categoriesList } = useForm(
-        // data,
+        data,
         onSubmit
     );
+    // const data = useProduct();
+    // console.log(data);
 
     return (
         <>
@@ -56,7 +60,7 @@ const AdminFormEdit = ({ onSubmit }) => {
 };
 
 AdminFormEdit.propTypes = {
-    data: PropTypes.array,
+    // data: PropTypes.array,
     onSubmit: PropTypes.func,
     handleChange: PropTypes.func,
     categoriesList: PropTypes.array
