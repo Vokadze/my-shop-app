@@ -2,7 +2,8 @@ import { categoriesObject as categories } from "./categories.api";
 
 const products = [
     {
-        id: "0",
+        _id: "65d296d1bcef07e12a086060",
+        prodNum: "0",
         name: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
         price: 109.95,
         description:
@@ -14,7 +15,8 @@ const products = [
         // bookmark: false
     },
     {
-        id: "1",
+        _id: "65d296d1bcef07e12a086061",
+        prodNum: "1",
         name: "Mens Casual Premium Slim Fit T-Shirts",
         price: 22.3,
         description:
@@ -26,7 +28,8 @@ const products = [
         // bookmark: false
     },
     {
-        id: "2",
+        _id: "65d296d1bcef07e12a086062",
+        prodNum: "2",
         name: "Mens Cotton Jacket",
         price: 55.99,
         description:
@@ -38,7 +41,8 @@ const products = [
         // bookmark: false
     },
     {
-        id: "3",
+        _id: "65d296d1bcef07e12a086063",
+        prodNum: "3",
         name: "Mens Casual Slim Fit",
         price: 15.99,
         description:
@@ -50,7 +54,8 @@ const products = [
         // bookmark: false
     },
     {
-        id: "4",
+        _id: "65d296d1bcef07e12a086064",
+        prodNum: "4",
         name: "John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet",
         price: 695,
         description:
@@ -62,7 +67,8 @@ const products = [
         // bookmark: false
     },
     {
-        id: "5",
+        _id: "65d296d1bcef07e12a086065",
+        prodNum: "5",
         name: "Solid Gold Petite Micropave",
         price: 168,
         description:
@@ -74,7 +80,8 @@ const products = [
         // bookmark: false
     },
     {
-        id: "6",
+        _id: "65d296d1bcef07e12a086066",
+        prodNum: "6",
         name: "White Gold Plated Princess",
         price: 9.99,
         description:
@@ -86,7 +93,8 @@ const products = [
         // bookmark: false
     },
     {
-        id: "7",
+        _id: "65d296d1bcef07e12a086067",
+        prodNum: "7",
         name: "Pierced Owl Rose Gold Plated Stainless Steel Double",
         price: 10.99,
         description:
@@ -98,7 +106,8 @@ const products = [
         // bookmark: false
     },
     {
-        id: "8",
+        _id: "65d296d1bcef07e12a086068",
+        prodNum: "8",
         name: "WD 2TB Elements Portable External Hard Drive - USB 3.0",
         price: 64,
         description:
@@ -110,7 +119,8 @@ const products = [
         // bookmark: false
     },
     {
-        id: "9",
+        _id: "65d296d1bcef07e12a086069",
+        prodNum: "9",
         name: "SanDisk SSD PLUS 1TB Internal SSD - SATA III 6 Gb/s",
         price: 109,
         description:
@@ -122,7 +132,8 @@ const products = [
         // bookmark: false
     },
     {
-        id: "10",
+        _id: "65d296d1bcef07e12a08606a",
+        prodNum: "10",
         name: "Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5",
         price: 109,
         description:
@@ -134,7 +145,8 @@ const products = [
         // bookmark: false
     },
     {
-        id: "11",
+        _id: "65d296d1bcef07e12a08606b",
+        prodNum: "11",
         name: "WD 4TB Gaming Drive Works with Playstation 4 Portable External Hard Drive",
         price: 114,
         description:
@@ -146,7 +158,8 @@ const products = [
         // bookmark: false
     },
     {
-        id: "12",
+        _id: "65d296d1bcef07e12a08606c",
+        prodNum: "12",
         name: "Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin",
         price: 599,
         description:
@@ -158,7 +171,8 @@ const products = [
         // bookmark: false
     },
     {
-        id: "13",
+        _id: "65d296d1bcef07e12a08606d",
+        prodNum: "13",
         name: "Samsung 49-Inch CHG90 144Hz Curved Gaming Monitor (LC49HG90DMNXZA) – Super Ultrawide Screen QLED",
         price: 999.99,
         description:
@@ -170,7 +184,8 @@ const products = [
         // bookmark: false
     },
     {
-        id: "14",
+        _id: "65d296d1bcef07e12a08606e",
+        prodNum: "14",
         name: "BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats",
         price: 56.99,
         description:
@@ -182,7 +197,8 @@ const products = [
         // bookmark: false
     },
     {
-        id: "15",
+        _id: "65d296d1bcef07e12a08606f",
+        prodNum: "15",
         name: "Lock and Love Women's Removable Hooded Faux Leather Moto Biker Jacket",
         price: 29.95,
         description:
@@ -194,7 +210,8 @@ const products = [
         // bookmark: false
     },
     {
-        id: "16",
+        _id: "65d296d1bcef07e12a086070",
+        prodNum: "16",
         name: "Rain Jacket Women Windbreaker Striped Climbing Raincoats",
         price: 39.99,
         description:
@@ -206,7 +223,8 @@ const products = [
         // bookmark: false
     },
     {
-        id: "17",
+        _id: "65d296d1bcef07e12a086071",
+        prodNum: "17",
         name: "MBJ Women's Solid Short Sleeve Boat Neck V",
         price: 9.85,
         description:
@@ -218,7 +236,8 @@ const products = [
         // bookmark: false
     },
     {
-        id: "18",
+        _id: "65d296d1bcef07e12a086072",
+        prodNum: "18",
         name: "Opna Women's Short Sleeve Moisture",
         price: 7.95,
         description:
@@ -230,7 +249,8 @@ const products = [
         // bookmark: false
     },
     {
-        id: "19",
+        _id: "65d296d1bcef07e12a086073",
+        prodNum: "19",
         name: "DANVOUY Womens T Shirt Casual Cotton Short",
         price: 12.99,
         description:
@@ -242,7 +262,8 @@ const products = [
         // bookmark: false
     },
     {
-        id: "20",
+        _id: "65d296d1bcef07e12a086074",
+        prodNum: "20",
         name: "DANVOUY Womens T Shirt Casual Cotton Short",
         price: 12.99,
         description:
@@ -254,7 +275,8 @@ const products = [
         // bookmark: false
     },
     {
-        id: "21",
+        _id: "65d296d1bcef07e12a086075",
+        prodNum: "21",
         name: "DANVOUY Womens T Shirt Casual Cotton Short",
         price: 12.99,
         description:
@@ -281,7 +303,7 @@ const fetchAll = () =>
 const update = (id, data) =>
     new Promise((resolve) => {
         const products = JSON.parse(localStorage.getItem("products"));
-        const productIndex = products.findIndex((p) => p.id === id);
+        const productIndex = products.findIndex((p) => p._id === id);
         products[productIndex] = { ...products[productIndex], ...data };
         localStorage.setItem("products", JSON.stringify(products));
         resolve(products[productIndex]);
@@ -292,7 +314,7 @@ const getById = (id) =>
         window.setTimeout(function () {
             resolve(
                 JSON.parse(localStorage.getItem("products")).find(
-                    (product) => product.id === id
+                    (product) => product._id === id
                 )
             );
         }, 1000);

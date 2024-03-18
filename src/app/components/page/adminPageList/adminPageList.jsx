@@ -3,65 +3,38 @@ import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { paginate } from "../../../utils/paginate";
 import Pagination from "../../common/pagination";
-import api from "../../../api";
+// import api from "../../../api";
 import SearchInput from "../../common/form/searchInput";
 
 import _ from "lodash";
 import NavBar from "../../ui/navBar";
 import AdminTable from "../../ui/adminPageUi/adminTable";
-// import AdminForm from "../../ui/adminForm";
-// import { useProduct } from "../../../hook/useProducts";
-// import { useCategories } from "../../../hook/useCategory";
-import AdminFormEdit from "../../ui/adminPageUi/adminFormEdit";
-// import axios from "axios";
-// import configFile from "../../../config.json";
+import { useProduct } from "../../../hook/useProducts";
+import AdminProductEditAdd from "../../ui/adminPageUi/adminProductEditAdd";
+import { useCategories } from "../../../hook/useCategory";
 
 const AdminPageList = () => {
     const history = useHistory();
     // console.log(prodId);
     const [currentPage, setCurrentPage] = useState(1);
-    const [categories, setCategories] = useState("");
     const [searchQuery, setSearchQuery] = useState("");
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
     const pageSize = 4;
 
-    const [products, setProducts] = useState("");
-    console.log(products);
-    // const [product, setProduct] = useState("");
-    // console.log(product);
+    const { products, deleteProduct } = useProduct();
 
-    // const { products, product, removeProduct } = useProduct();
+    const { isLoading: categoriesLoading, categories } = useCategories();
 
-    // const { product } = useProduct();
-
-    // const { isLoading: categoriesLoading, categories } = useCategories();
-
-    useEffect(() => {
-        api.products.fetchAll().then((data) => setProducts(data));
-    }, []);
-
-    // useEffect(() => {
-    //     const promise = axios
-    //         .get(configFile.apiEndpoint2)
-    //         .then((res) => console.log(res.data));
-    //     console.log(promise);
-    // }, []);
-
-    const handleDelete = (prodId) => {
-        // removeProduct(prodId);
-        setProducts(products.filter((product) => product.id !== prodId));
-        // console.log(prodId);
-    };
-    const handleClick = (prodId) => {
-        api.products.getById(prodId).then((data) => setProducts(data));
-        history.push(`/edit/${prodId}`);
-        // history.push(history.location.pathname + "/edit");
-        console.log(prodId);
+    const handleDelete = (id) => {
+        deleteProduct(id);
+        // setProducts(products.filter((product) => product.id !== id));
+        console.log(id);
     };
 
-    useEffect(() => {
-        api.categories.fetchAll().then((data) => setCategories(data));
-    }, []);
+    const handleEdit = (param) => {
+        console.log(param);
+        history.push(`/admin/edit/${param}`);
+    };
 
     useEffect(() => {
         setCurrentPage(1);
@@ -115,7 +88,7 @@ const AdminPageList = () => {
                         />
                     </div>
                     <div className="d-flex flex-row">
-                        {categories && (
+                        {categories && !categoriesLoading && (
                             <>
                                 <div
                                     className="card text-center border border-warning"
@@ -129,11 +102,7 @@ const AdminPageList = () => {
                                             Блок для добавления или
                                             редактирования товара
                                         </h6>
-                                        <AdminFormEdit
-                                            // prodId={prodId}
-                                            products={products}
-                                            handleClick={handleClick}
-                                        />
+                                        <AdminProductEditAdd />
                                     </div>
                                 </div>
                             </>
@@ -141,9 +110,11 @@ const AdminPageList = () => {
                         <div className="d-flex flex-column justify-content-between">
                             <div className="container px-0 m-0">
                                 <AdminTable
+                                    data={products && productCrop}
                                     products={productCrop}
                                     onSort={handleSort}
                                     selectedSort={sortBy}
+                                    onEdit={handleEdit}
                                     handleDelete={handleDelete}
                                 />
                             </div>

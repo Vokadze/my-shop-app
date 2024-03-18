@@ -18,7 +18,7 @@ const TableBody = ({ data, columns }) => {
         <tbody className="d-flex flex-column p-2">
             {data.map((item) => (
                 <tr
-                    key={item.id}
+                    key={item._id}
                     className="d-flex flex-row border border-warning mb-3 position-relative"
                     style={{ background: "#dee2e6" }}
                 >

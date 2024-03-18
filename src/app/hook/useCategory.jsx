@@ -60,5 +60,3 @@ CategoryProvider.propTypes = {
         PropTypes.node
     ])
 };
-
-// export default CategoryProvider;

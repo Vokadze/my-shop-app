@@ -22,7 +22,7 @@ const AddAdminPage = ({ prodId }) => {
     if (product) {
         return (
             <>
-                <h6>id: {product.id}</h6>
+                <h6>id: {product._id}</h6>
                 <h6>Наименование: {product.name}</h6>
                 <h6>Категория: {product.category.name}</h6>
                 <h6>Количество: {product.count}</h6>

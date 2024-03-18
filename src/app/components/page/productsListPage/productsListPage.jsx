@@ -3,13 +3,15 @@ import PropTypes from "prop-types";
 
 import { paginate } from "../../../utils/paginate";
 import Pagination from "../../common/pagination";
-import api from "../../../api";
+// import api from "../../../api";
 import GroupList from "../../common/groupList";
 import ProductsTable from "../../ui/productsTable";
 import SearchInput from "../../common/form/searchInput";
 
 import _ from "lodash";
 import NavBar from "../../ui/navBar";
+import { useProduct } from "../../../hook/useProducts";
+import { useCategories } from "../../../hook/useCategory";
 // import { useProduct } from "../../../hook/useProducts";
 // import { useCategories } from "../../../hook/useCategory";
 
@@ -18,33 +20,35 @@ const ProductsListPage = () => {
 
     // const { getProductById } = useProduct();
     // const product = getProductById()
-    const [categories, setCategories] = useState();
-    console.log("categories App.jsx", categories);
+    // const [categories, setCategories] = useState();
+    // console.log(categories);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState();
+    console.log(selectedCategory);
     const [sortBy, setSortBy] = useState({ iter: "price", order: "asc" });
     const pageSize = 4;
 
-    const [products, setProducts] = useState();
-    console.log("products App.jsx", products);
+    // const [products, setProducts] = useState();
 
-    // const { products } = useProduct();
+    const { products, getProductById } = useProduct();
+    // console.log("products App.jsx", products);
 
-    // const { isLoading: categoriesLoading, categories } = useCategories();
+    const { isLoading: categoriesLoading, categories } = useCategories();
+    // console.log("categories App.jsx useCategories", categories);
 
-    useEffect(() => {
-        api.products.fetchAll().then((data) => setProducts(data));
-    }, []);
+    // useEffect(() => {
+    //     api.products.fetchAll().then((data) => setProducts(data));
+    // }, []);
 
     const handleClick = (prodId) => {
-        // getProductById(prodId);
-        setProducts(products.filter((product) => product.id === prodId));
-        console.log(prodId);
+        getProductById(prodId);
+        // setProducts(products.filter((product) => product._id === prodId));
+        // console.log(prodId);
     };
 
-    useEffect(() => {
-        api.categories.fetchAll().then((data) => setCategories(data));
-    }, []);
+    // useEffect(() => {
+    //     api.categories.fetchAll().then((data) => setCategories(data));
+    // }, []);
 
     useEffect(() => {
         setCurrentPage(1);
@@ -72,6 +76,27 @@ const ProductsListPage = () => {
     };
 
     if (products) {
+        // function filterProducts(data) {
+        //     const filteredProducts = searchQuery
+        //         ? data.filter(
+        //               (product) =>
+        //                   product.name
+        //                       .toLowerCase()
+        //                       .indexOf(searchQuery.toLowerCase()) !== -1
+        //           )
+        //         : selectedCategory
+        //           ? data.filter(
+        //                 (product) =>
+        //                     JSON.stringify(product.category) ===
+        //                     JSON.stringify(selectedCategory)
+        //             )
+        //           : data;
+
+        //     return filteredProducts.filter((p) => p._id === data);
+        // }
+
+        // const filteredProducts = filterProducts(products);
+
         const filteredProducts = searchQuery
             ? products.filter(
                   (product) =>
@@ -83,11 +108,12 @@ const ProductsListPage = () => {
               ? products.filter(
                     (product) =>
                         JSON.stringify(product.category) ===
-                        JSON.stringify(selectedCategory)
+                        JSON.stringify(selectedCategory.id)
                 )
               : products;
 
         const count = filteredProducts.length;
+        // console.log(count);
 
         const sortedProducts = _.orderBy(
             filteredProducts,
@@ -117,7 +143,7 @@ const ProductsListPage = () => {
                         />
                     </div>
                     <div className="d-flex flex-row">
-                        {categories && (
+                        {categories && !categoriesLoading && (
                             <div
                                 className="d-flex flex-column border border-warning"
                                 style={{ background: "#dee2e6" }}
