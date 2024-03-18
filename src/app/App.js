@@ -14,7 +14,6 @@ import { CategoryProvider } from "./hook/useCategory";
 import AuthProvider from "./hook/useAuth";
 import ProtectedRoute from "./components/common/protectedRoute";
 import LogOut from "./layouts/logOut";
-// import AdminPageList from "./components/page/adminPageList/adminPageList";
 
 const App = () => {
     return (
@@ -37,7 +36,6 @@ const App = () => {
                                 path="/adminFormChange"
                                 component={AdminFormEdit}
                             />
-                            {/* <Route path="/adminPagelist" component={AdminPageList} /> */}
                             <Route path="/basket" component={Basket} />
                             <Route path="/logout" component={LogOut} />
                             <Route path="/" exact component={Main} />

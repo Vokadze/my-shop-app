@@ -35,7 +35,7 @@ const BasketCartList = ({ product, productsItems, handleDelete }) => {
     return (
         <>
             <div
-                key={product.id}
+                key={product._id}
                 className="card border border-warning w-100 d-flex flex-row mb-3"
                 style={{ background: "#dee2e6" }}
             >
@@ -50,7 +50,7 @@ const BasketCartList = ({ product, productsItems, handleDelete }) => {
                 <div className="card-body mx-3">
                     <div className="row">
                         <div className="cart-id">
-                            <p className="mt-2">{`id товара: ${product.id}`}</p>
+                            <p className="mt-2">{`id товара: ${product.prodNum}`}</p>
                         </div>
                         <div className="d-flex flex-row">
                             <div className="col col-6">
@@ -74,7 +74,10 @@ const BasketCartList = ({ product, productsItems, handleDelete }) => {
                     </div>
                 </div>
                 <span className="card-image-right m-2 p-2">
-                    <div onClick={() => handleDelete(product.id)} role="button">
+                    <div
+                        onClick={() => handleDelete(product._id)}
+                        role="button"
+                    >
                         <AiOutlineClose
                             size={25}
                             style={{

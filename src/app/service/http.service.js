@@ -12,7 +12,7 @@ const http = axios.create({
 
 http.interceptors.request.use(
     async function (config) {
-        // console.log(config.url);
+        console.log(config.url);
 
         if (configFile.isFirebase) {
             const containSlash = /\/$/gi.test(config.url);
@@ -50,7 +50,9 @@ http.interceptors.request.use(
 );
 
 function transformData(data) {
-    return data && !data.id
+    // console.log("data transformData", data);
+
+    return data && !data._id
         ? Object.keys(data).map((key) => ({
               ...data[key]
           }))
@@ -60,7 +62,10 @@ http.interceptors.response.use(
     (res) => {
         if (configFile.isFirebase) {
             res.data = { content: transformData(res.data) };
-            // console.log("res.data", res.data);
+            // console.log("res", res);
+            console.log("res.data", res.data);
+            res.config.data = { content: res.data };
+            console.log("res.data", res.config.data);
         }
         return res;
     },
@@ -72,6 +77,7 @@ http.interceptors.response.use(
 
         if (!expectedErrors) {
             console.log(error);
+            console.log("Unexpected Error");
             toast.error("Something was wrong, try it later");
         }
         return Promise.reject(error);

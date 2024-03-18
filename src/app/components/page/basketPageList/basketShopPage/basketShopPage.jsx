@@ -25,10 +25,10 @@ const BasketShopPage = ({ prodId }) => {
     }, []);
 
     const onAddProduct = (product) => {
-        const exist = productsItems.find((p) => p.id === product.id);
+        const exist = productsItems.find((p) => p._id === product._id);
         if (exist) {
             const newCartProducts = productsItems.map((p) =>
-                p.id === product.id
+                p._id === product._id
                     ? {
                           ...exist,
                           count: exist.count - 1
@@ -59,15 +59,15 @@ const BasketShopPage = ({ prodId }) => {
     };
 
     const onRemoveProduct = (product) => {
-        const exist = productsItems.find((p) => p.id === product.id);
+        const exist = productsItems.find((p) => p._id === product._id);
         if (exist.qty === 1) {
             const newCartProducts = productsItems.filter(
-                (p) => p.id !== product.id
+                (p) => p._id !== product._id
             );
             setProductItems(newCartProducts);
         } else {
             const newCartProducts = productsItems.map((p) =>
-                p.id === product.id ? { ...exist, count: exist.count + 1 } : p
+                p._id === product._id ? { ...exist, count: exist.count + 1 } : p
             );
             setProductItems(newCartProducts);
         }
@@ -104,7 +104,7 @@ const BasketShopPage = ({ prodId }) => {
 
                 <BasketShopList
                     product={product}
-                    item={productsItems.find((p) => p.id === product.id)}
+                    item={productsItems.find((p) => p._id === product._id)}
                     onAddProduct={onAddProduct}
                     onRemoveProduct={onRemoveProduct}
                 />

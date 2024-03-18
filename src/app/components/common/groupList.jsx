@@ -9,7 +9,7 @@ const GroupList = ({
     selectedItem
 }) => {
     console.log(items);
-    console.log(Object.keys(items));
+    // console.log(Object.keys(items));
     if (!Array.isArray(items)) {
         return (
             <ul className="list-group">

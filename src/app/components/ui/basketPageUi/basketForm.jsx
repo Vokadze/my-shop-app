@@ -20,7 +20,7 @@ const BasketForm = () => {
         console.log("click");
         if (productsItems) {
             const newLocal = productsItems.filter(
-                (product) => product.id !== prodId
+                (product) => product._id !== prodId
             );
             localStorage.setItem("productsItems", JSON.stringify(newLocal));
             setProductLocal(newLocal);
@@ -30,7 +30,7 @@ const BasketForm = () => {
     const handleIncrement = (id) => {
         console.log("add");
         const elementIndex = productsItems.findIndex(
-            (product) => product.id === id
+            (product) => product._id === id
         );
         const newCounters = [...productsItems];
         newCounters[elementIndex].countPay++;
@@ -40,7 +40,7 @@ const BasketForm = () => {
     const handleDecrement = (id) => {
         console.log("add");
         const elementIndex = productsItems.findIndex(
-            (product) => product.id === id
+            (product) => product._id === id
         );
         const newCounters = [...productsItems];
         newCounters[elementIndex].countPay--;
@@ -72,7 +72,7 @@ const BasketForm = () => {
                                 {productsItems.map((product) => (
                                     <BasketCartList
                                         product={product}
-                                        key={product.id}
+                                        key={product._id}
                                         handleIncrement={handleIncrement}
                                         handleDecrement={handleDecrement}
                                         productsItems={productsItems}

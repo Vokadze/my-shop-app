@@ -6,26 +6,18 @@ const productEndpoint = "product/";
 const productService = {
     get: async () => {
         const { data } = await httpService.get(productEndpoint);
-        // console.log("req.data", data);
         return data;
     },
-    update: async (content) => {
-        const { data } = await httpService.patch(productEndpoint, content);
-        console.log("data", content);
+    update: async (id, content) => {
+        const { data } = await httpService.put(productEndpoint + id, content);
         return data;
     },
 
-    // update: async (id, content) => {
-    //     const { data } = await httpService.put(productEndpoint + id, content);
-    //     // console.log("data", data);
-    //     return data;
-    // },
-
-    // fetchAll: async () => {
-    //     const { data } = await httpService.get(productEndpoint);
-    //     // console.log("data", data);
-    //     return data;
-    // },
+    fetchAll: async () => {
+        const { data } = await httpService.get(productEndpoint);
+        // console.log("data", data);
+        return data;
+    },
     create: async (payload) => {
         const { data } = await httpService.put(
             productEndpoint + payload.id,
@@ -34,14 +26,12 @@ const productService = {
         // console.log("data", data);
         return data;
     },
-    removeProduct: async (prodId) => {
-        const { data } = await httpService.delete(productEndpoint + prodId);
+    delete: async (id) => {
+        const { data } = await httpService.delete(productEndpoint + id);
         return data;
     }
     // delete: async (id) => {
-    //     const { data } = await httpService.delete(
-    //         productEndpoint + id + "asdfg"
-    //     );
+    //     const { data } = await httpService.delete(productEndpoint + id);
     //     // console.log("data", data);
     //     return data;
     // }

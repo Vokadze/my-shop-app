@@ -9,7 +9,6 @@ const ProductsTable = ({
     product,
     onSort,
     selectedSort,
-    // handleClick,
     ...rest
 }) => {
     const columns = {
@@ -31,14 +30,14 @@ const ProductsTable = ({
             component: (product) => (
                 <div className="col-8 mx-3">
                     <p className="mt-2">{`Наименование товара: ${product.name}`}</p>
-                    <p className="mt-2">{`id товара:  ${product.id}`}</p>
+                    <p className="mt-2">{`id товара:  ${product.prodNum}`}</p>
                     <p className="mt-2">{`Стоимость: ${product.price}`}</p>
                 </div>
             )
         },
         button: {
             component: (product) => (
-                <Link to={`/products/${product.id}`}>
+                <Link to={`/products/${product._id}`}>
                     <div className="position-absolute bottom-0 end-0 p-4">
                         <button
                             className="btn btn-primary btn-sm text-nowrap "
@@ -48,7 +47,6 @@ const ProductsTable = ({
                                 color: "#212529",
                                 border: "#ffc107"
                             }}
-                            // onClick={() => handleClick(product.id)}
                         >
                             Открыть карточку
                         </button>

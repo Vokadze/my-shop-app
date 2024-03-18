@@ -38,7 +38,7 @@ const BasketShopList = ({ product, onAddProduct }) => {
                                     </button>
                                 </div>
                                 <div className="text-end">
-                                    <p className="mt-5 mb-1 text-end">{`id товара:  ${product.id}`}</p>
+                                    <p className="mt-5 mb-1 text-end">{`id товара:  ${product.prodNum}`}</p>
                                 </div>
                             </div>
                         </div>
