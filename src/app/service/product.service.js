@@ -8,8 +8,16 @@ const productService = {
         const { data } = await httpService.get(productEndpoint);
         return data;
     },
-    update: async (id, content) => {
-        const { data } = await httpService.put(productEndpoint + id, content);
+    update: async (content) => {
+        const { data } = await httpService.put(productEndpoint, content);
+        return data;
+    },
+
+    getProduct: async (_id, content) => {
+        const { data } = await httpService.put(productEndpoint + _id, {
+            _id,
+            ...content
+        });
         return data;
     },
 
@@ -18,23 +26,16 @@ const productService = {
         // console.log("data", data);
         return data;
     },
-    create: async (payload) => {
-        const { data } = await httpService.put(
-            productEndpoint + payload.id,
-            payload
-        );
-        // console.log("data", data);
-        return data;
-    },
+    // create: async (id, payload) => {
+    //     const { data } = await httpService.post(productEndpoint + id, payload);
+    //     // console.log("data", data);
+    //     return data;
+    // },
+
     delete: async (id) => {
         const { data } = await httpService.delete(productEndpoint + id);
         return data;
     }
-    // delete: async (id) => {
-    //     const { data } = await httpService.delete(productEndpoint + id);
-    //     // console.log("data", data);
-    //     return data;
-    // }
 };
 
 export default productService;

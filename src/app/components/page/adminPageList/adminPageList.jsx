@@ -10,8 +10,9 @@ import _ from "lodash";
 import NavBar from "../../ui/navBar";
 import AdminTable from "../../ui/adminPageUi/adminTable";
 import { useProduct } from "../../../hook/useProducts";
-import AdminProductEditAdd from "../../ui/adminPageUi/adminProductEditAdd";
+
 import { useCategories } from "../../../hook/useCategory";
+import AdminProduct from "../../ui/adminPageUi/adminProduct";
 
 const AdminPageList = () => {
     const history = useHistory();
@@ -102,7 +103,7 @@ const AdminPageList = () => {
                                             Блок для добавления или
                                             редактирования товара
                                         </h6>
-                                        <AdminProductEditAdd />
+                                        <AdminProduct />
                                     </div>
                                 </div>
                             </>

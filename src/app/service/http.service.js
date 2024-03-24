@@ -8,8 +8,6 @@ const http = axios.create({
     baseURL: configFile.apiEndpoint2
 });
 
-// axios.defaults.baseURL = configFile.apiEndpoint2;
-
 http.interceptors.request.use(
     async function (config) {
         console.log(config.url);
@@ -52,7 +50,7 @@ http.interceptors.request.use(
 function transformData(data) {
     // console.log("data transformData", data);
 
-    return data && !data._id
+    return data && !data.id
         ? Object.keys(data).map((key) => ({
               ...data[key]
           }))

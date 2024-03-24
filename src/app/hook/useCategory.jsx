@@ -12,7 +12,7 @@ export const useCategories = () => {
 export const CategoryProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [categories, setCategories] = useState([]);
-    // console.log(categories);
+    console.log(categories);
     const [error, setError] = useState(null);
 
     useEffect(() => {

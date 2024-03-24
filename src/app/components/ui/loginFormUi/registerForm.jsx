@@ -25,7 +25,7 @@ const RegisterForm = () => {
     console.log(categories);
     const categoriesList = categories.map((c) => ({
         label: c.name,
-        value: c.id
+        value: c._id
     }));
     const [errors, setErrors] = useState({});
 
