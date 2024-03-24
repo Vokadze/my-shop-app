@@ -12,23 +12,14 @@ import _ from "lodash";
 import NavBar from "../../ui/navBar";
 import { useProduct } from "../../../hook/useProducts";
 import { useCategories } from "../../../hook/useCategory";
-// import { useProduct } from "../../../hook/useProducts";
-// import { useCategories } from "../../../hook/useCategory";
 
 const ProductsListPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
-
-    // const { getProductById } = useProduct();
-    // const product = getProductById()
-    // const [categories, setCategories] = useState();
-    // console.log(categories);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState();
     console.log(selectedCategory);
     const [sortBy, setSortBy] = useState({ iter: "price", order: "asc" });
     const pageSize = 4;
-
-    // const [products, setProducts] = useState();
 
     const { products, getProductById } = useProduct();
     // console.log("products App.jsx", products);
@@ -36,19 +27,11 @@ const ProductsListPage = () => {
     const { isLoading: categoriesLoading, categories } = useCategories();
     // console.log("categories App.jsx useCategories", categories);
 
-    // useEffect(() => {
-    //     api.products.fetchAll().then((data) => setProducts(data));
-    // }, []);
-
     const handleClick = (prodId) => {
         getProductById(prodId);
         // setProducts(products.filter((product) => product._id === prodId));
         // console.log(prodId);
     };
-
-    // useEffect(() => {
-    //     api.categories.fetchAll().then((data) => setCategories(data));
-    // }, []);
 
     useEffect(() => {
         setCurrentPage(1);
@@ -75,116 +58,116 @@ const ProductsListPage = () => {
         console.log(item);
     };
 
-    if (products) {
-        // function filterProducts(data) {
-        //     const filteredProducts = searchQuery
-        //         ? data.filter(
-        //               (product) =>
-        //                   product.name
-        //                       .toLowerCase()
-        //                       .indexOf(searchQuery.toLowerCase()) !== -1
-        //           )
-        //         : selectedCategory
-        //           ? data.filter(
-        //                 (product) =>
-        //                     JSON.stringify(product.category) ===
-        //                     JSON.stringify(selectedCategory)
-        //             )
-        //           : data;
+    // if (products) {
+    // function filterProducts(data) {
+    //     const filteredProducts = searchQuery
+    //         ? data.filter(
+    //               (product) =>
+    //                   product.name
+    //                       .toLowerCase()
+    //                       .indexOf(searchQuery.toLowerCase()) !== -1
+    //           )
+    //         : selectedCategory
+    //           ? data.filter(
+    //                 (product) =>
+    //                     JSON.stringify(product.category) ===
+    //                     JSON.stringify(selectedCategory)
+    //             )
+    //           : data;
 
-        //     return filteredProducts.filter((p) => p._id === data);
-        // }
+    //     return filteredProducts.filter((p) => p._id === data);
+    // }
 
-        // const filteredProducts = filterProducts(products);
+    // const filteredProducts = filterProducts(products);
 
-        const filteredProducts = searchQuery
-            ? products.filter(
-                  (product) =>
-                      product.name
-                          .toLowerCase()
-                          .indexOf(searchQuery.toLowerCase()) !== -1
-              )
-            : selectedCategory
-              ? products.filter(
-                    (product) =>
-                        JSON.stringify(product.category) ===
-                        JSON.stringify(selectedCategory.id)
-                )
-              : products;
+    const filteredProducts = searchQuery
+        ? products.filter(
+              (product) =>
+                  product.name
+                      .toLowerCase()
+                      .indexOf(searchQuery.toLowerCase()) !== -1
+          )
+        : selectedCategory
+          ? products.filter(
+                (product) =>
+                    JSON.stringify(product.category) ===
+                    JSON.stringify(selectedCategory.id)
+            )
+          : products;
 
-        const count = filteredProducts.length;
-        // console.log(count);
+    const count = filteredProducts.length;
+    // console.log(count);
 
-        const sortedProducts = _.orderBy(
-            filteredProducts,
-            [sortBy.path],
-            [sortBy.order]
-        );
+    const sortedProducts = _.orderBy(
+        filteredProducts,
+        [sortBy.path],
+        [sortBy.order]
+    );
 
-        const productCrop = paginate(sortedProducts, currentPage, pageSize);
-        console.log(productCrop);
+    const productCrop = paginate(sortedProducts, currentPage, pageSize);
+    console.log(productCrop);
 
-        const clearFilter = () => {
-            setSelectedCategory();
-        };
+    const clearFilter = () => {
+        setSelectedCategory();
+    };
 
-        return (
-            <div className="d-flex justify-content-center px-4">
+    return (
+        <div className="d-flex justify-content-center px-4">
+            <div className="d-flex flex-column">
                 <div className="d-flex flex-column">
-                    <div className="d-flex flex-column">
-                        <NavBar />
-                        <SearchInput
-                            type="text"
-                            name="searchQuery"
-                            placeholder="Поисковая строка (по названию)"
-                            className="mb-2 text-center"
-                            onChange={handleSearchQuery}
-                            value={searchQuery}
-                        />
-                    </div>
-                    <div className="d-flex flex-row">
-                        {categories && !categoriesLoading && (
-                            <div
-                                className="d-flex flex-column border border-warning"
-                                style={{ background: "#dee2e6" }}
+                    <NavBar />
+                    <SearchInput
+                        type="text"
+                        name="searchQuery"
+                        placeholder="Поисковая строка (по названию)"
+                        className="mb-2 text-center"
+                        onChange={handleSearchQuery}
+                        value={searchQuery}
+                    />
+                </div>
+                <div className="d-flex flex-row">
+                    {categories && !categoriesLoading && (
+                        <div
+                            className="d-flex flex-column border border-warning"
+                            style={{ background: "#dee2e6" }}
+                        >
+                            <GroupList
+                                selectedItem={selectedCategory}
+                                items={categories}
+                                onItemSelect={handleCategoriesSelect}
+                            />
+                            <button
+                                className="btn btn-secondary mt-2"
+                                onClick={clearFilter}
                             >
-                                <GroupList
-                                    selectedItem={selectedCategory}
-                                    items={categories}
-                                    onItemSelect={handleCategoriesSelect}
-                                />
-                                <button
-                                    className="btn btn-secondary mt-2"
-                                    onClick={clearFilter}
-                                >
-                                    Очистить
-                                </button>
-                            </div>
-                        )}
-                        <div className="d-flex flex-column justify-content-between">
-                            <div className="container px-0 m-0">
-                                <ProductsTable
-                                    products={productCrop}
-                                    onSort={handleSort}
-                                    selectedSort={sortBy}
-                                    handleClick={handleClick}
-                                />
-                            </div>
-                            <div className="d-flex justify-content-center">
-                                <Pagination
-                                    itemsCount={count}
-                                    pageSize={pageSize}
-                                    currentPage={currentPage}
-                                    onPageChange={handlePageChange}
-                                />
-                            </div>
+                                Очистить
+                            </button>
+                        </div>
+                    )}
+                    <div className="d-flex flex-column justify-content-between">
+                        <div className="container px-0 m-0">
+                            <ProductsTable
+                                products={productCrop}
+                                onSort={handleSort}
+                                selectedSort={sortBy}
+                                handleClick={handleClick}
+                            />
+                        </div>
+                        <div className="d-flex justify-content-center">
+                            <Pagination
+                                itemsCount={count}
+                                pageSize={pageSize}
+                                currentPage={currentPage}
+                                onPageChange={handlePageChange}
+                            />
                         </div>
                     </div>
                 </div>
             </div>
-        );
-    }
-    return "Loading productsListPage.jsx";
+        </div>
+    );
+    // }
+    // return "Loading productsListPage.jsx";
 };
 
 ProductsListPage.propTypes = {

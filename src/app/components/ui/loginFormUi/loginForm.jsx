@@ -78,7 +78,7 @@ const LoginForm = () => {
             history.push(
                 history.location.state
                     ? history.location.state.from.pathname
-                    : "/"
+                    : "/products"
             );
         } catch (error) {
             setEnterError(error.message);

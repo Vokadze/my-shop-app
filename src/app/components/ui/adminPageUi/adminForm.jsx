@@ -1,49 +1,12 @@
 import React from "react";
-// import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import TextFieldAdmin from "../../common/form/textFieldAdmin";
 import SelectFieldAdmin from "../../common/form/selectFieldAdmin";
 import useForm from "../../../hook/useForm";
-// import { useCategories } from "../../../hook/useCategory";
 
-// const useForm = (initialState = {}, onSubmit) => {
-//     const [form, setForm] = useState(initialState);
-
-//     const handleSubmit = (e) => {
-//         e.preventDefault();
-//         onSubmit(form);
-//     };
-
-//     const handleChange = (target) => {
-//         setForm((prevState) => ({
-//             ...prevState,
-//             [target.name]: target.value
-//         }));
-
-//         console.log(target.name);
-//     };
-
-//     return { form, handleChange, handleSubmit };
-// };
-
-const AdminFormEdit = ({ data, onSubmit, categoriesList }) => {
+const AdminForm = ({ data, onSubmit, categoriesList }) => {
     const { form, handleChange, handleSubmit } = useForm(data, onSubmit);
-    // const [form, setForm] = useState(data || {});
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     onSubmit(form);
-    // };
-
-    // const handleChange = (target) => {
-    //     setForm((prevState) => ({
-    //         ...prevState,
-    //         [target.name]: target.value
-    //     }));
-
-    //     console.log(target.name);
-    // };
 
     return (
         <>
@@ -88,11 +51,11 @@ const AdminFormEdit = ({ data, onSubmit, categoriesList }) => {
     );
 };
 
-AdminFormEdit.propTypes = {
+AdminForm.propTypes = {
     data: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
     onSubmit: PropTypes.func,
     handleChange: PropTypes.func,
     categoriesList: PropTypes.array
 };
 
-export default AdminFormEdit;
+export default AdminForm;

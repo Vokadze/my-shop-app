@@ -2,27 +2,25 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 
-import api from "../../../../api";
 import SearchInput from "../../../common/form/searchInput";
 import NavBar from "../../../ui/navBar";
 import BasketShopList from "../basketShopList/basketShopList";
+import { useProduct } from "../../../../hook/useProducts";
 
 const BasketShopPage = ({ prodId }) => {
     const history = useHistory();
     const [productsItems, setProductItems] = useState([]);
     console.log("BasketShopPage.jsx useState productsItem", productsItems);
 
-    const [product, setProduct] = useState();
+    const { getProductById } = useProduct();
+    const product = getProductById(prodId);
     console.log("BasketShopPage.jsx useState product", product);
+
     const [searchQuery, setSearchQuery] = useState("");
 
     const handleSearchQuery = ({ target }) => {
         setSearchQuery(target.value);
     };
-
-    useEffect(() => {
-        api.products.getById(prodId).then((data) => setProduct(data));
-    }, []);
 
     const onAddProduct = (product) => {
         const exist = productsItems.find((p) => p._id === product._id);

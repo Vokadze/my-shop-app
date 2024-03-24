@@ -1,7 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
+// import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import productService from "../service/product.service";
+// import httpService from "../service/http.service";
+// import { nanoid } from "nanoid";
 // import httpService from "../service/http.service";
 // import { useAuth } from "./useAuth";
 
@@ -12,13 +15,10 @@ export const useProduct = () => {
 };
 
 const ProductProvider = ({ children }) => {
-    // console.log(children);
     const [products, setProducts] = useState([]);
-    // const { currentUser } = useAuth();
-    const [isLoading, setIsLoading] = useState(true);
     // console.log(products);
+    const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-    // const prevState = useRef();
 
     useEffect(() => {
         const getProducts = async () => {
@@ -38,47 +38,18 @@ const ProductProvider = ({ children }) => {
         return products.find((p) => p._id === id);
     }
 
-    // const updateProduct = async ({ _id: id, data }) => {
-    //     try {
-    //         const { content } = await productService.put(id, data);
-    //         // history.push("/admin");
-    //         setProducts((prevState) =>
-    //             prevState.map((item) => {
-    //                 if (item._id === content.id) {
-    //                     return content;
-    //                 }
-    //                 return item;
-    //             })
-    //         );
-    //         return content;
-    //     } catch (error) {
-    //         // console.log("Expected Error");
-    //         errorCatcher(error);
-    //     }
-    // };
-
-    const updateProduct = async ({ _id: id, ...data }) => {
+    const updateProduct = async ({ _id, ...data }) => {
         try {
-            const { content } = await productService.update(id, data);
-            // console.log(content);
+            const { content } = await productService.getProduct(_id, data);
+            console.log(content);
             setProducts((prevState) =>
                 prevState.map((item) => {
                     if (item._id === content._id) {
-                        return content;
+                        return item;
                     }
                     return item;
                 })
             );
-            return content;
-        } catch (error) {
-            errorCatcher(error);
-        }
-    };
-
-    const addProduct = async (data) => {
-        try {
-            const { content } = await productService.createProduct(data);
-            setProducts((prevState) => [...prevState, content]);
             return content;
         } catch (error) {
             errorCatcher(error);
@@ -119,8 +90,7 @@ const ProductProvider = ({ children }) => {
                 products,
                 getProductById,
                 updateProduct,
-                deleteProduct,
-                addProduct
+                deleteProduct
             }}
         >
             {!isLoading ? children : "loading useProducts.jsx..."}
