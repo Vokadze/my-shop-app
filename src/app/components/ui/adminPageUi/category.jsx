@@ -1,9 +1,14 @@
+import React from "react";
 import PropTypes from "prop-types";
-import React, { useCategories } from "../../../hook/useCategory";
+import { useSelector } from "react-redux";
+import {
+    getCategoriesLoadingStatus,
+    getCategoryByIds
+} from "../../../store/categories";
 
 const Category = ({ id }) => {
-    const { isLoading, getCategories } = useCategories();
-    const category = getCategories(id);
+    const isLoading = useSelector(getCategoriesLoadingStatus());
+    const category = useSelector(getCategoryByIds(id));
 
     if (!isLoading) {
         return <p className="m-0">{category.name}</p>;

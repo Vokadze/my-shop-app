@@ -5,15 +5,15 @@ import { useHistory } from "react-router-dom";
 import SearchInput from "../../../common/form/searchInput";
 import NavBar from "../../../ui/navBar";
 import BasketShopList from "../basketShopList/basketShopList";
-import { useProduct } from "../../../../hook/useProducts";
+import { useSelector } from "react-redux";
+import { getProductById } from "../../../../store/products";
 
 const BasketShopPage = ({ prodId }) => {
     const history = useHistory();
     const [productsItems, setProductItems] = useState([]);
     console.log("BasketShopPage.jsx useState productsItem", productsItems);
 
-    const { getProductById } = useProduct();
-    const product = getProductById(prodId);
+    const product = useSelector(getProductById(prodId));
     console.log("BasketShopPage.jsx useState product", product);
 
     const [searchQuery, setSearchQuery] = useState("");

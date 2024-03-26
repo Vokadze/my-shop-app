@@ -10,25 +10,32 @@ import SearchInput from "../../common/form/searchInput";
 
 import _ from "lodash";
 import NavBar from "../../ui/navBar";
-import { useProduct } from "../../../hook/useProducts";
-import { useCategories } from "../../../hook/useCategory";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    getCategories,
+    getCategoriesLoadingStatus
+} from "../../../store/categories";
+import { getProductById, getProducts } from "../../../store/products";
 
 const ProductsListPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState();
-    console.log(selectedCategory);
+    // console.log(selectedCategory);
     const [sortBy, setSortBy] = useState({ iter: "price", order: "asc" });
     const pageSize = 4;
 
-    const { products, getProductById } = useProduct();
+    const dispatch = useDispatch();
+    const products = useSelector(getProducts());
     // console.log("products App.jsx", products);
 
-    const { isLoading: categoriesLoading, categories } = useCategories();
-    // console.log("categories App.jsx useCategories", categories);
+    const categories = useSelector(getCategories());
+    const categoriesLoading = useSelector(getCategoriesLoadingStatus());
+    // console.log("categories App.jsx", categories);
 
     const handleClick = (prodId) => {
-        getProductById(prodId);
+        dispatch(getProductById(prodId));
+        // getProductById(prodId);
         // setProducts(products.filter((product) => product._id === prodId));
         // console.log(prodId);
     };
@@ -91,7 +98,7 @@ const ProductsListPage = () => {
           ? products.filter(
                 (product) =>
                     JSON.stringify(product.category) ===
-                    JSON.stringify(selectedCategory.id)
+                    JSON.stringify(selectedCategory._id)
             )
           : products;
 
@@ -105,7 +112,7 @@ const ProductsListPage = () => {
     );
 
     const productCrop = paginate(sortedProducts, currentPage, pageSize);
-    console.log(productCrop);
+    // console.log(productCrop);
 
     const clearFilter = () => {
         setSelectedCategory();

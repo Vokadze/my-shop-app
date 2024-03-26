@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const TableHeader = ({ onSort, selectedSort, columns }) => {
-    console.log("TableHeader.jsx columns", columns);
+    // console.log("TableHeader.jsx columns", columns);
     const handleSort = (item) => {
         if (selectedSort.path === item) {
             onSort({
