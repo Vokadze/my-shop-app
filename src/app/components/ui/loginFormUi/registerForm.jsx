@@ -7,8 +7,9 @@ import { validator } from "../../../utils/validator";
 import SelectField from "../../common/form/selectField";
 import RadioField from "../../common/form/radioField";
 import CheckBoxField from "../../common/form/checkBoxField";
-import { useCategories } from "../../../hook/useCategory";
 import { useAuth } from "../../../hook/useAuth";
+import { useSelector } from "react-redux";
+import { getCategories } from "../../../store/categories";
 
 const RegisterForm = () => {
     const history = useHistory();
@@ -21,21 +22,22 @@ const RegisterForm = () => {
         licence: false
     });
     const { signUp } = useAuth();
-    const { categories } = useCategories();
+    const categories = useSelector(getCategories());
     console.log(categories);
     const categoriesList = categories.map((c) => ({
-        label: c.name,
+        name: c.name,
         value: c._id
     }));
+    console.log(categoriesList);
     const [errors, setErrors] = useState({});
 
     // useEffect(() => {
     //     api.categories.fetchAll().then((data) => setCategories(data));
     // }, []);
 
-    useEffect(() => {
-        console.log(categories);
-    }, [categories]);
+    // useEffect(() => {
+    //     console.log(categories);
+    // }, [categories]);
 
     const handleChange = (target) => {
         setData((prevState) => ({

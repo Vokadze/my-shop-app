@@ -41,7 +41,7 @@ const useMockData = () => {
     async function initialize() {
         try {
             for (const categ of categories) {
-                await httpService.put("category/" + categ.id, categ);
+                await httpService.put("category/" + categ._id, categ);
                 incrementCount();
             }
             for (const product of products) {

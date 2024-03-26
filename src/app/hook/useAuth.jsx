@@ -90,7 +90,7 @@ const AuthProvider = ({ children }) => {
             setTokens(data);
 
             await createUser({
-                id: data.localId,
+                _id: data.localId,
                 email,
                 rate: randomInt(1, 5),
                 ...rest

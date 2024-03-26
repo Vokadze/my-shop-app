@@ -8,7 +8,7 @@ const GroupList = ({
     onItemSelect,
     selectedItem
 }) => {
-    console.log(items);
+    // console.log(items);
     // console.log(Object.keys(items));
     if (!Array.isArray(items)) {
         return (
@@ -50,7 +50,7 @@ const GroupList = ({
 };
 
 GroupList.defaultProps = {
-    valueProperty: "id",
+    valueProperty: "_id",
     contentProperty: "name"
 };
 

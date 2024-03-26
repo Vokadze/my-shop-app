@@ -1,9 +1,11 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useProduct } from "../../../hook/useProducts";
-import { useCategories } from "../../../hook/useCategory";
 import AdminProductEdit from "./adminProductEdit";
 import { nanoid } from "nanoid";
+import { useSelector } from "react-redux";
+import { getCategories } from "../../../store/categories";
+import { getProductById } from "../../../store/products";
 
 const AdminProduct = () => {
     const { prodId } = useParams();
@@ -11,15 +13,15 @@ const AdminProduct = () => {
     const nanoId = nanoid();
     console.log("nanoId", nanoId);
 
-    const { getProductById } = useProduct();
+    const product = useSelector(getProductById(prodId));
+
     const { updateProduct } = useProduct();
-    const product = getProductById(prodId);
     console.log(product);
-    const { categories } = useCategories();
+    const categories = useSelector(getCategories());
 
     const categoriesList = categories.map((c) => ({
         name: c.name,
-        value: c.id
+        value: c._id
     }));
 
     const handleSubmit = (data) => {

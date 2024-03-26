@@ -50,7 +50,7 @@ http.interceptors.request.use(
 function transformData(data) {
     // console.log("data transformData", data);
 
-    return data && !data.id
+    return data && !data._id
         ? Object.keys(data).map((key) => ({
               ...data[key]
           }))

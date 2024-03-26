@@ -9,10 +9,16 @@ import SearchInput from "../../common/form/searchInput";
 import _ from "lodash";
 import NavBar from "../../ui/navBar";
 import AdminTable from "../../ui/adminPageUi/adminTable";
-import { useProduct } from "../../../hook/useProducts";
+// import { useProduct } from "../../../hook/useProducts";
 
-import { useCategories } from "../../../hook/useCategory";
 import AdminProduct from "../../ui/adminPageUi/adminProduct";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    getCategories,
+    getCategoriesLoadingStatus,
+    loadCategoriesList
+} from "../../../store/categories";
+import { getProducts, loadProductsList } from "../../../store/products";
 
 const AdminPageList = () => {
     const history = useHistory();
@@ -22,14 +28,26 @@ const AdminPageList = () => {
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
     const pageSize = 4;
 
-    const { products, deleteProduct } = useProduct();
+    const dispatch = useDispatch();
 
-    const { isLoading: categoriesLoading, categories } = useCategories();
+    const products = useSelector(getProducts());
 
-    const handleDelete = (id) => {
-        deleteProduct(id);
-        // setProducts(products.filter((product) => product.id !== id));
-        console.log(id);
+    // const { deleteProduct } = useProduct();
+
+    const categories = useSelector(getCategories);
+    const categoriesLoading = useSelector(getCategoriesLoadingStatus());
+
+    useEffect(() => {
+        dispatch(loadCategoriesList());
+        dispatch(loadProductsList());
+    }, []);
+
+    const handleDelete = (prodId) => {
+        // dispatch(getProductDeleteIds(prodId));
+        // dispatch(getProductDeleteIds(prodId));
+        // deleteProduct(prodId);
+        // setProducts(products.filter((product) => product._id !== id));
+        console.log(prodId);
     };
 
     const handleEdit = (param) => {
