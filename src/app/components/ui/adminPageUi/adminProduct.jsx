@@ -1,22 +1,24 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useProduct } from "../../../hook/useProducts";
 import AdminProductEdit from "./adminProductEdit";
 import { nanoid } from "nanoid";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../../store/categories";
-import { getProductById } from "../../../store/products";
+import {
+    getProductById,
+    getProductUpdateContent
+} from "../../../store/products";
 
 const AdminProduct = () => {
+    const dispatch = useDispatch();
     const { prodId } = useParams();
 
     const nanoId = nanoid();
     console.log("nanoId", nanoId);
 
     const product = useSelector(getProductById(prodId));
-
-    const { updateProduct } = useProduct();
     console.log(product);
+
     const categories = useSelector(getCategories());
 
     const categoriesList = categories.map((c) => ({
@@ -26,7 +28,7 @@ const AdminProduct = () => {
 
     const handleSubmit = (data) => {
         console.log(data);
-        updateProduct({ _id: nanoId, ...data });
+        dispatch(getProductUpdateContent({ _id: nanoId, ...data }));
     };
 
     return (

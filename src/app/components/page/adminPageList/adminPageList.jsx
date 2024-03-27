@@ -9,7 +9,6 @@ import SearchInput from "../../common/form/searchInput";
 import _ from "lodash";
 import NavBar from "../../ui/navBar";
 import AdminTable from "../../ui/adminPageUi/adminTable";
-// import { useProduct } from "../../../hook/useProducts";
 
 import AdminProduct from "../../ui/adminPageUi/adminProduct";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +17,12 @@ import {
     getCategoriesLoadingStatus,
     loadCategoriesList
 } from "../../../store/categories";
-import { getProducts, loadProductsList } from "../../../store/products";
+import {
+    getProductDeleteIds,
+    getProducts,
+    loadProductsList
+    // loadProductsList
+} from "../../../store/products";
 
 const AdminPageList = () => {
     const history = useHistory();
@@ -32,8 +36,6 @@ const AdminPageList = () => {
 
     const products = useSelector(getProducts());
 
-    // const { deleteProduct } = useProduct();
-
     const categories = useSelector(getCategories);
     const categoriesLoading = useSelector(getCategoriesLoadingStatus());
 
@@ -42,12 +44,9 @@ const AdminPageList = () => {
         dispatch(loadProductsList());
     }, []);
 
-    const handleDelete = (prodId) => {
-        // dispatch(getProductDeleteIds(prodId));
-        // dispatch(getProductDeleteIds(prodId));
-        // deleteProduct(prodId);
-        // setProducts(products.filter((product) => product._id !== id));
-        console.log(prodId);
+    const handleDelete = (id) => {
+        dispatch(getProductDeleteIds(id));
+        console.log(id);
     };
 
     const handleEdit = (param) => {
@@ -134,7 +133,7 @@ const AdminPageList = () => {
                                     onSort={handleSort}
                                     selectedSort={sortBy}
                                     onEdit={handleEdit}
-                                    handleDelete={handleDelete}
+                                    onDelete={handleDelete}
                                 />
                             </div>
                             <div className="d-flex justify-content-center">

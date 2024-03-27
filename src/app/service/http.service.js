@@ -10,7 +10,7 @@ const http = axios.create({
 
 http.interceptors.request.use(
     async function (config) {
-        console.log(config.url);
+        // console.log(config.url);
 
         if (configFile.isFirebase) {
             const containSlash = /\/$/gi.test(config.url);
@@ -61,9 +61,9 @@ http.interceptors.response.use(
         if (configFile.isFirebase) {
             res.data = { content: transformData(res.data) };
             // console.log("res", res);
-            console.log("res.data", res.data);
+            // console.log("res.data", res.data);
             res.config.data = { content: res.data };
-            console.log("res.data", res.config.data);
+            // console.log("res.data", res.config.data);
         }
         return res;
     },

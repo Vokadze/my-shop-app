@@ -9,7 +9,6 @@ import NavBar from "./components/ui/navBar";
 import Basket from "./layouts/basket";
 import Admin from "./layouts/admin";
 import AdminForm from "./components/ui/adminPageUi/adminForm";
-import ProductProvider from "./hook/useProducts";
 import AuthProvider from "./hook/useAuth";
 import ProtectedRoute from "./components/common/protectedRoute";
 import LogOut from "./layouts/logOut";
@@ -27,24 +26,19 @@ const App = () => {
         <div style={{ background: "#e9ecef" }}>
             <AuthProvider>
                 <NavBar />
-                <ProductProvider>
-                    <Switch>
-                        <Route
-                            path="/admin/:edit?/:prodId?"
-                            component={Admin}
-                        />
-                        <ProtectedRoute
-                            path="/products/:prodId?"
-                            component={Products}
-                        />
-                        <Route path="/login/:type?" component={Login} />
-                        <Route path="/adminForm" component={AdminForm} />
-                        <Route path="/basket" component={Basket} />
-                        <Route path="/logout" component={LogOut} />
-                        <Route path="/" exact component={Main} />
-                        <Redirect to="/" />
-                    </Switch>
-                </ProductProvider>
+                <Switch>
+                    <Route path="/admin/:edit?/:prodId?" component={Admin} />
+                    <ProtectedRoute
+                        path="/products/:prodId?"
+                        component={Products}
+                    />
+                    <Route path="/login/:type?" component={Login} />
+                    <Route path="/adminForm" component={AdminForm} />
+                    <Route path="/basket" component={Basket} />
+                    <Route path="/logout" component={LogOut} />
+                    <Route path="/" exact component={Main} />
+                    <Redirect to="/" />
+                </Switch>
             </AuthProvider>
             <ToastContainer />
         </div>

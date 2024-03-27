@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Table from "../../common/table/tableAdmin";
 import Category from "./category";
 
-const AdminTable = ({ data, handleDelete, onEdit, selectedSort, onSort }) => {
+const AdminTable = ({ data, onDelete, onEdit, selectedSort, onSort }) => {
     const columns = {
         prodNum: {
             path: "prodNum",
@@ -61,7 +61,7 @@ const AdminTable = ({ data, handleDelete, onEdit, selectedSort, onSort }) => {
                                 color: "#ffc107"
                             }}
                             role="button"
-                            onClick={() => handleDelete(product._id)}
+                            onClick={() => onDelete(product._id)}
                         ></i>
                     </span>
                 </span>
@@ -82,7 +82,7 @@ const AdminTable = ({ data, handleDelete, onEdit, selectedSort, onSort }) => {
 
 AdminTable.propTypes = {
     data: PropTypes.array,
-    handleDelete: PropTypes.func,
+    onDelete: PropTypes.func,
     onEdit: PropTypes.func,
     selectedSort: PropTypes.object.isRequired,
     onSort: PropTypes.func
