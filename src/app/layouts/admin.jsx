@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 // import api from "../api";
 
 import AdminPageList from "../components/page/adminPageList/adminPageList";
-import ProductProvider from "../hook/useProducts";
 import AdminProduct from "../components/ui/adminPageUi/adminProduct";
 
 const Admin = () => {
@@ -14,17 +13,15 @@ const Admin = () => {
 
     return (
         <>
-            <ProductProvider>
-                {prodId ? (
-                    edit ? (
-                        <AdminPageList prodId={prodId} />
-                    ) : (
-                        <AdminProduct prodId={prodId} />
-                    )
+            {prodId ? (
+                edit ? (
+                    <AdminPageList prodId={prodId} />
                 ) : (
-                    <AdminPageList />
-                )}
-            </ProductProvider>
+                    <AdminProduct prodId={prodId} />
+                )
+            ) : (
+                <AdminPageList />
+            )}
         </>
     );
 };
