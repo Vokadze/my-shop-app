@@ -11,11 +11,11 @@ const AdminForm = ({ data, onSubmit, categoriesList }) => {
     return (
         <>
             <form onSubmit={handleSubmit}>
-                {/* <TextFieldAdmin
-                    name="numProd"
+                <TextFieldAdmin
+                    name="prodNum"
                     value={form.prodNum || ""}
                     onChange={handleChange}
-                /> */}
+                />
                 <TextFieldAdmin
                     name="name"
                     value={form.name || ""}

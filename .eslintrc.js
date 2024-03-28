@@ -32,8 +32,8 @@ module.exports = {
             "error",
             "double",
             {
-                allowTemplateLiterals: true
-                // avoidEscape: true
+                allowTemplateLiterals: true,
+                avoidEscape: true
             }
         ]
     }

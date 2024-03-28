@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { AiOutlineClose } from "react-icons/ai";
-
 import BasketCartListCounter from "../../../ui/basketPageUi/basketCartListCounter";
 
 const BasketCartList = ({ product, productsItems, handleDelete }) => {
-    console.log("BasketCartList.jsx productsItems", productsItems);
-    console.log("BasketCartList.jsx product", product);
     const [countProduct, setCountProduct] = useState();
-    console.log(countProduct);
+
+    useEffect(() => {
+        setCountProduct();
+    }, [countProduct]);
 
     const handleIncrement = () => {
-        console.log("add");
         if (product.countPay >= 1) {
             const newLocalPay = productsItems.filter(
                 (product) => product.count === product.count--
@@ -22,7 +21,6 @@ const BasketCartList = ({ product, productsItems, handleDelete }) => {
     };
 
     const handleDecrement = () => {
-        console.log("remove");
         if (product.countPay <= 1) {
             const newLocalPay = productsItems.filter(
                 (product) => product.count === product.count++

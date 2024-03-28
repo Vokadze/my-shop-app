@@ -1,9 +1,10 @@
 import React from "react";
 import useMockData from "../utils/mockData";
-import { useAuth } from "../hook/useAuth";
+import { useSelector } from "react-redux";
+import { getCurrentUserData } from "../store/users";
 
 const Main = () => {
-    const { currentUser } = useAuth();
+    const currentUser = useSelector(getCurrentUserData());
     const { error, initialize, progress, status } = useMockData();
     const handleClick = () => {
         initialize();

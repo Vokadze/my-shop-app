@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
 
 import SearchInput from "../../../common/form/searchInput";
 import NavBar from "../../../ui/navBar";
 import BasketShopList from "../basketShopList/basketShopList";
 import { useSelector } from "react-redux";
 import { getProductById } from "../../../../store/products";
+import history from "../../../../utils/history";
 
 const BasketShopPage = ({ prodId }) => {
-    const history = useHistory();
     const [productsItems, setProductItems] = useState([]);
-    console.log("BasketShopPage.jsx useState productsItem", productsItems);
 
     const product = useSelector(getProductById(prodId));
-    console.log("BasketShopPage.jsx useState product", product);
 
     const [searchQuery, setSearchQuery] = useState("");
 

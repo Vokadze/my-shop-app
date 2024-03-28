@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 import NavBar from "../navBar";
@@ -7,17 +7,14 @@ import BasketOrder from "../../page/basketPageList/basketCartList/basketOrder";
 
 const BasketForm = () => {
     const [productLocal, setProductLocal] = useState();
-    console.log("basket.jsx productLocal useState", productLocal);
     const newProductsItem = localStorage.getItem("productsItems");
     const productsItems = JSON.parse(newProductsItem);
-    console.log(productsItems);
 
     useEffect(() => {
-        console.log(productsItems);
-    }, []);
+        setProductLocal();
+    }, [productLocal]);
 
     const handleDelete = (prodId) => {
-        console.log("click");
         if (productsItems) {
             const newLocal = productsItems.filter(
                 (product) => product._id !== prodId
@@ -28,7 +25,6 @@ const BasketForm = () => {
     };
 
     const handleIncrement = (id) => {
-        console.log("add");
         const elementIndex = productsItems.findIndex(
             (product) => product._id === id
         );
@@ -38,7 +34,6 @@ const BasketForm = () => {
     };
 
     const handleDecrement = (id) => {
-        console.log("add");
         const elementIndex = productsItems.findIndex(
             (product) => product._id === id
         );

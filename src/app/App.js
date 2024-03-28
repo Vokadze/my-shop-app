@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
@@ -9,25 +9,20 @@ import NavBar from "./components/ui/navBar";
 import Basket from "./layouts/basket";
 import Admin from "./layouts/admin";
 import AdminForm from "./components/ui/adminPageUi/adminForm";
-import AuthProvider from "./hook/useAuth";
 import ProtectedRoute from "./components/common/protectedRoute";
 import LogOut from "./layouts/logOut";
-import { useDispatch } from "react-redux";
-import { loadCategoriesList } from "./store/categories";
-import { loadProductsList } from "./store/products";
+import AppLoader from "./components/ui/hoc/appLoader";
 
 const App = () => {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(loadCategoriesList());
-        dispatch(loadProductsList());
-    }, []);
     return (
         <div style={{ background: "#e9ecef" }}>
-            <AuthProvider>
+            <AppLoader>
                 <NavBar />
                 <Switch>
-                    <Route path="/admin/:edit?/:prodId?" component={Admin} />
+                    <ProtectedRoute
+                        path="/admin/:edit?/:prodId?"
+                        component={Admin}
+                    />
                     <ProtectedRoute
                         path="/products/:prodId?"
                         component={Products}
@@ -39,7 +34,7 @@ const App = () => {
                     <Route path="/" exact component={Main} />
                     <Redirect to="/" />
                 </Switch>
-            </AuthProvider>
+            </AppLoader>
             <ToastContainer />
         </div>
     );

@@ -37,9 +37,7 @@ function isOutdated(date) {
 }
 
 export const loadCategoriesList = () => async (dispatch, getState) => {
-    console.log(getState());
     const { lastFetch } = getState().categories;
-    console.log(lastFetch);
 
     if (isOutdated(lastFetch)) {
         dispatch(categoriesRequested());

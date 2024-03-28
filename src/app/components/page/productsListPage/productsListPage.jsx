@@ -13,14 +13,9 @@ import NavBar from "../../ui/navBar";
 import { useDispatch, useSelector } from "react-redux";
 import {
     getCategories,
-    getCategoriesLoadingStatus,
-    loadCategoriesList
+    getCategoriesLoadingStatus
 } from "../../../store/categories";
-import {
-    getProductById,
-    getProducts
-    // loadProductsList
-} from "../../../store/products";
+import { getProductById, getProducts } from "../../../store/products";
 
 const ProductsListPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -31,16 +26,9 @@ const ProductsListPage = () => {
 
     const dispatch = useDispatch();
     const products = useSelector(getProducts());
-    // console.log("products App.jsx", products);
 
     const categories = useSelector(getCategories());
     const categoriesLoading = useSelector(getCategoriesLoadingStatus());
-    // console.log("categories App.jsx", categories);
-
-    useEffect(() => {
-        dispatch(loadCategoriesList());
-        // dispatch(loadProductsList());
-    }, []);
 
     const handleClick = (prodId) => {
         dispatch(getProductById(prodId));
@@ -53,7 +41,6 @@ const ProductsListPage = () => {
     const handleCategoriesSelect = (item) => {
         if (searchQuery !== "") setSearchQuery("");
         setSelectedCategory(item);
-        console.log(item);
     };
 
     const handleSearchQuery = ({ target }) => {
@@ -62,37 +49,14 @@ const ProductsListPage = () => {
     };
 
     const handlePageChange = (pageIndex) => {
-        console.log("page: ", pageIndex);
         setCurrentPage(pageIndex);
     };
 
     const handleSort = (item) => {
         setSortBy(item);
-        console.log(item);
     };
 
     if (products) {
-        // function filterProducts(data) {
-        //     const filteredProducts = searchQuery
-        //         ? data.filter(
-        //               (product) =>
-        //                   product.name
-        //                       .toLowerCase()
-        //                       .indexOf(searchQuery.toLowerCase()) !== -1
-        //           )
-        //         : selectedCategory
-        //           ? data.filter(
-        //                 (product) =>
-        //                     JSON.stringify(product.category) ===
-        //                     JSON.stringify(selectedCategory)
-        //             )
-        //           : data;
-
-        //     return filteredProducts.filter((p) => p._id === data);
-        // }
-
-        // const filteredProducts = filterProducts(products);
-
         const filteredProducts = searchQuery
             ? products.filter(
                   (product) =>
@@ -109,7 +73,6 @@ const ProductsListPage = () => {
               : products;
 
         const count = filteredProducts.length;
-        // console.log(count);
 
         const sortedProducts = _.orderBy(
             filteredProducts,
@@ -118,7 +81,6 @@ const ProductsListPage = () => {
         );
 
         const productCrop = paginate(sortedProducts, currentPage, pageSize);
-        // console.log(productCrop);
 
         const clearFilter = () => {
             setSelectedCategory();

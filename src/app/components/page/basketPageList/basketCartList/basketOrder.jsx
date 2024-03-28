@@ -4,8 +4,6 @@ import PropTypes from "prop-types";
 import BasketSearchStatus from "../../../ui/basketPageUi/basketSearchStatus";
 
 const BasketOrder = ({ productsItems, handleClick, itemPrice }) => {
-    console.log("BasketOrder.jsx productsItems", productsItems);
-
     const formatButton = () => {
         const classes = "btn btn-sm text-nowrap btn-warning ";
         return productsItems.length === 0 ? classes + "disabled" : classes;

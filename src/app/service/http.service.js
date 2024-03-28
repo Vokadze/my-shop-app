@@ -1,8 +1,8 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import configFile from "../config.json";
-import { httpAuth } from "../hook/useAuth";
 import localStorageService from "./localStorage.service";
+import authService from "./auth.service";
 
 const http = axios.create({
     baseURL: configFile.apiEndpoint2
@@ -10,24 +10,17 @@ const http = axios.create({
 
 http.interceptors.request.use(
     async function (config) {
-        // console.log(config.url);
-
         if (configFile.isFirebase) {
             const containSlash = /\/$/gi.test(config.url);
             config.url =
                 (containSlash ? config.url.slice(0, -1) : config.url) + ".json";
-            // config.url == config.url.slice(0, -1) + ".json";
-            // console.log("config", config.url);
 
             const expiresDate = localStorageService.getTokenExpiresDate();
             const refreshToken = localStorageService.getRefreshToken();
 
             if (refreshToken && expiresDate < Date.now()) {
-                const { data } = await httpAuth.post("token", {
-                    grant_type: "refresh_token",
-                    refresh_token: refreshToken
-                });
-                // console.log(data);
+                const data = await authService.refresh();
+
                 localStorageService.setTokens({
                     refreshToken: data.refresh_token,
                     idToken: data.id_token,
@@ -48,8 +41,6 @@ http.interceptors.request.use(
 );
 
 function transformData(data) {
-    // console.log("data transformData", data);
-
     return data && !data._id
         ? Object.keys(data).map((key) => ({
               ...data[key]
@@ -60,10 +51,7 @@ http.interceptors.response.use(
     (res) => {
         if (configFile.isFirebase) {
             res.data = { content: transformData(res.data) };
-            // console.log("res", res);
-            // console.log("res.data", res.data);
             res.config.data = { content: res.data };
-            // console.log("res.data", res.config.data);
         }
         return res;
     },
