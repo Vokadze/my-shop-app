@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import categoryService from "../service/category.service";
+import isOutdated from "../utils/isOutdated";
 
 const categoriesSlice = createSlice({
     name: "categories",
@@ -28,13 +29,6 @@ const categoriesSlice = createSlice({
 const { reducer: categoriesReducer, actions } = categoriesSlice;
 const { categoriesRequested, categoriesReceved, categoriesRequestFiled } =
     actions;
-
-function isOutdated(date) {
-    if (Date.now() - date > 10 * 60 * 1000) {
-        return true;
-    }
-    return false;
-}
 
 export const loadCategoriesList = () => async (dispatch, getState) => {
     const { lastFetch } = getState().categories;

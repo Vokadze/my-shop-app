@@ -1,5 +1,6 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
 import productService from "../service/product.service";
+import isOutdated from "../utils/isOutdated";
 
 const productsSlice = createSlice({
     name: "products",
@@ -52,13 +53,6 @@ const productUpdateRequested = createAction("products/productUpdateRequested");
 const productUpdateFailed = createAction("products/productUpdateFailed");
 const addNewProductRequested = createAction("products/addNewProductRequested");
 const removeProductRequested = createAction("products/removeProductRequested");
-
-function isOutdated(date) {
-    if (Date.now() - date > 10 * 60 * 1000) {
-        return true;
-    }
-    return false;
-}
 
 export const loadProductsList = () => async (dispatch, getState) => {
     const { lastFetch } = getState().products;
