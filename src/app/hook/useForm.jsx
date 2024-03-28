@@ -13,8 +13,6 @@ const useForm = (initialState = {}, onSubmit) => {
             ...prevState,
             [target.name]: target.value
         }));
-
-        console.log(target.name);
     };
 
     return { form, handleChange, handleSubmit };

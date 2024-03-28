@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import TextField from "../../common/form/textField";
 import { validator } from "../../../utils/validator";
-// import api from "../../api";
 
 import SelectField from "../../common/form/selectField";
 import RadioField from "../../common/form/radioField";
 import CheckBoxField from "../../common/form/checkBoxField";
-import { useAuth } from "../../../hook/useAuth";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../../store/categories";
+import { signUp } from "../../../store/users";
+import history from "../../../utils/history";
 
 const RegisterForm = () => {
-    const history = useHistory();
+    const dispatch = useDispatch();
     const [data, setData] = useState({
         email: "",
         password: "",
@@ -21,31 +20,19 @@ const RegisterForm = () => {
         name: "",
         licence: false
     });
-    const { signUp } = useAuth();
+
     const categories = useSelector(getCategories());
-    console.log(categories);
     const categoriesList = categories.map((c) => ({
         name: c.name,
         value: c._id
     }));
-    console.log(categoriesList);
     const [errors, setErrors] = useState({});
-
-    // useEffect(() => {
-    //     api.categories.fetchAll().then((data) => setCategories(data));
-    // }, []);
-
-    // useEffect(() => {
-    //     console.log(categories);
-    // }, [categories]);
 
     const handleChange = (target) => {
         setData((prevState) => ({
             ...prevState,
             [target.name]: target.value
         }));
-
-        console.log(target.name);
     };
 
     const validatorConfig = {
@@ -105,19 +92,13 @@ const RegisterForm = () => {
 
     const isValid = Object.keys(errors).length === 0;
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) return;
-        console.log(data);
 
-        try {
-            await signUp(data);
-            history.push("/");
-        } catch (error) {
-            setErrors(error);
-            console.log(error);
-        }
+        dispatch(signUp(data));
+        history.push("/products");
     };
 
     return (

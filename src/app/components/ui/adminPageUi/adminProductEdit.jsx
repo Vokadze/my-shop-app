@@ -1,7 +1,7 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import AdminForm from "./adminForm";
+import history from "../../../utils/history";
 
 const AdminProductEdit = ({
     onSubmit,
@@ -10,10 +10,7 @@ const AdminProductEdit = ({
     product,
     categoriesList
 }) => {
-    console.log(prodId);
-    const history = useHistory();
     const handleSubmit = (data) => {
-        console.log(data);
         onSubmit(data);
         history.push("/admin");
     };

@@ -5,6 +5,7 @@ import { nanoid } from "nanoid";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../../store/categories";
 import {
+    createProduct,
     getProductById,
     getProductUpdateContent
 } from "../../../store/products";
@@ -14,10 +15,8 @@ const AdminProduct = () => {
     const { prodId } = useParams();
 
     const nanoId = nanoid();
-    console.log("nanoId", nanoId);
 
     const product = useSelector(getProductById(prodId));
-    console.log(product);
 
     const categories = useSelector(getCategories());
 
@@ -27,8 +26,11 @@ const AdminProduct = () => {
     }));
 
     const handleSubmit = (data) => {
-        console.log(data);
-        dispatch(getProductUpdateContent({ _id: nanoId, ...data }));
+        if (prodId) {
+            dispatch(getProductUpdateContent(data));
+        } else {
+            dispatch(createProduct({ _id: nanoId, ...data }));
+        }
     };
 
     return (

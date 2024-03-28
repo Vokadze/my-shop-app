@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { paginate } from "../../../utils/paginate";
 import Pagination from "../../common/pagination";
-// import api from "../../../api";
 import SearchInput from "../../common/form/searchInput";
 
 import _ from "lodash";
@@ -14,19 +12,16 @@ import AdminProduct from "../../ui/adminPageUi/adminProduct";
 import { useDispatch, useSelector } from "react-redux";
 import {
     getCategories,
-    getCategoriesLoadingStatus,
-    loadCategoriesList
+    getCategoriesLoadingStatus
 } from "../../../store/categories";
 import {
     getProductDeleteIds,
     getProducts,
     loadProductsList
-    // loadProductsList
 } from "../../../store/products";
+import history from "../../../utils/history";
 
 const AdminPageList = () => {
-    const history = useHistory();
-    // console.log(prodId);
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState("");
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
@@ -39,18 +34,11 @@ const AdminPageList = () => {
     const categories = useSelector(getCategories);
     const categoriesLoading = useSelector(getCategoriesLoadingStatus());
 
-    useEffect(() => {
-        dispatch(loadCategoriesList());
-        dispatch(loadProductsList());
-    }, []);
-
     const handleDelete = (id) => {
         dispatch(getProductDeleteIds(id));
-        console.log(id);
     };
 
     const handleEdit = (param) => {
-        console.log(param);
         history.push(`/admin/edit/${param}`);
     };
 
@@ -68,7 +56,6 @@ const AdminPageList = () => {
 
     const handleSort = (item) => {
         setSortBy(item);
-        console.log(item);
     };
 
     if (products) {
@@ -90,6 +77,10 @@ const AdminPageList = () => {
         );
 
         const productCrop = paginate(sortedProducts, currentPage, pageSize);
+
+        useEffect(() => {
+            dispatch(loadProductsList(productCrop));
+        }, [products, productCrop]);
 
         return (
             <div className="d-flex justify-content-center px-4">
@@ -120,7 +111,7 @@ const AdminPageList = () => {
                                             Блок для добавления или
                                             редактирования товара
                                         </h6>
-                                        <AdminProduct />
+                                        <AdminProduct products={products} />
                                     </div>
                                 </div>
                             </>
@@ -150,7 +141,7 @@ const AdminPageList = () => {
             </div>
         );
     }
-    return "Loading productsListPage.jsx";
+    return "Loading adminPageList.jsx";
 };
 
 AdminPageList.propTypes = {
