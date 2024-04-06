@@ -6,7 +6,7 @@ import SelectField from "../../common/form/selectField";
 import RadioField from "../../common/form/radioField";
 import CheckBoxField from "../../common/form/checkBoxField";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategories } from "../../../store/categories";
+import { getCategories, loadCategoriesList } from "../../../store/categories";
 import { signUp } from "../../../store/users";
 import history from "../../../utils/history";
 
@@ -22,6 +22,11 @@ const RegisterForm = () => {
     });
 
     const categories = useSelector(getCategories());
+
+    useEffect(() => {
+        dispatch(loadCategoriesList());
+    }, [categories]);
+
     const categoriesList = categories.map((c) => ({
         name: c.name,
         value: c._id
