@@ -12,7 +12,8 @@ import AdminProduct from "../../ui/adminPageUi/adminProduct";
 import { useDispatch, useSelector } from "react-redux";
 import {
     getCategories,
-    getCategoriesLoadingStatus
+    getCategoriesLoadingStatus,
+    loadCategoriesList
 } from "../../../store/categories";
 import {
     getProductDeleteIds,
@@ -31,8 +32,13 @@ const AdminPageList = () => {
 
     const products = useSelector(getProducts());
 
-    const categories = useSelector(getCategories);
+    const categories = useSelector(getCategories());
     const categoriesLoading = useSelector(getCategoriesLoadingStatus());
+
+    useEffect(() => {
+        dispatch(loadProductsList());
+        dispatch(loadCategoriesList());
+    }, [products, categories]);
 
     const handleDelete = (id) => {
         dispatch(getProductDeleteIds(id));
@@ -77,10 +83,6 @@ const AdminPageList = () => {
         );
 
         const productCrop = paginate(sortedProducts, currentPage, pageSize);
-
-        useEffect(() => {
-            dispatch(loadProductsList(productCrop));
-        }, [products, productCrop]);
 
         return (
             <div className="d-flex justify-content-center px-4">

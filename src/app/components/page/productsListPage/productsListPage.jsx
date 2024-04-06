@@ -13,9 +13,14 @@ import NavBar from "../../ui/navBar";
 import { useDispatch, useSelector } from "react-redux";
 import {
     getCategories,
-    getCategoriesLoadingStatus
+    getCategoriesLoadingStatus,
+    loadCategoriesList
 } from "../../../store/categories";
-import { getProductById, getProducts } from "../../../store/products";
+import {
+    getProductById,
+    getProducts,
+    loadProductsList
+} from "../../../store/products";
 
 const ProductsListPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -29,6 +34,11 @@ const ProductsListPage = () => {
 
     const categories = useSelector(getCategories());
     const categoriesLoading = useSelector(getCategoriesLoadingStatus());
+
+    useEffect(() => {
+        dispatch(loadCategoriesList());
+        dispatch(loadProductsList());
+    }, [products, categories]);
 
     const handleClick = (prodId) => {
         dispatch(getProductById(prodId));
