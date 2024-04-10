@@ -18,12 +18,16 @@ const NavBar = ({ countCartItems }) => {
                 {/* <div className="container-fluid"> */}
                 <ul className="nav">
                     <li className="nav-item">
-                        <Link className="nav-link" aria-current="page" to="/">
+                        <Link
+                            className="nav-link mb-2 mt-2"
+                            aria-current="page"
+                            to="/"
+                        >
                             Main
                         </Link>
                     </li>
                     {isLoggedIn && (
-                        <div className="d-flex flex-row justify-content-center mb-2">
+                        <div className="d-flex flex-row justify-content-center mb-2 mt-2">
                             <li className="nav-item">
                                 <Link
                                     className="nav-link"
@@ -56,7 +60,7 @@ const NavBar = ({ countCartItems }) => {
                                         />
                                         {countCartItems ? (
                                             <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                                {countCartItems}
+                                                {countCartItems.length}
                                             </span>
                                         ) : (
                                             ""

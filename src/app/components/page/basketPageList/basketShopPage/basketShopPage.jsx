@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-import SearchInput from "../../../common/form/searchInput";
-import NavBar from "../../../ui/navBar";
 import BasketShopList from "../basketShopList/basketShopList";
 import { useSelector } from "react-redux";
 import { getProductById } from "../../../../store/products";
@@ -12,12 +10,6 @@ const BasketShopPage = ({ prodId }) => {
     const [productsItems, setProductItems] = useState([]);
 
     const product = useSelector(getProductById(prodId));
-
-    const [searchQuery, setSearchQuery] = useState("");
-
-    const handleSearchQuery = ({ target }) => {
-        setSearchQuery(target.value);
-    };
 
     const onAddProduct = (product) => {
         const exist = productsItems.find((p) => p._id === product._id);
@@ -79,21 +71,11 @@ const BasketShopPage = ({ prodId }) => {
     if (product) {
         return (
             <div className="d-flex flex-column">
-                <NavBar countCartItems={productsItems.length} />
-                <SearchInput
-                    type="text"
-                    name="searchQuery"
-                    placeholder="Поисковая строка (по названию)"
-                    className="mb-2 text-center"
-                    onChange={handleSearchQuery}
-                    value={searchQuery}
-                />
-
                 <input
                     type="text"
                     name="searchQuery"
                     placeholder="Путь к товару"
-                    className="mb-4 text-center border"
+                    className="mb-4 text-center border border-warning"
                     style={{ background: "#dee2e6" }}
                 />
 

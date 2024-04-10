@@ -27,7 +27,7 @@ const SelectField = ({
             : options;
 
     return (
-        <div className="mb-4">
+        <>
             <label htmlFor={name} className="form-label">
                 {label}
             </label>
@@ -49,7 +49,7 @@ const SelectField = ({
                     ))}
             </select>
             {error && <div className="invalid-feedback">{error}</div>}
-        </div>
+        </>
     );
 };
 

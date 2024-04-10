@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+
 import { paginate } from "../../../utils/paginate";
 import Pagination from "../../common/pagination";
 import SearchInput from "../../common/form/searchInput";
-
-import _ from "lodash";
-import NavBar from "../../ui/navBar";
+import AdminProduct from "../../ui/adminPageUi/adminProduct";
 import AdminTable from "../../ui/adminPageUi/adminTable";
 
-import AdminProduct from "../../ui/adminPageUi/adminProduct";
+import _ from "lodash";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
     getCategories,
@@ -20,15 +20,16 @@ import {
     getProducts,
     loadProductsList
 } from "../../../store/products";
+
 import history from "../../../utils/history";
+import "./index.css";
 
 const AdminPageList = () => {
+    const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState("");
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
-    const pageSize = 4;
-
-    const dispatch = useDispatch();
+    const pageSize = 7;
 
     const products = useSelector(getProducts());
 
@@ -68,7 +69,7 @@ const AdminPageList = () => {
         const filteredProducts = searchQuery
             ? products.filter(
                   (product) =>
-                      product.name
+                      product.prodNum
                           .toLowerCase()
                           .indexOf(searchQuery.toLowerCase()) !== -1
               )
@@ -85,10 +86,9 @@ const AdminPageList = () => {
         const productCrop = paginate(sortedProducts, currentPage, pageSize);
 
         return (
-            <div className="d-flex justify-content-center px-4">
+            <div className="d-flex justify-content-center">
                 <div className="d-flex flex-column">
                     <div className="d-flex flex-column">
-                        <NavBar />
                         <SearchInput
                             type="text"
                             name="searchQuery"
@@ -98,44 +98,40 @@ const AdminPageList = () => {
                             value={searchQuery}
                         />
                     </div>
-                    <div className="d-flex flex-row">
-                        {categories && !categoriesLoading && (
-                            <>
-                                <div
-                                    className="card text-center border border-warning"
-                                    style={{
-                                        width: "14rem",
-                                        background: "#dee2e6"
-                                    }}
-                                >
-                                    <div className="card-body">
-                                        <h6 className="card-title">
-                                            Блок для добавления или
-                                            редактирования товара
-                                        </h6>
-                                        <AdminProduct products={products} />
+                    <div className="container admin-page-table-all">
+                        <div className="d-flex flex-row">
+                            {categories && !categoriesLoading && (
+                                <>
+                                    <div className="container card">
+                                        <div className="card-body">
+                                            <h6 className="card-title">
+                                                Блок для добавления или
+                                                редактирования товара
+                                            </h6>
+                                            <AdminProduct products={products} />
+                                        </div>
                                     </div>
+                                </>
+                            )}
+                            <div className="container admin-page-table">
+                                <div className="p-0 m-0">
+                                    <AdminTable
+                                        data={products && productCrop}
+                                        products={productCrop}
+                                        onSort={handleSort}
+                                        selectedSort={sortBy}
+                                        onEdit={handleEdit}
+                                        onDelete={handleDelete}
+                                    />
                                 </div>
-                            </>
-                        )}
-                        <div className="d-flex flex-column justify-content-between">
-                            <div className="container px-0 m-0">
-                                <AdminTable
-                                    data={products && productCrop}
-                                    products={productCrop}
-                                    onSort={handleSort}
-                                    selectedSort={sortBy}
-                                    onEdit={handleEdit}
-                                    onDelete={handleDelete}
-                                />
-                            </div>
-                            <div className="d-flex justify-content-center">
-                                <Pagination
-                                    itemsCount={count}
-                                    pageSize={pageSize}
-                                    currentPage={currentPage}
-                                    onPageChange={handlePageChange}
-                                />
+                                <div className="d-flex justify-content-center">
+                                    <Pagination
+                                        itemsCount={count}
+                                        pageSize={pageSize}
+                                        currentPage={currentPage}
+                                        onPageChange={handlePageChange}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>

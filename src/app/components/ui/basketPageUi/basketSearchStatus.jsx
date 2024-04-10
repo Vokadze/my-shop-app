@@ -11,7 +11,7 @@ const BasketSearchStatus = ({ length }) => {
     };
 
     return (
-        <div className="mb-2">
+        <div className="text-start">
             <span className="count-products">
                 {length > 0
                     ? `${length + " " + renderPhrase(length)}`

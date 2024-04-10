@@ -3,13 +3,12 @@ import PropTypes from "prop-types";
 
 import { paginate } from "../../../utils/paginate";
 import Pagination from "../../common/pagination";
-// import api from "../../../api";
 import GroupList from "../../common/groupList";
 import ProductsTable from "../../ui/productsTable";
 import SearchInput from "../../common/form/searchInput";
 
 import _ from "lodash";
-import NavBar from "../../ui/navBar";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
     getCategories,
@@ -21,15 +20,16 @@ import {
     getProducts,
     loadProductsList
 } from "../../../store/products";
+import "./index.css";
 
 const ProductsListPage = () => {
+    const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState();
     const [sortBy, setSortBy] = useState({ iter: "price", order: "asc" });
-    const pageSize = 4;
+    const pageSize = 2;
 
-    const dispatch = useDispatch();
     const products = useSelector(getProducts());
 
     const categories = useSelector(getCategories());
@@ -97,10 +97,9 @@ const ProductsListPage = () => {
         };
 
         return (
-            <div className="d-flex justify-content-center px-4">
-                <div className="d-flex flex-column">
-                    <div className="d-flex flex-column">
-                        <NavBar />
+            <div className="container products-page">
+                <div className="products-page">
+                    <div className="products-page">
                         <SearchInput
                             type="text"
                             name="searchQuery"
@@ -110,10 +109,10 @@ const ProductsListPage = () => {
                             value={searchQuery}
                         />
                     </div>
-                    <div className="d-flex flex-row">
+                    <div className="container products-page-content px-0 mx-0">
                         {categories && !categoriesLoading && (
                             <div
-                                className="d-flex flex-column border border-warning"
+                                className="product-page-select"
                                 style={{ background: "#dee2e6" }}
                             >
                                 <GroupList
@@ -129,8 +128,8 @@ const ProductsListPage = () => {
                                 </button>
                             </div>
                         )}
-                        <div className="d-flex flex-column justify-content-between">
-                            <div className="container px-0 m-0">
+                        <div className="container product-page-table px-2">
+                            <div className="px-0 mx-0">
                                 <ProductsTable
                                     products={productCrop}
                                     onSort={handleSort}
@@ -138,7 +137,7 @@ const ProductsListPage = () => {
                                     handleClick={handleClick}
                                 />
                             </div>
-                            <div className="d-flex justify-content-center">
+                            <div className="products-pagination">
                                 <Pagination
                                     itemsCount={count}
                                     pageSize={pageSize}

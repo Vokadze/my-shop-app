@@ -15,7 +15,7 @@ const TableBody = ({ data, columns }) => {
     };
 
     return (
-        <tbody className="d-flex flex-column p-2">
+        <tbody className="d-flex flex-column px-0">
             {data.map((item) => (
                 <tr
                     key={item._id}
