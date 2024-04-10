@@ -28,8 +28,11 @@
     padding-left: 1px;
     padding-right: 1px;
     padding-top: 2px;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 .card-title {
     padding-bottom: 3px;
+    text-align: center;
 }
