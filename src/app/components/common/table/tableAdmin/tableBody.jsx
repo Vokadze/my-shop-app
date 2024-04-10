@@ -20,12 +20,14 @@ const TableBody = ({ data, columns }) => {
                 {data.map((item) => (
                     <tr key={item._id}>
                         {Object.keys(columns).map((column) => (
-                            <td key={column}>
+                            <td key={column} className="pt-2 px-1">
                                 <span
-                                    className="badge text-dark w-100 text-center border border-warning p-2"
+                                    className="badge text-dark text-wrap w-100 text-center border border-warning p-1"
                                     style={{ background: "#dee2e6" }}
                                 >
-                                    {renderContent(item, column)}
+                                    <div className="lh-sm m-0">
+                                        {renderContent(item, column)}
+                                    </div>
                                 </span>
                             </td>
                         ))}

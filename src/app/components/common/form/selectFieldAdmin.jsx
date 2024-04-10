@@ -16,7 +16,7 @@ const SelectFieldAdmin = ({
 
     const getInputClasses = () => {
         return (
-            "form-select border border-warning" + (error ? " is-invalid" : "")
+            "form-select border border-warning " + (error ? " is-invalid" : "")
         );
     };
 
@@ -29,7 +29,7 @@ const SelectFieldAdmin = ({
             : options;
 
     return (
-        <>
+        <div className="input-group mb-3">
             <label htmlFor={name} className="form-label">
                 {label}
             </label>
@@ -52,7 +52,7 @@ const SelectFieldAdmin = ({
                     ))}
             </select>
             {error && <div className="invalid-feedback">{error}</div>}
-        </>
+        </div>
     );
 };
 

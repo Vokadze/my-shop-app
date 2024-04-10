@@ -7,7 +7,7 @@ const TextFieldAdmin = ({ label, name, value, onChange }) => {
     };
 
     return (
-        <>
+        <div className="input-group mb-3">
             <label htmlFor={name}>{label}</label>
             <div className="input-group has-validation">
                 <input
@@ -16,12 +16,12 @@ const TextFieldAdmin = ({ label, name, value, onChange }) => {
                     name={name}
                     value={value}
                     onChange={handleChange}
-                    className="form-control border border-warning mt-0 mb-0"
+                    className="form-control border border-warning"
                     style={{ background: "#dee2e6" }}
                     placeholder={name}
                 />
             </div>
-        </>
+        </div>
     );
 };
 

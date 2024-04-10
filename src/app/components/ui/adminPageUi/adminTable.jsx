@@ -15,7 +15,6 @@ const AdminTable = ({ data, onDelete, onEdit, selectedSort, onSort }) => {
             name: "Наименование"
         },
         category: {
-            // path: "category.name",
             name: "Категория",
             component: (product) => <Category id={product.category} />
         },
@@ -38,7 +37,6 @@ const AdminTable = ({ data, onDelete, onEdit, selectedSort, onSort }) => {
             )
         },
         actions: {
-            // path: "id",
             name: "Действия",
             component: (product) => (
                 <span>

@@ -32,12 +32,8 @@ const BasketCartList = ({ product, productsItems, handleDelete }) => {
 
     return (
         <>
-            <div
-                key={product._id}
-                className="card border border-warning w-100 d-flex flex-row mb-3"
-                style={{ background: "#dee2e6" }}
-            >
-                <div className="card-img-left m-3">
+            <div key={product._id} className="card w-100">
+                <div className="card-basket-image col-2">
                     <img
                         src={product.image}
                         className="img-thumbnail border border-warning rounded mx-auto d-block"
@@ -45,18 +41,19 @@ const BasketCartList = ({ product, productsItems, handleDelete }) => {
                         width="100"
                     />
                 </div>
-                <div className="card-body mx-3">
-                    <div className="row">
-                        <div className="cart-id">
-                            <p className="mt-2">{`id товара: ${product.prodNum}`}</p>
+                <div className="card-body">
+                    <div className="card-body-basket">
+                        <div className="card-id-product-basket">
+                            <p className="my-3">{`id товара: ${product.prodNum}`}</p>
                         </div>
-                        <div className="d-flex flex-row">
-                            <div className="col col-6">
-                                <p className="mt-0 w-300">{`Наименование товара: ${product.name}`}</p>
+                        <div className="card-info-basket">
+                            <div className="col col-6 card-name-product">
+                                <h6>Наименование товара:</h6>
+                                <p>{product.name}</p>
                             </div>
-                            <div className="col mx-3 text-center">
-                                <p className="mt-0">Количество:</p>
-                                <div className="d-flex flex-row justify-content-center">
+                            <div className="col card-text-product">
+                                <h6>Количество:</h6>
+                                <div className="card-counter-product">
                                     <BasketCartListCounter
                                         handleDecrement={handleDecrement}
                                         handleIncrement={handleIncrement}
@@ -64,14 +61,14 @@ const BasketCartList = ({ product, productsItems, handleDelete }) => {
                                     />
                                 </div>
                             </div>
-                            <div className="col mx-3">
-                                <p className="mt-0">Стоимость:</p>
+                            <div className="col card-text-product">
+                                <h6>Стоимость:</h6>
                                 <span>{product.price}</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <span className="card-image-right m-2 p-2">
+                <span className="card-image-right">
                     <div
                         onClick={() => handleDelete(product._id)}
                         role="button"

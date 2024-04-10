@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import BasketSearchStatus from "../../../ui/basketPageUi/basketSearchStatus";
+import "./index.css";
 
 const BasketOrder = ({ productsItems, handleClick, itemPrice }) => {
     const formatButton = () => {
@@ -10,20 +11,17 @@ const BasketOrder = ({ productsItems, handleClick, itemPrice }) => {
     };
 
     return (
-        <div className="col">
-            <div
-                className="card border border-warning mx-3"
-                style={{ background: "#dee2e6" }}
-            >
-                <div className="cart-body mb-3">
-                    <div className="mx-3">
-                        <div className="mb-0 mt-4">Итого:</div>
-                        <div className="mb-2">
+        <div className="col col-order">
+            <div className="card">
+                <div className="cart-body">
+                    <div className="col-order">
+                        <div className="text-order">Итого:</div>
+                        <div>
                             <BasketSearchStatus length={productsItems.length} />
                         </div>
-                        <div>Итоговая сумма:</div>
-                        <div className="mb-5">${itemPrice()}</div>
-                        <div className="text-center">
+                        <div className="text-order">Итоговая сумма:</div>
+                        <div className="result-order">${itemPrice()}</div>
+                        <div className="btn-order">
                             <button
                                 className={formatButton()}
                                 onClick={handleClick}

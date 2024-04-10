@@ -6,7 +6,7 @@ import AdminBody from "./tableBody";
 
 const Table = ({ onSort, selectedSort, columns, data, children }) => {
     return (
-        <table className="table table-borderless mx-2">
+        <table className="table table-borderless mx-1">
             {children || (
                 <>
                     <AdminHeader {...{ onSort, selectedSort, columns }} />

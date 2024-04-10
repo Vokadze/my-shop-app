@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-import NavBar from "../navBar";
 import BasketCartList from "../../page/basketPageList/basketCartList/basketCartList";
 import BasketOrder from "../../page/basketPageList/basketCartList/basketOrder";
 
@@ -55,11 +54,8 @@ const BasketForm = () => {
     };
     if (productsItems) {
         return (
-            <div className="d-flex justify-content-center px-4">
+            <div className="d-flex justify-content-center">
                 <div className="d-flex flex-column w-100">
-                    <div className="d-flex flex-column">
-                        <NavBar countCartItems={productsItems.length} />
-                    </div>
                     <h1>Корзина</h1>
                     <div className="d-flex flex-row">
                         <div className="row cols-row-1 cols-row-md-3 g-0">

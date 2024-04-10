@@ -33,6 +33,7 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
                                 ? () => handleSort(columns[column].path)
                                 : undefined
                         }
+                        className="p-0 pb-3 pt-2"
                     >
                         <div
                             className="d-flex flex-row border border-warning justify-content-center p-0 m-0"

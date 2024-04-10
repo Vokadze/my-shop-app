@@ -46,9 +46,4 @@ const AdminProduct = () => {
     );
 };
 
-// AdminProduct.propTypes = {
-//     // onSubmit: PropTypes.func
-//     nanoId: PropTypes.string
-// };
-
 export default AdminProduct;
