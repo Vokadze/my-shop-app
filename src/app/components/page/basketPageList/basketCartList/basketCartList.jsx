@@ -4,6 +4,9 @@ import { AiOutlineClose } from "react-icons/ai";
 import BasketCartListCounter from "../../../ui/basketPageUi/basketCartListCounter";
 
 const BasketCartList = ({ product, productsItems, handleDelete }) => {
+    console.log(product);
+    console.log(productsItems);
+
     const [countProduct, setCountProduct] = useState();
 
     useEffect(() => {
