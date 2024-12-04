@@ -5,11 +5,22 @@ import BasketShopList from "../basketShopList/basketShopList";
 import { useSelector } from "react-redux";
 import { getProductById } from "../../../../store/products";
 import history from "../../../../utils/history";
+import basketService from "../../../../service/basket.servise";
 
 const BasketShopPage = ({ prodId }) => {
+    console.log(prodId);
+
     const [productsItems, setProductItems] = useState([]);
+    console.log(productsItems);
 
     const product = useSelector(getProductById(prodId));
+    console.log(product);
+
+    const basketProduct = basketService.fetchAll(prodId);
+    console.log(basketProduct);
+
+    const getItemBasket = basketService.getBasket(prodId);
+    console.log(getItemBasket);
 
     const onAddProduct = (product) => {
         const exist = productsItems.find((p) => p._id === product._id);
