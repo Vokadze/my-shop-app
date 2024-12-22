@@ -8,6 +8,8 @@ const BasketCartListCounter = ({
     handleIncrement,
     handleDecrement
 }) => {
+    console.log(product);
+
     return (
         <>
             <div onClick={handleDecrement} role="button">
@@ -34,7 +36,11 @@ const BasketCartListCounter = ({
 };
 
 BasketCartListCounter.propTypes = {
-    product: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+    product: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array,
+        PropTypes.object
+    ]),
     handleIncrement: PropTypes.func,
     handleDecrement: PropTypes.func
 };

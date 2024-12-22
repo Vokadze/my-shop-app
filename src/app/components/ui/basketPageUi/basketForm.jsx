@@ -3,27 +3,50 @@ import PropTypes from "prop-types";
 
 import BasketCartList from "../../page/basketPageList/basketCartList/basketCartList";
 import BasketOrder from "../../page/basketPageList/basketCartList/basketOrder";
+// import basketService from "../../../service/basket.servise";
+import { useDispatch, useSelector } from "react-redux";
+import { getBasketDeleteIds, getBaskets, loadBasketList } from "../../../store/basket";
 
-const BasketForm = () => {
+const BasketForm = ({ prodId }) => {
+    console.log(prodId);
+
+    const dispatch = useDispatch();
+
     const [productLocal, setProductLocal] = useState();
-    const newProductsItem = localStorage.getItem("productsItems");
-    const productsItems = JSON.parse(newProductsItem);
+    // const newProductsItem = localStorage.getItem("productsItems");
+    // const productsItems = JSON.parse(newProductsItem);
+    // console.log(productsItems);
+
+    // const { productsItem } = basketService.fetchAll();
+    // console.log(productsItem);
+
+    const productsItems = useSelector(getBaskets());
+    console.log(productsItems);
+
+    useEffect(() => {
+        dispatch(loadBasketList(productsItems));
+    }, []);
 
     useEffect(() => {
         setProductLocal();
     }, [productLocal]);
 
     const handleDelete = (prodId) => {
-        if (productsItems) {
-            const newLocal = productsItems.filter(
-                (product) => product._id !== prodId
-            );
-            localStorage.setItem("productsItems", JSON.stringify(newLocal));
-            setProductLocal(newLocal);
-        }
+        console.log("basketForm delete", prodId);
+        dispatch(getBasketDeleteIds(prodId));
+        // console.log(prodId);
+        // if (productsItems) {
+        //     const newLocal = productsItems.filter(
+        //         (product) => product._id !== prodId
+        //     );
+        //     localStorage.setItem("productsItems", JSON.stringify(newLocal));
+        //     setProductLocal(newLocal);
+        // }
     };
 
     const handleIncrement = (id) => {
+        console.log("BasketForm handleIncrement", id);
+
         const elementIndex = productsItems.findIndex(
             (product) => product._id === id
         );
@@ -33,6 +56,8 @@ const BasketForm = () => {
     };
 
     const handleDecrement = (id) => {
+        console.log("BasketForm handleDecrement", id);
+
         const elementIndex = productsItems.findIndex(
             (product) => product._id === id
         );
@@ -92,6 +117,7 @@ const BasketForm = () => {
 };
 
 BasketForm.propTypes = {
+    prodId: PropTypes.string,
     onAddProduct: PropTypes.func,
     onRemoveProduct: PropTypes.func
 };
