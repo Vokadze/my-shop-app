@@ -19,6 +19,11 @@ const basketService = {
         });
         console.log(data);
         return data;
+    },
+
+    deleteBasket: async (id) => {
+        const { data } = await httpService.delete(basketEndpoint + id);
+        return data;
     }
 };
 

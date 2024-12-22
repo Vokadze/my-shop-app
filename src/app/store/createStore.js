@@ -2,11 +2,13 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import categoriesReducer from "./categories";
 import productsReducer from "./products";
 import usersReducer from "./users";
+import basketReducer from "./basket";
 
 const rootReducers = combineReducers({
     categories: categoriesReducer,
     products: productsReducer,
-    users: usersReducer
+    users: usersReducer,
+    basket: basketReducer
 });
 
 export function createStore() {

@@ -2,25 +2,39 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { AiOutlineClose } from "react-icons/ai";
 import BasketCartListCounter from "../../../ui/basketPageUi/basketCartListCounter";
+import { useDispatch, useSelector } from "react-redux";
+import { getBaskets, getProductIncrement } from "../../../../store/basket";
 
-const BasketCartList = ({ product, productsItems, handleDelete }) => {
+const BasketCartList = ({ product, handleDelete }) => {
     console.log(product);
-    console.log(productsItems);
+    // console.log(productsItems);
+
+    const dispatch = useDispatch();
 
     const [countProduct, setCountProduct] = useState();
+
+    // const product = useSelector(getBasketById(prodId));
+    // console.log(product);
+
+    const productsItems = useSelector(getBaskets());
+    console.log(productsItems);
 
     useEffect(() => {
         setCountProduct();
     }, [countProduct]);
 
     const handleIncrement = () => {
-        if (product.countPay >= 1) {
-            const newLocalPay = productsItems.filter(
-                (product) => product.count === product.count--
-            );
-            localStorage.setItem("productsItems", JSON.stringify(newLocalPay));
-        }
-        setCountProduct(product.countPay++);
+        console.log("handleIncrement", product);
+        dispatch(getProductIncrement(product));
+        // if (product.countPay >= 1) {
+        //     console.log(product.countPay);
+
+        //     const newLocalPay = productsItems.filter(
+        //         (product) => product.count === product.count--
+        //     );
+            // localStorage.setItem("productsItems", JSON.stringify(newLocalPay));
+        // }
+        // setCountProduct(product.countPay++);
     };
 
     const handleDecrement = () => {
@@ -91,7 +105,8 @@ const BasketCartList = ({ product, productsItems, handleDelete }) => {
 };
 
 BasketCartList.propTypes = {
-    product: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+    product: PropTypes.object,
+    // product: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node)]),
     productsItems: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
     handleDelete: PropTypes.func
 };
