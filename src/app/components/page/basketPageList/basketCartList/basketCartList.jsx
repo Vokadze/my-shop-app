@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { AiOutlineClose } from "react-icons/ai";
 import BasketCartListCounter from "../../../ui/basketPageUi/basketCartListCounter";
-import { useDispatch, useSelector } from "react-redux";
-import { getBaskets, getProductIncrement } from "../../../../store/basket";
+import { useSelector } from "react-redux";
+import { getBaskets } from "../../../../store/basket";
 
 const BasketCartList = ({ product, handleDelete }) => {
     console.log(product);
     // console.log(productsItems);
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     const [countProduct, setCountProduct] = useState();
 
@@ -23,9 +23,9 @@ const BasketCartList = ({ product, handleDelete }) => {
         setCountProduct();
     }, [countProduct]);
 
-    const handleIncrement = () => {
-        console.log("handleIncrement", product);
-        dispatch(getProductIncrement(product));
+    const handleIncrement = (prod) => {
+        console.log("handleIncrement", prod);
+        // dispatch(getProductIncrement(product));
         // if (product.countPay >= 1) {
         //     console.log(product.countPay);
 

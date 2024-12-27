@@ -5,7 +5,11 @@ import BasketCartList from "../../page/basketPageList/basketCartList/basketCartL
 import BasketOrder from "../../page/basketPageList/basketCartList/basketOrder";
 // import basketService from "../../../service/basket.servise";
 import { useDispatch, useSelector } from "react-redux";
-import { getBasketDeleteIds, getBaskets, loadBasketList } from "../../../store/basket";
+import {
+    getBasketDeleteIds,
+    getBaskets,
+    loadBasketList
+} from "../../../store/basket";
 
 const BasketForm = ({ prodId }) => {
     console.log(prodId);
