@@ -21,6 +21,11 @@ const basketSlice = createSlice({
             state.error = action.payload;
             state.isLoading = false;
         },
+        basketCountUpdateSuccessed: (state, action) => {
+            state.entities[
+                state.entities.findIndex((p) => p._id === action.payload._id)
+            ] = action.payload;
+        },
         basketCreated: (state, action) => {
             state.entities.push(action.payload._id);
         },
@@ -37,12 +42,17 @@ const {
     basketRequested,
     basketReceved,
     basketRequestFiled,
+    basketCountUpdateSuccessed,
     basketCreated,
     removeBasket
 } = actions;
 
 const addNewBasketRequested = createAction("basket/addNewBasketRequested");
 const removeBasketRequested = createAction("basket/removeBasketRequested");
+const basketCountUpdateRequested = createAction(
+    "basket/basketCountUpdateRequested"
+);
+const basketUpdateFailed = createAction("basket/basketUpdateFailed");
 
 export const loadBasketList = () => async (dispatch) => {
     dispatch(basketRequested());
@@ -90,10 +100,48 @@ export const getBasketDeleteIds = (id) => async (dispatch) => {
     }
 };
 
-export const getProductIncrement = (product) => (state) => {
-    if (state.basket.entities !== null) {
-        return state.basket.entities.filter((p) => p.count === product.count++);
-    }
-};
+export const getBasketCountUpdate =
+    ({ _id, ...data }) =>
+    async (dispatch) => {
+        dispatch(basketCountUpdateRequested());
+        try {
+            const { content } = await basketService.getBasket(_id, data);
+            console.log(content);
+            dispatch(basketCountUpdateSuccessed(content));
+        } catch (error) {
+            dispatch(basketUpdateFailed(error.message));
+        }
+    };
+
+// export const counterBasket = (state = {}, action) => {
+//     switch (action.type) {
+//         case "additemtoproduct":
+//             return {
+//                 ...state.entities,
+//                 [action._id]: (state[action._id] || 0) + 1
+//             };
+//         case "deleteitemfromproduct":
+//             return {
+//                 ...state,
+//                 [action._id]: (state[action._id] || 1) - 1
+//             };
+//         default:
+//             return state;
+//     }
+
+//     addItemToCart: (state, action) => {
+//         const currentAmout = state[action.payload] ?? 0;
+//         state[action.payload] = currentAmout + 1;
+//     },
+//     incrementItemToCart: (state, action) => {
+//         if (state[action.payload] > 1) {
+//             state[action.payload]++
+//         }
+//     },
+//     decrementItemToCart: (state, action) => {
+//         if (state[action.payload] > 1) {
+//             state[action.payload]--
+//         }
+//     }
 
 export default basketReducer;
