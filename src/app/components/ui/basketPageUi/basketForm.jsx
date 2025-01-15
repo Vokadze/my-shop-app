@@ -23,13 +23,12 @@ const BasketForm = ({ prodId }) => {
 
     // const { productsItem } = basketService.fetchAll();
     // console.log(productsItem);
+    useEffect(() => {
+        dispatch(loadBasketList());
+    }, []);
 
     const productsItems = useSelector(getBaskets());
     console.log(productsItems);
-
-    useEffect(() => {
-        dispatch(loadBasketList(productsItems));
-    }, []);
 
     useEffect(() => {
         setProductLocal();
