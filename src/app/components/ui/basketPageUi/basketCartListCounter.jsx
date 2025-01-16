@@ -15,8 +15,9 @@ import { selectCount } from "../../../store/counterSlice";
 
 function initialCount() {
     const count = useSelector(selectCount);
-    return count;
-};
+    return Number(count);
+    // return Math.floor(Math.random() * (count - count + 1) + count);
+}
 
 const BasketCartListCounter = ({
     product
@@ -30,15 +31,16 @@ const BasketCartListCounter = ({
 
     const dispatch = useDispatch();
 
+    const { _id, count, countPay } = useSelector(getBasketById(product._id));
+    console.log(_id);
+    console.log(countPay);
+    console.log(count);
+
     useEffect(() => {
         // const newCount = useSelector(getBaskets(product));
         dispatch(loadBasketList(product));
         //     setCounter(counter);
-    }, [counter]);
-
-    const { _id, countPay } = useSelector(getBasketById(product._id));
-    console.log(_id);
-    console.log(countPay);
+    }, [countPay]);
 
     // useEffect(() => {
     //     setCounter(counter + 1);
@@ -51,8 +53,8 @@ const BasketCartListCounter = ({
         //     console.log("handleIncrement", prod);
         setCounter((prev) => prev + 1);
         // setCounter(counter + 1);
-        dispatch(getIncrement({ _id, counter, countPay, product }));
-        basketService.incCount(_id, counter, countPay, product);
+        dispatch(getIncrement({ _id, counter, count, countPay, product }));
+        basketService.incCount(_id, counter, count, countPay, product);
         // dispatch(getProductIncrement(product));
         // if (product.countPay >= 1) {
         //     console.log(product.countPay);
@@ -89,9 +91,17 @@ const BasketCartListCounter = ({
                     }}
                 />
             </div>
-            <span className="badge bg-primary mx-2">
+            {/* <span className="badge bg-primary mx-2">
                 {counter ? product.countPay : counter}
+            </span> */}
+            <div>
+            {/* <span className="badge bg-primary mx-2">
+                {counter}
+            </span> */}
+            <span className="badge bg-primary mx-2">
+                {product.countPay || counter}
             </span>
+            </div>
             {/* <span className="badge bg-primary mx-2">{counter}</span> */}
             <div onClick={handleIncrement} role="button">
                 <FaPlus

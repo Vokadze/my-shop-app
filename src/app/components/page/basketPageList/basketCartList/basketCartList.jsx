@@ -22,7 +22,7 @@ const BasketCartList = ({
     // console.log(product);
 
     const productsItems = useSelector(getBaskets());
-    console.log(productsItems);
+    console.log({ productsItems });
 
     useEffect(() => {
         setCountProduct();

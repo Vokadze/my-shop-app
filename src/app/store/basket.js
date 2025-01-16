@@ -153,18 +153,29 @@ export const getBasketDeleteIds = (id) => async (dispatch) => {
 };
 
 export const getIncrement =
-    ({ _id, counter, countPay, ...payload }) =>
+    ({ _id, counter, count, countPay, ...payload }) =>
     async (dispatch) => {
         console.log("basket.js getIncrement _id", _id);
         console.log("basket.js getIncrement counter", counter);
+        console.log("basket.js getIncrement count", count);
         console.log("basket.js getIncrement countPay", countPay);
         console.log("basket.js getIncrement payload", payload);
         dispatch(basketCountIncrementUpdateRequested());
         try {
-            const { content } = await basketService.incCount(_id, counter);
-            console.log(content);
-            // dispatch(increment(content));
-            dispatch(incDec(content));
+            if (countPay >= 1) {
+                // const newCount = {
+                //     count: `${count}` - `${counter}`
+                const { content } = await basketService.incCount(
+                    _id,
+                    count,
+                    countPay,
+                    counter
+                );
+                console.log(content);
+                // dispatch(increment(content));
+                dispatch(incDec(content));
+                // }
+            }
             // dispatch(basketReceved(content));
         } catch (error) {
             dispatch(basketUpdateFailed(error.message));
@@ -181,9 +192,13 @@ export const getDecrement =
         console.log("basket.js getDecrement payload", payload);
         dispatch(basketCountDecrementRequested());
         try {
-            const { content } = await basketService.decCount(_id, counter);
+            const { content } = await basketService.decCount(
+                _id,
+                countPay,
+                counter
+            );
             console.log(content);
-            dispatch(incDec({ content }));
+            dispatch(incDec(content));
         } catch (error) {
             dispatch(basketUpdateFailed(error.message));
             // dispatch(basketRequestFiled(error.message));
