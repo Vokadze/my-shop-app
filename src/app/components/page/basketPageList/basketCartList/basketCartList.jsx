@@ -21,6 +21,9 @@ const BasketCartList = ({
     // const product = useSelector(getBasketById(prodId));
     // console.log(product);
 
+    // const userId = getUserId();
+    //     console.log(userId);
+
     const productsItems = useSelector(getBaskets());
     console.log({ productsItems });
 

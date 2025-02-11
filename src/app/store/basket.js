@@ -153,29 +153,28 @@ export const getBasketDeleteIds = (id) => async (dispatch) => {
 };
 
 export const getIncrement =
-    ({ _id, counter, count, countPay, ...payload }) =>
+    ({ _id, counter, count, ...payload }) =>
     async (dispatch) => {
         console.log("basket.js getIncrement _id", _id);
         console.log("basket.js getIncrement counter", counter);
         console.log("basket.js getIncrement count", count);
-        console.log("basket.js getIncrement countPay", countPay);
+        // console.log("basket.js getIncrement countPay", countPay);
         console.log("basket.js getIncrement payload", payload);
         dispatch(basketCountIncrementUpdateRequested());
         try {
-            if (countPay >= 1) {
+            // if (countPay >= 1) {
                 // const newCount = {
                 //     count: `${count}` - `${counter}`
                 const { content } = await basketService.incCount(
                     _id,
                     count,
-                    countPay,
                     counter
                 );
                 console.log(content);
                 // dispatch(increment(content));
                 dispatch(incDec(content));
                 // }
-            }
+            // }
             // dispatch(basketReceved(content));
         } catch (error) {
             dispatch(basketUpdateFailed(error.message));
@@ -184,17 +183,17 @@ export const getIncrement =
     };
 
 export const getDecrement =
-    ({ _id, counter, countPay, ...payload }) =>
+    ({ _id, counter, count, ...payload }) =>
     async (dispatch) => {
         console.log("basket.js getDecrement _id", _id);
         console.log("basket.js getDecrement counter", counter);
-        console.log("basket.js getDecrement countPay", countPay);
+        console.log("basket.js getDecrement count", count);
         console.log("basket.js getDecrement payload", payload);
         dispatch(basketCountDecrementRequested());
         try {
             const { content } = await basketService.decCount(
                 _id,
-                countPay,
+                count,
                 counter
             );
             console.log(content);

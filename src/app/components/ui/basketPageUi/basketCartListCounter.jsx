@@ -31,16 +31,16 @@ const BasketCartListCounter = ({
 
     const dispatch = useDispatch();
 
-    const { _id, count, countPay } = useSelector(getBasketById(product._id));
+    const { _id, count } = useSelector(getBasketById(product._id));
     console.log(_id);
-    console.log(countPay);
+    // console.log(countPay);
     console.log(count);
 
     useEffect(() => {
         // const newCount = useSelector(getBaskets(product));
         dispatch(loadBasketList(product));
         //     setCounter(counter);
-    }, [countPay]);
+    }, [count]);
 
     // useEffect(() => {
     //     setCounter(counter + 1);
@@ -51,10 +51,10 @@ const BasketCartListCounter = ({
 
     const handleIncrement = () => {
         //     console.log("handleIncrement", prod);
-        setCounter((prev) => prev + 1);
-        // setCounter(counter + 1);
-        dispatch(getIncrement({ _id, counter, count, countPay, product }));
-        basketService.incCount(_id, counter, count, countPay, product);
+        // setCounter((prev) => prev + 1);
+        setCounter(counter + 1);
+        dispatch(getIncrement({ _id, counter, count, product }));
+        basketService.incCount(_id, counter, count, product);
         // dispatch(getProductIncrement(product));
         // if (product.countPay >= 1) {
         //     console.log(product.countPay);
@@ -68,9 +68,10 @@ const BasketCartListCounter = ({
     };
 
     const handleDecrement = () => {
-        dispatch(getDecrement({ _id, counter, countPay, product }));
-        basketService.decCount(_id, counter, countPay, product);
-        setCounter((prev) => prev - 1);
+        dispatch(getDecrement({ _id, counter, count, product }));
+        basketService.decCount(_id, counter, count, product);
+        // setCounter((prev) => prev - 1);
+        setCounter(counter - 1);
         // if (product.countPay <= 1) {
         //     const newLocalPay = productsItems.filter(
         //         (product) => product.count === product.count++
@@ -99,7 +100,7 @@ const BasketCartListCounter = ({
                 {counter}
             </span> */}
             <span className="badge bg-primary mx-2">
-                {product.countPay || counter}
+                {counter}
             </span>
             </div>
             {/* <span className="badge bg-primary mx-2">{counter}</span> */}
