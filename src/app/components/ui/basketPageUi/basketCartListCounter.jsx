@@ -20,27 +20,33 @@ function initialCount() {
 }
 
 const BasketCartListCounter = ({
-    product
+    product,
+    countPay
     // handleIncrement,
     // handleDecrement
 }) => {
-    console.log(product);
+    // console.log(product);
 
     const [counter, setCounter] = useState(initialCount());
-    console.log(counter);
+    // console.log(counter);
 
     const dispatch = useDispatch();
 
     const { _id, count } = useSelector(getBasketById(product._id));
-    console.log(_id);
+
+    // console.log(_id);
     // console.log(countPay);
-    console.log(count);
+    // console.log(count);
 
     useEffect(() => {
         // const newCount = useSelector(getBaskets(product));
         dispatch(loadBasketList(product));
         //     setCounter(counter);
-    }, [count]);
+    }, [count, counter]);
+
+    const formatCount = () => {
+        return counter === product.countPay ? (0 - 1) : counter;
+    };
 
     // useEffect(() => {
     //     setCounter(counter + 1);
@@ -53,6 +59,7 @@ const BasketCartListCounter = ({
         //     console.log("handleIncrement", prod);
         // setCounter((prev) => prev + 1);
         setCounter(counter + 1);
+
         dispatch(getIncrement({ _id, counter, count, product }));
         basketService.incCount(_id, counter, count, product);
         // dispatch(getProductIncrement(product));
@@ -96,12 +103,10 @@ const BasketCartListCounter = ({
                 {counter ? product.countPay : counter}
             </span> */}
             <div>
-            {/* <span className="badge bg-primary mx-2">
+                {/* <span className="badge bg-primary mx-2">
                 {counter}
             </span> */}
-            <span className="badge bg-primary mx-2">
-                {counter}
-            </span>
+                <span className="badge bg-primary mx-2">{formatCount()}</span>
             </div>
             {/* <span className="badge bg-primary mx-2">{counter}</span> */}
             <div onClick={handleIncrement} role="button">
@@ -123,6 +128,7 @@ BasketCartListCounter.propTypes = {
         PropTypes.array,
         PropTypes.object
     ]),
+    countPay: PropTypes.number,
     handleIncrement: PropTypes.func,
     handleDecrement: PropTypes.func
 };

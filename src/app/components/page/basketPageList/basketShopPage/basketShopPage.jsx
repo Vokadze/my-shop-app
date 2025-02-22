@@ -9,7 +9,7 @@ import basketService from "../../../../service/basket.servise";
 import { createBasket } from "../../../../store/basket";
 
 const BasketShopPage = ({ prodId }) => {
-    console.log(prodId);
+    console.log({ prodId });
 
     const dispatch = useDispatch();
 
@@ -19,11 +19,11 @@ const BasketShopPage = ({ prodId }) => {
     const product = useSelector(getProductById(prodId));
     console.log(product);
 
-    const basketProduct = basketService.fetchAll(prodId);
-    console.log(basketProduct);
+    // const basketProduct = basketService.fetchAll(prodId);
+    // console.log(basketProduct);
 
-    const getItemBasket = basketService.getBasket(prodId, product);
-    console.log(getItemBasket);
+    // const getItemBasket = basketService.getBasket(prodId, product);
+    // console.log(getItemBasket);
 
     const onAddProduct = (product) => {
         console.log(product);
@@ -58,6 +58,11 @@ const BasketShopPage = ({ prodId }) => {
         //         JSON.stringify(newCartProducts)
         //     );
         // }
+        basketService.fetchAll(prodId);
+        // console.log(basketProduct);
+
+        basketService.getBasket(prodId, product);
+        // console.log(getItemBasket);
         dispatch(createBasket(product));
         history.push(`/basket`);
     };
@@ -65,18 +70,18 @@ const BasketShopPage = ({ prodId }) => {
     const onRemoveProduct = (product) => {
         console.log("product remove", product);
 
-        const exist = productsItems.find((p) => p._id === product._id);
-        if (exist.qty === 1) {
-            const newCartProducts = productsItems.filter(
-                (p) => p._id !== product._id
-            );
-            setProductItems(newCartProducts);
-        } else {
-            const newCartProducts = productsItems.map((p) =>
-                p._id === product._id ? { ...exist, count: exist.count + 1 } : p
-            );
-            setProductItems(newCartProducts);
-        }
+        // const exist = productsItems.find((p) => p._id === product._id);
+        // if (exist.qty === 1) {
+        //     const newCartProducts = productsItems.filter(
+        //         (p) => p._id !== product._id
+        //     );
+        //     setProductItems(newCartProducts);
+        // } else {
+        //     const newCartProducts = productsItems.map((p) =>
+        //         p._id === product._id ? { ...exist, count: exist.count + 1 } : p
+        //     );
+        //     setProductItems(newCartProducts);
+        // }
     };
 
     useEffect(() => {

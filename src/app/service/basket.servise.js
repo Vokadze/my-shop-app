@@ -11,7 +11,7 @@ const basketService = {
     },
 
     getBasket: async (_id, content) => {
-        console.log(_id);
+        console.log({ _id });
         console.log(content);
         const { data } = await httpService.put(basketEndpoint + _id, {
             _id,
@@ -30,7 +30,8 @@ const basketService = {
         const { data } = await httpService.patch(basketEndpoint + _id, {
             _id,
             ...payload,
-            count: `${count - 1}` - `${counter}`
+            count: `${count - 1}` - `${counter}`,
+            countPay: counter
             // counter
         });
         console.log(data);
@@ -45,7 +46,8 @@ const basketService = {
         const { data } = await httpService.patch(basketEndpoint + _id, {
             _id,
             ...payload,
-            count: `${count}` - `${counter - 1}`
+            count: `${count}` - `${counter - 1}`,
+            countPay: counter
         });
         console.log(data);
         return data;

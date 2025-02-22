@@ -12,7 +12,7 @@ import {
 } from "../../../store/basket";
 
 const BasketForm = ({ prodId }) => {
-    console.log(prodId);
+    console.log({ prodId });
 
     const dispatch = useDispatch();
 
@@ -72,9 +72,11 @@ const BasketForm = ({ prodId }) => {
     };
 
     const itemPrice = () => {
+        console.log(productsItems);
         const newOrderPay = productsItems
             .reduce((a, c) => a + c.countPay * c.price, 0)
             .toFixed(2);
+        console.log(newOrderPay);
         return newOrderPay;
     };
 

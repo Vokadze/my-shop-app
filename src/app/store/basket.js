@@ -166,6 +166,7 @@ export const getIncrement =
                 // const newCount = {
                 //     count: `${count}` - `${counter}`
                 const { content } = await basketService.incCount(
+                    ...payload,
                     _id,
                     count,
                     counter
@@ -192,6 +193,7 @@ export const getDecrement =
         dispatch(basketCountDecrementRequested());
         try {
             const { content } = await basketService.decCount(
+                ...payload,
                 _id,
                 count,
                 counter
