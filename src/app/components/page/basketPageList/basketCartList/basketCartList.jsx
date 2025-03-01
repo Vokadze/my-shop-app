@@ -2,8 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { AiOutlineClose } from "react-icons/ai";
 import BasketCartListCounter from "../../../ui/basketPageUi/basketCartListCounter";
-import { useSelector } from "react-redux";
-import { getBaskets } from "../../../../store/basket";
 
 const BasketCartList = ({
     product,
@@ -11,50 +9,6 @@ const BasketCartList = ({
     handleDecrement,
     handleDelete
 }) => {
-    console.log(product);
-    // console.log(productsItems);
-
-    // const dispatch = useDispatch();
-
-    // const [countProduct, setCountProduct] = useState();
-
-    // const product = useSelector(getBasketById(prodId));
-    // console.log(product);
-
-    // const userId = getUserId();
-    //     console.log(userId);
-
-    const productsItems = useSelector(getBaskets());
-    console.log({ productsItems });
-
-    // useEffect(() => {
-    //     setCountProduct();
-    // }, [countProduct]);
-
-    // const handleIncrement = (prod) => {
-    //     console.log("handleIncrement", prod);
-    // dispatch(getProductIncrement(product));
-    // if (product.countPay >= 1) {
-    //     console.log(product.countPay);
-
-    //     const newLocalPay = productsItems.filter(
-    //         (product) => product.count === product.count--
-    //     );
-    // localStorage.setItem("productsItems", JSON.stringify(newLocalPay));
-    // }
-    // setCountProduct(product.countPay++);
-    // };
-
-    // const handleDecrement = () => {
-    //     if (product.countPay <= 1) {
-    //         const newLocalPay = productsItems.filter(
-    //             (product) => product.count === product.count++
-    //         );
-    //         localStorage.setItem("productsItems", JSON.stringify(newLocalPay));
-    //     }
-    //     setCountProduct(product.countPay--);
-    // };
-
     return (
         <>
             <div key={product._id} className="card w-100">

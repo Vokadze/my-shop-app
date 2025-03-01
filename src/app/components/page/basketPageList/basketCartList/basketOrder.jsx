@@ -5,8 +5,6 @@ import BasketSearchStatus from "../../../ui/basketPageUi/basketSearchStatus";
 import "./index.css";
 
 const BasketOrder = ({ productsItems, handleClick, itemPrice }) => {
-    console.log(productsItems);
-
     const formatButton = () => {
         const classes = "btn btn-sm text-nowrap btn-warning ";
         return productsItems.length === 0 ? classes + "disabled" : classes;

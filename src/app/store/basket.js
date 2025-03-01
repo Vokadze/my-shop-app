@@ -163,18 +163,18 @@ export const getIncrement =
         dispatch(basketCountIncrementUpdateRequested());
         try {
             // if (countPay >= 1) {
-                // const newCount = {
-                //     count: `${count}` - `${counter}`
-                const { content } = await basketService.incCount(
-                    ...payload,
-                    _id,
-                    count,
-                    counter
-                );
-                console.log(content);
-                // dispatch(increment(content));
-                dispatch(incDec(content));
-                // }
+            // const newCount = {
+            //     count: `${count}` - `${counter}`
+            const { content } = await basketService.incCount(
+                ...payload,
+                _id,
+                count,
+                counter
+            );
+            console.log(content);
+            // dispatch(increment(content));
+            dispatch(incDec(content));
+            // }
             // }
             // dispatch(basketReceved(content));
         } catch (error) {

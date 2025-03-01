@@ -11,67 +11,32 @@ import {
     loadBasketList
 } from "../../../store/basket";
 import { selectCount } from "../../../store/counterSlice";
-// import { increment, selectCount } from "../../../store/counterSlice";
 
 function initialCount() {
     const count = useSelector(selectCount);
     return Number(count);
-    // return Math.floor(Math.random() * (count - count + 1) + count);
 }
 
-const BasketCartListCounter = ({
-    product,
-    countPay
-    // handleIncrement,
-    // handleDecrement
-}) => {
-    // console.log(product);
-
+const BasketCartListCounter = ({ product }) => {
     const [counter, setCounter] = useState(initialCount());
-    // console.log(counter);
 
     const dispatch = useDispatch();
 
     const { _id, count } = useSelector(getBasketById(product._id));
 
-    // console.log(_id);
-    // console.log(countPay);
-    // console.log(count);
-
     useEffect(() => {
-        // const newCount = useSelector(getBaskets(product));
         dispatch(loadBasketList(product));
-        //     setCounter(counter);
     }, [count, counter]);
 
     const formatCount = () => {
-        return counter === product.countPay ? (0 - 1) : counter;
+        return product.countPay !== 0 ? counter - 1 : product.countPay;
     };
 
-    // useEffect(() => {
-    //     setCounter(counter + 1);
-    // }, []);
-
-    // const { _id, countPay } = product;
-    // console.log(countPay);
-
     const handleIncrement = () => {
-        //     console.log("handleIncrement", prod);
         // setCounter((prev) => prev + 1);
         setCounter(counter + 1);
-
         dispatch(getIncrement({ _id, counter, count, product }));
         basketService.incCount(_id, counter, count, product);
-        // dispatch(getProductIncrement(product));
-        // if (product.countPay >= 1) {
-        //     console.log(product.countPay);
-
-        //     const newLocalPay = productsItems.filter(
-        //         (product) => product.count === product.count--
-        //     );
-        // localStorage.setItem("productsItems", JSON.stringify(newLocalPay));
-        // }
-        // setCountProduct(product.countPay++);
     };
 
     const handleDecrement = () => {
@@ -79,13 +44,6 @@ const BasketCartListCounter = ({
         basketService.decCount(_id, counter, count, product);
         // setCounter((prev) => prev - 1);
         setCounter(counter - 1);
-        // if (product.countPay <= 1) {
-        //     const newLocalPay = productsItems.filter(
-        //         (product) => product.count === product.count++
-        //     );
-        //     localStorage.setItem("productsItems", JSON.stringify(newLocalPay));
-        // }
-        // setCountProduct(product.countPay--);
     };
 
     return (
@@ -99,16 +57,11 @@ const BasketCartListCounter = ({
                     }}
                 />
             </div>
-            {/* <span className="badge bg-primary mx-2">
-                {counter ? product.countPay : counter}
-            </span> */}
             <div>
-                {/* <span className="badge bg-primary mx-2">
-                {counter}
-            </span> */}
-                <span className="badge bg-primary mx-2">{formatCount()}</span>
+                <span className="badge bg-primary mx-2">
+                    {product.countPay !== 0 ? product.countPay : formatCount()}
+                </span>
             </div>
-            {/* <span className="badge bg-primary mx-2">{counter}</span> */}
             <div onClick={handleIncrement} role="button">
                 <FaPlus
                     size={20}
@@ -128,7 +81,6 @@ BasketCartListCounter.propTypes = {
         PropTypes.array,
         PropTypes.object
     ]),
-    countPay: PropTypes.number,
     handleIncrement: PropTypes.func,
     handleDecrement: PropTypes.func
 };

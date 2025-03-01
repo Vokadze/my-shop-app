@@ -3,21 +3,18 @@ import httpService from "./http.service";
 const basketEndpoint = "basket/";
 
 const basketService = {
-    fetchAll: async (content) => {
-        console.log(content);
+    fetchAll: async () => {
         const { data } = await httpService.get(basketEndpoint);
         console.log(data);
         return data;
     },
 
     getBasket: async (_id, content) => {
-        console.log({ _id });
-        console.log(content);
         const { data } = await httpService.put(basketEndpoint + _id, {
             _id,
+            countPay: 0,
             ...content
         });
-        console.log(data);
         return data;
     },
 
@@ -30,7 +27,7 @@ const basketService = {
         const { data } = await httpService.patch(basketEndpoint + _id, {
             _id,
             ...payload,
-            count: `${count - 1}` - `${counter}`,
+            count: `${count}` - `${Number(counter / counter)}`,
             countPay: counter
             // counter
         });
@@ -46,7 +43,7 @@ const basketService = {
         const { data } = await httpService.patch(basketEndpoint + _id, {
             _id,
             ...payload,
-            count: `${count}` - `${counter - 1}`,
+            count: `${count}` - `${counter - (counter - 1)}`,
             countPay: counter
         });
         console.log(data);
