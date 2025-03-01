@@ -33,16 +33,16 @@ export const countIncrementUpdateRequested = createAction(
 );
 
 export const getCountIncrement =
-    ({ _id, counter }) =>
+    ({ _id, counter, count }) =>
     async (dispatch) => {
         console.log("counterSlice getCountIncrement _id", _id);
         // console.log("counterSlice getCountIncrement newCount", newCount);
-        // console.log("counterSlice getCountIncrement count", count);
+        console.log("counterSlice getCountIncrement count", count);
         // console.log("counterSlice getCountIncrement countPay", countPay);
         // console.log("counterSlice getCountIncrement payload", data);
         dispatch(countIncrementUpdateRequested());
         try {
-            const { content } = await basketService.incCount(_id, counter);
+            const { content } = await basketService.incCount(_id, counter, count);
             console.log(content);
             dispatch(increment(content));
         } catch (error) {

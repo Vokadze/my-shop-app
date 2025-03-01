@@ -15,9 +15,9 @@ const BasketCartListCounter = ({ product }) => {
     const counter = useSelector((state) => state.counter.value);
     console.log(counter);
 
-    const { _id } = useSelector(getBasketById(product._id));
+    const { _id, count } = useSelector(getBasketById(product._id));
     console.log({ _id });
-    // console.log({ count });
+    console.log({ count });
     // console.log({ counter });
 
     useEffect(() => {
@@ -27,8 +27,8 @@ const BasketCartListCounter = ({ product }) => {
 
     const handleIncrement = (prod) => {
         console.log("handleIncrement", prod);
-        basketService.incCount(_id, counter, product);
-        dispatch(getCountIncrement(_id, counter));
+        basketService.incCount(_id, counter, count, product);
+        dispatch(getCountIncrement(_id, counter, count));
     };
 
     const handleDecrement = (prod) => {
