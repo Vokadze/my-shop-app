@@ -2,13 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import { FaPlus } from "react-icons/fa6";
 import { HiMinus } from "react-icons/hi";
+import { useSelector } from "react-redux";
 
-const BasketCartListCounter = ({
-    product,
-    handleIncrement,
-    handleDecrement
-}) => {
+const BasketCartListCounter = ({ product }) => {
     console.log(product);
+
+    const count = useSelector((state) => state.counter.value);
+    console.log(count);
+
+    const handleIncrement = (prod) => {
+        console.log("handleIncrement", prod);
+    };
+
+    const handleDecrement = (prod) => {
+        console.log("handleDecrement", prod);
+    };
 
     return (
         <>
@@ -40,9 +48,7 @@ BasketCartListCounter.propTypes = {
         PropTypes.string,
         PropTypes.array,
         PropTypes.object
-    ]),
-    handleIncrement: PropTypes.func,
-    handleDecrement: PropTypes.func
+    ])
 };
 
 export default BasketCartListCounter;

@@ -48,28 +48,28 @@ const BasketForm = ({ prodId }) => {
         // }
     };
 
-    const handleIncrement = (id) => {
-        console.log("BasketForm handleIncrement", id);
+    // const handleIncrement = (id) => {
+    //     console.log("BasketForm handleIncrement", id);
 
-        const elementIndex = productsItems.findIndex(
-            (product) => product._id === id
-        );
-        const newCounters = [...productsItems];
-        newCounters[elementIndex].countPay++;
-        setProductLocal(newCounters);
-    };
+    //     const elementIndex = productsItems.findIndex(
+    //         (product) => product._id === id
+    //     );
+    //     const newCounters = [...productsItems];
+    //     newCounters[elementIndex].countPay++;
+    //     setProductLocal(newCounters);
+    // };
 
-    const handleDecrement = (id) => {
-        console.log("BasketForm handleDecrement", id);
+    // const handleDecrement = (id) => {
+    //     console.log("BasketForm handleDecrement", id);
 
-        const elementIndex = productsItems.findIndex(
-            (product) => product._id === id
-        );
-        const newCounters = [...productsItems];
-        newCounters[elementIndex].countPay--;
+    //     const elementIndex = productsItems.findIndex(
+    //         (product) => product._id === id
+    //     );
+    //     const newCounters = [...productsItems];
+    //     newCounters[elementIndex].countPay--;
 
-        setProductLocal(newCounters);
-    };
+    //     setProductLocal(newCounters);
+    // };
 
     const itemPrice = () => {
         const newOrderPay = productsItems
@@ -93,8 +93,8 @@ const BasketForm = ({ prodId }) => {
                                     <BasketCartList
                                         product={product}
                                         key={product._id}
-                                        handleIncrement={handleIncrement}
-                                        handleDecrement={handleDecrement}
+                                        // handleIncrement={handleIncrement}
+                                        // handleDecrement={handleDecrement}
                                         productsItems={productsItems}
                                         handleDelete={handleDelete}
                                         {...product}
