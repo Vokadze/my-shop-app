@@ -27,6 +27,9 @@ const basketSlice = createSlice({
             ] = action.payload;
         },
         basketCreated: (state, action) => {
+            if (!Array.isArray(state.entities)) {
+                state.entities = [];
+            }
             state.entities.push(action.payload._id);
         },
         removeBasket: (state, action) => {

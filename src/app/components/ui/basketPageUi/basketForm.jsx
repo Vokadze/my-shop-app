@@ -89,10 +89,10 @@ const BasketForm = ({ prodId }) => {
                     <div className="d-flex flex-row">
                         <div className="row cols-row-1 cols-row-md-3 g-0">
                             <div className="col">
-                                {productsItems.map((product) => (
+                                {productsItems.map((product, index) => (
                                     <BasketCartList
                                         product={product}
-                                        key={product._id}
+                                        key={index}
                                         // handleIncrement={handleIncrement}
                                         // handleDecrement={handleDecrement}
                                         productsItems={productsItems}

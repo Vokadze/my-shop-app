@@ -1,17 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { FaPlus } from "react-icons/fa6";
 import { HiMinus } from "react-icons/hi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getBasketById, loadBasketList } from "../../../store/basket";
+import basketService from "../../../service/basket.servise";
+import { getCountIncrement } from "../../../store/counterSlice";
 
 const BasketCartListCounter = ({ product }) => {
     console.log(product);
 
-    const count = useSelector((state) => state.counter.value);
-    console.log(count);
+    const dispatch = useDispatch();
+
+    const counter = useSelector((state) => state.counter.value);
+    console.log(counter);
+
+    const { _id } = useSelector(getBasketById(product._id));
+    console.log({ _id });
+    // console.log({ count });
+    // console.log({ counter });
+
+    useEffect(() => {
+        // basketService.updateCount(product);
+        dispatch(loadBasketList(product));
+    }, [counter]);
 
     const handleIncrement = (prod) => {
         console.log("handleIncrement", prod);
+        basketService.incCount(_id, counter, product);
+        dispatch(getCountIncrement(_id, counter));
     };
 
     const handleDecrement = (prod) => {

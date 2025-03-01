@@ -111,7 +111,7 @@ const BasketCartList = ({
 };
 
 BasketCartList.propTypes = {
-    product: PropTypes.object,
+    product: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
     handleIncrement: PropTypes.func,
     handleDecrement: PropTypes.func,
     // product: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node)]),
