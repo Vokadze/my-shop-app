@@ -18,7 +18,11 @@ function initialCount() {
 }
 
 const BasketCartListCounter = ({ product }) => {
+    console.log(product);
+    console.log(`${product.countPay}`);
+
     const [counter, setCounter] = useState(initialCount());
+    console.log({ counter });
 
     const dispatch = useDispatch();
 
@@ -29,21 +33,24 @@ const BasketCartListCounter = ({ product }) => {
     }, [count, counter]);
 
     const formatCount = () => {
-        return product.countPay !== 0 ? counter - 1 : product.countPay;
+        return product.countPay !== 0 ? counter + 1 : product.countPay;
     };
 
     const handleIncrement = () => {
-        // setCounter((prev) => prev + 1);
-        setCounter(counter + 1);
+        // setCounter(counter + 1);
+        basketService.updateBasket(product);
         dispatch(getIncrement({ _id, counter, count, product }));
         basketService.incCount(_id, counter, count, product);
+        setCounter((prev) => prev + 1);
+        console.log(product);
     };
 
     const handleDecrement = () => {
+        basketService.updateBasket(product);
+        setCounter((prev) => prev - 1);
         dispatch(getDecrement({ _id, counter, count, product }));
         basketService.decCount(_id, counter, count, product);
-        // setCounter((prev) => prev - 1);
-        setCounter(counter - 1);
+        // setCounter(counter - 1);
     };
 
     return (
@@ -59,7 +66,7 @@ const BasketCartListCounter = ({ product }) => {
             </div>
             <div>
                 <span className="badge bg-primary mx-2">
-                    {product.countPay !== 0 ? product.countPay : formatCount()}
+                    {product.countPay !== counter ? product.countPay : formatCount()}
                 </span>
             </div>
             <div onClick={handleIncrement} role="button">

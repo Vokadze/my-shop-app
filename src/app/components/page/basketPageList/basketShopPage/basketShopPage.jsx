@@ -12,11 +12,15 @@ const BasketShopPage = ({ prodId }) => {
     const dispatch = useDispatch();
 
     const product = useSelector(getProductById(prodId));
+    console.log(product);
+    console.log("countPay", `${product.countPay}`);
 
     const onAddProduct = (product) => {
         basketService.fetchAll(prodId);
         basketService.getBasket(prodId, product);
         dispatch(createBasket(product));
+        // dispatch(getIncrement(product));
+        // dispatch(getDecrement(product));
         history.push(`/basket`);
     };
 

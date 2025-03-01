@@ -14,6 +14,7 @@ const BasketForm = () => {
     const dispatch = useDispatch();
 
     const productsItems = useSelector(getBaskets());
+    console.log(productsItems);
 
     useEffect(() => {
         dispatch(loadBasketList(productsItems));

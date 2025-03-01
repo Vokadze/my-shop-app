@@ -27,10 +27,12 @@ const basketService = {
         const { data } = await httpService.patch(basketEndpoint + _id, {
             _id,
             ...payload,
-            count: `${count}` - `${Number(counter / counter)}`,
+            count: `${Number(count) - Number((counter - (counter - 1)))}`,
             countPay: counter
             // counter
         });
+        console.log(`${Number(count) - Number((counter - (counter - 1)))}`);
+        console.log(counter);
         console.log(data);
         return data;
     },
@@ -43,15 +45,22 @@ const basketService = {
         const { data } = await httpService.patch(basketEndpoint + _id, {
             _id,
             ...payload,
-            count: `${count}` - `${counter - (counter - 1)}`,
+            count: `${Number(count) + Number(((counter + 1) - counter))}`,
             countPay: counter
         });
+        console.log(`${Number(count) + Number(((counter + 1) - counter))}`);
         console.log(data);
         return data;
     },
 
     deleteBasket: async (id) => {
         const { data } = await httpService.delete(basketEndpoint + id);
+        return data;
+    },
+
+    updateBasket: async (payload) => {
+        const { data } = await httpService.patch(basketEndpoint + payload._id, payload);
+        console.log(data);
         return data;
     }
 };
