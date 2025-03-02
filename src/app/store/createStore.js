@@ -3,7 +3,6 @@ import categoriesReducer from "./categories";
 import productsReducer from "./products";
 import usersReducer from "./users";
 import basketReducer from "./basket";
-// import countReducer from "./countReducer";
 import counterReducer from "./counterSlice";
 
 const rootReducers = combineReducers({
@@ -11,7 +10,6 @@ const rootReducers = combineReducers({
     products: productsReducer,
     users: usersReducer,
     basket: basketReducer,
-    // counter: countReducer
     counter: counterReducer
 });
 

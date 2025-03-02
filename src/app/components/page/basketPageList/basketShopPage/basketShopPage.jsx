@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import BasketShopList from "../basketShopList/basketShopList";
@@ -9,83 +9,17 @@ import basketService from "../../../../service/basket.servise";
 import { createBasket } from "../../../../store/basket";
 
 const BasketShopPage = ({ prodId }) => {
-    console.log(prodId);
-
     const dispatch = useDispatch();
-
-    const [productsItems, setProductItems] = useState([]);
-    console.log(productsItems);
 
     const product = useSelector(getProductById(prodId));
     console.log(product);
 
-    const basketProduct = basketService.fetchAll(prodId);
-    console.log(basketProduct);
-
-    const getItemBasket = basketService.getBasket(prodId, product);
-    console.log(getItemBasket);
-
     const onAddProduct = (product) => {
-        console.log(product);
-        // const exist = productsItems.find((p) => p._id === product._id);
-        // if (exist) {
-        //     const newCartProducts = productsItems.map((p) =>
-        //         p._id === product._id
-        //             ? {
-        //                   ...exist,
-        //                   count: exist.count - 1
-        //               }
-        //             : p
-        //     );
-
-        //     setProductItems(newCartProducts);
-        //     localStorage.setItem(
-        //         "productsItems",
-        //         JSON.stringify(newCartProducts)
-        //     );
-        // } else {
-        //     const newCartProducts = [
-        //         ...productsItems,
-        //         {
-        //             ...product,
-        //             qty: 1,
-        //             countPay: 1
-        //         }
-        //     ];
-        //     setProductItems(newCartProducts);
-        //     localStorage.setItem(
-        //         "productsItems",
-        //         JSON.stringify(newCartProducts)
-        //     );
-        // }
+        basketService.fetchAll(prodId);
+        basketService.getBasket(prodId, product);
         dispatch(createBasket(product));
         history.push(`/basket`);
     };
-
-    const onRemoveProduct = (product) => {
-        console.log("product remove", product);
-
-        const exist = productsItems.find((p) => p._id === product._id);
-        if (exist.qty === 1) {
-            const newCartProducts = productsItems.filter(
-                (p) => p._id !== product._id
-            );
-            setProductItems(newCartProducts);
-        } else {
-            const newCartProducts = productsItems.map((p) =>
-                p._id === product._id ? { ...exist, count: exist.count + 1 } : p
-            );
-            setProductItems(newCartProducts);
-        }
-    };
-
-    useEffect(() => {
-        setProductItems(
-            localStorage.getItem("productsItems")
-                ? JSON.parse(localStorage.getItem("productsItems"))
-                : []
-        );
-    }, []);
 
     if (product) {
         return (
@@ -98,12 +32,7 @@ const BasketShopPage = ({ prodId }) => {
                     style={{ background: "#dee2e6" }}
                 />
 
-                <BasketShopList
-                    product={product}
-                    item={productsItems.find((p) => p._id === product._id)}
-                    onAddProduct={onAddProduct}
-                    onRemoveProduct={onRemoveProduct}
-                />
+                <BasketShopList product={product} onAddProduct={onAddProduct} />
             </div>
         );
     } else {
