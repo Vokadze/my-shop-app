@@ -5,25 +5,28 @@ import { HiMinus } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import { getBasketById, loadBasketList } from "../../../store/basket";
 import basketService from "../../../service/basket.servise";
-import { getCountIncrement } from "../../../store/counterSlice";
+import { getCountDecrement, getCountIncrement } from "../../../store/counterSlice";
 
-const BasketCartListCounter = ({ product }) => {
+const BasketCartListCounter = ({ product, prodId }) => {
     console.log(product);
+    console.log({ prodId });
 
     const dispatch = useDispatch();
 
+    // const counter = useSelector((state) => state.counter.value);
+    // console.log(counter);
     const counter = useSelector((state) => state.counter.value);
     console.log(counter);
 
-    const { _id, count } = useSelector(getBasketById(product._id));
+    const { _id, count, countPay } = useSelector(getBasketById(product._id));
     console.log({ _id });
     console.log({ count });
-    // console.log({ counter });
+    console.log({ countPay });
 
     useEffect(() => {
         // basketService.updateCount(product);
         dispatch(loadBasketList(product));
-    }, [counter]);
+    }, [counter, countPay]);
 
     const handleIncrement = (prod) => {
         console.log("handleIncrement", prod);
@@ -33,6 +36,8 @@ const BasketCartListCounter = ({ product }) => {
 
     const handleDecrement = (prod) => {
         console.log("handleDecrement", prod);
+        basketService.decCount(_id, counter, count, product);
+        dispatch(getCountDecrement(_id, counter, count));
     };
 
     return (
@@ -65,7 +70,8 @@ BasketCartListCounter.propTypes = {
         PropTypes.string,
         PropTypes.array,
         PropTypes.object
-    ])
+    ]),
+    prodId: PropTypes.string
 };
 
 export default BasketCartListCounter;

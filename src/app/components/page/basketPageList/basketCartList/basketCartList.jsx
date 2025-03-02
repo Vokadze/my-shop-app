@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { AiOutlineClose } from "react-icons/ai";
 import BasketCartListCounter from "../../../ui/basketPageUi/basketCartListCounter";
@@ -16,7 +16,7 @@ const BasketCartList = ({
 
     // const dispatch = useDispatch();
 
-    const [countProduct, setCountProduct] = useState();
+    // const [countProduct, setCountProduct] = useState();
 
     // const product = useSelector(getBasketById(prodId));
     // console.log(product);
@@ -24,9 +24,9 @@ const BasketCartList = ({
     const productsItems = useSelector(getBaskets());
     console.log(productsItems);
 
-    useEffect(() => {
-        setCountProduct();
-    }, [countProduct]);
+    // useEffect(() => {
+    //     setCountProduct();
+    // }, [countProduct]);
 
     // const handleIncrement = (prod) => {
     //     console.log("handleIncrement", prod);
@@ -78,6 +78,7 @@ const BasketCartList = ({
                                 <h6>Количество:</h6>
                                 <div className="card-counter-product">
                                     <BasketCartListCounter
+                                        prodId={product._id}
                                         handleDecrement={handleDecrement}
                                         handleIncrement={handleIncrement}
                                         product={product}
