@@ -1,52 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { AiOutlineClose } from "react-icons/ai";
 import BasketCartListCounter from "../../../ui/basketPageUi/basketCartListCounter";
-import { useSelector } from "react-redux";
-import { getBaskets } from "../../../../store/basket";
 
-const BasketCartList = ({ product, handleDelete }) => {
-    console.log(product);
-    // console.log(productsItems);
-
-    // const dispatch = useDispatch();
-
-    const [countProduct, setCountProduct] = useState();
-
-    // const product = useSelector(getBasketById(prodId));
-    // console.log(product);
-
-    const productsItems = useSelector(getBaskets());
-    console.log(productsItems);
-
-    useEffect(() => {
-        setCountProduct();
-    }, [countProduct]);
-
-    const handleIncrement = (prod) => {
-        console.log("handleIncrement", prod);
-        // dispatch(getProductIncrement(product));
-        // if (product.countPay >= 1) {
-        //     console.log(product.countPay);
-
-        //     const newLocalPay = productsItems.filter(
-        //         (product) => product.count === product.count--
-        //     );
-            // localStorage.setItem("productsItems", JSON.stringify(newLocalPay));
-        // }
-        // setCountProduct(product.countPay++);
-    };
-
-    const handleDecrement = () => {
-        if (product.countPay <= 1) {
-            const newLocalPay = productsItems.filter(
-                (product) => product.count === product.count++
-            );
-            localStorage.setItem("productsItems", JSON.stringify(newLocalPay));
-        }
-        setCountProduct(product.countPay--);
-    };
-
+const BasketCartList = ({
+    product,
+    handleIncrement,
+    handleDecrement,
+    handleDelete
+}) => {
     return (
         <>
             <div key={product._id} className="card w-100">
@@ -72,6 +34,7 @@ const BasketCartList = ({ product, handleDelete }) => {
                                 <h6>Количество:</h6>
                                 <div className="card-counter-product">
                                     <BasketCartListCounter
+                                        prodId={product._id}
                                         handleDecrement={handleDecrement}
                                         handleIncrement={handleIncrement}
                                         product={product}
@@ -105,9 +68,11 @@ const BasketCartList = ({ product, handleDelete }) => {
 };
 
 BasketCartList.propTypes = {
-    product: PropTypes.object,
+    product: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+    handleIncrement: PropTypes.func,
+    handleDecrement: PropTypes.func,
     // product: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node)]),
-    productsItems: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+    // productsItems: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
     handleDelete: PropTypes.func
 };
 

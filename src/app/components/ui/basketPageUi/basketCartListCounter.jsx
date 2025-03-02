@@ -1,14 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { FaPlus } from "react-icons/fa6";
 import { HiMinus } from "react-icons/hi";
+import { useDispatch, useSelector } from "react-redux";
+import { getBasketById, loadBasketList } from "../../../store/basket";
+import basketService from "../../../service/basket.servise";
+import {
+    getCountDecrement,
+    getCountIncrement,
+    selectCount
+} from "../../../store/counterSlice";
 
-const BasketCartListCounter = ({
-    product,
-    handleIncrement,
-    handleDecrement
-}) => {
-    console.log(product);
+function initialCount() {
+    const count = useSelector(selectCount);
+    return Number(count);
+}
+
+const BasketCartListCounter = ({ product }) => {
+    const dispatch = useDispatch();
+
+    const [counter, setCounter] = useState(initialCount());
+
+    const { _id, count, countPay } = useSelector(getBasketById(product._id));
+
+    useEffect(() => {
+        dispatch(loadBasketList(product));
+        setCounter(counter);
+    }, [counter, countPay]);
+
+    const handleIncrement = async () => {
+        await basketService.updateCount(product);
+        dispatch(getCountIncrement(_id, counter, count));
+        await basketService.incCount(_id, counter, count, product);
+        setCounter((prev) => prev + 1);
+    };
+
+    const handleDecrement = async () => {
+        await basketService.updateCount(product);
+        await basketService.decCount(_id, counter, count, product);
+        dispatch(getCountDecrement(_id, counter, count));
+        setCounter((prev) => prev - 1);
+    };
 
     return (
         <>
@@ -40,9 +72,7 @@ BasketCartListCounter.propTypes = {
         PropTypes.string,
         PropTypes.array,
         PropTypes.object
-    ]),
-    handleIncrement: PropTypes.func,
-    handleDecrement: PropTypes.func
+    ])
 };
 
 export default BasketCartListCounter;

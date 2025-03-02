@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 
 import BasketCartList from "../../page/basketPageList/basketCartList/basketCartList";
@@ -11,64 +11,18 @@ import {
     loadBasketList
 } from "../../../store/basket";
 
-const BasketForm = ({ prodId }) => {
-    console.log(prodId);
-
+const BasketForm = () => {
     const dispatch = useDispatch();
 
-    const [productLocal, setProductLocal] = useState();
-    // const newProductsItem = localStorage.getItem("productsItems");
-    // const productsItems = JSON.parse(newProductsItem);
-    // console.log(productsItems);
-
-    // const { productsItem } = basketService.fetchAll();
-    // console.log(productsItem);
-
     const productsItems = useSelector(getBaskets());
-    console.log(productsItems);
 
     useEffect(() => {
         dispatch(loadBasketList(productsItems));
     }, []);
 
-    useEffect(() => {
-        setProductLocal();
-    }, [productLocal]);
-
     const handleDelete = (prodId) => {
         console.log("basketForm delete", prodId);
         dispatch(getBasketDeleteIds(prodId));
-        // console.log(prodId);
-        // if (productsItems) {
-        //     const newLocal = productsItems.filter(
-        //         (product) => product._id !== prodId
-        //     );
-        //     localStorage.setItem("productsItems", JSON.stringify(newLocal));
-        //     setProductLocal(newLocal);
-        // }
-    };
-
-    const handleIncrement = (id) => {
-        console.log("BasketForm handleIncrement", id);
-
-        const elementIndex = productsItems.findIndex(
-            (product) => product._id === id
-        );
-        const newCounters = [...productsItems];
-        newCounters[elementIndex].countPay++;
-        setProductLocal(newCounters);
-    };
-
-    const handleDecrement = (id) => {
-        console.log("BasketForm handleDecrement", id);
-
-        const elementIndex = productsItems.findIndex(
-            (product) => product._id === id
-        );
-        const newCounters = [...productsItems];
-        newCounters[elementIndex].countPay--;
-
-        setProductLocal(newCounters);
     };
 
     const itemPrice = () => {
@@ -89,12 +43,10 @@ const BasketForm = ({ prodId }) => {
                     <div className="d-flex flex-row">
                         <div className="row cols-row-1 cols-row-md-3 g-0">
                             <div className="col">
-                                {productsItems.map((product) => (
+                                {productsItems.map((product, index) => (
                                     <BasketCartList
                                         product={product}
-                                        key={product._id}
-                                        handleIncrement={handleIncrement}
-                                        handleDecrement={handleDecrement}
+                                        key={index}
                                         productsItems={productsItems}
                                         handleDelete={handleDelete}
                                         {...product}
