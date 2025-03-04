@@ -20,16 +20,17 @@ const basketService = {
     incCount: async (_id, counter, count, payload) => {
         const { data } = await httpService.patch(basketEndpoint + _id, {
             _id,
-            count: count - (counter - (counter - 1)),
+            count: count - (counter + 1 - counter),
             countPay: counter
         });
+        console.log(counter + 1 - counter);
         return data;
     },
 
     decCount: async (_id, counter, count, payload) => {
         const { data } = await httpService.patch(basketEndpoint + _id, {
             _id,
-            count: count + (counter + 1 - counter),
+            count: count + (counter - counter + 1),
             countPay: counter
         });
         return data;

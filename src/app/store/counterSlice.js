@@ -50,6 +50,7 @@ export const getCountIncrement =
 export const getCountDecrement =
     ({ _id, counter, count }) =>
     async (dispatch) => {
+        console.log(counter);
         dispatch(countDecrementUpdateRequested());
         try {
             const { content } = await basketService.incCount(
@@ -57,6 +58,9 @@ export const getCountDecrement =
                 counter,
                 count
             );
+            // if (counter < 0) {
+            //     counter = 0;
+            // };
             dispatch(decrement(content));
         } catch (error) {
             console.log(error.message);
