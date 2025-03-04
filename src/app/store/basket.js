@@ -73,6 +73,12 @@ export const getBasketById = (prodId) => (state) => {
     }
 };
 
+export const getBasketCountById = (prodId) => (state) => {
+    if (state.basket.entities) {
+        return state.basket.entities.find((p) => p._id !== prodId);
+    }
+};
+
 export const getBaskets = () => (state) => state.basket.entities;
 
 export const createBasket =

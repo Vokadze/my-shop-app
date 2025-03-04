@@ -11,17 +11,18 @@ import {
     loadBasketList
 } from "../../../store/basket";
 
-const BasketForm = () => {
+const BasketForm = ({ handleIncrement, handleDecrement }) => {
     const dispatch = useDispatch();
 
     const productsItems = useSelector(getBaskets());
+    // console.log(productsItems);
 
     useEffect(() => {
         dispatch(loadBasketList(productsItems));
     }, []);
 
     const handleDelete = (prodId) => {
-        console.log("basketForm delete", prodId);
+        // console.log("basketForm delete", prodId);
         dispatch(getBasketDeleteIds(prodId));
     };
 
@@ -46,8 +47,10 @@ const BasketForm = () => {
                                 {productsItems.map((product, index) => (
                                     <BasketCartList
                                         product={product}
+                                        prodId={product._id}
                                         key={index}
-                                        productsItems={productsItems}
+                                        handleIncrement={handleIncrement}
+                                        handleDecrement={handleDecrement}
                                         handleDelete={handleDelete}
                                         {...product}
                                     />
@@ -75,7 +78,9 @@ const BasketForm = () => {
 BasketForm.propTypes = {
     prodId: PropTypes.string,
     onAddProduct: PropTypes.func,
-    onRemoveProduct: PropTypes.func
+    onRemoveProduct: PropTypes.func,
+    handleIncrement: PropTypes.func,
+    handleDecrement: PropTypes.func
 };
 
 export default BasketForm;

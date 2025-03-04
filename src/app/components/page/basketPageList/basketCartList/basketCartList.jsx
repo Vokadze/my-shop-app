@@ -5,6 +5,7 @@ import BasketCartListCounter from "../../../ui/basketPageUi/basketCartListCounte
 
 const BasketCartList = ({
     product,
+    prodId,
     handleIncrement,
     handleDecrement,
     handleDelete
@@ -34,9 +35,11 @@ const BasketCartList = ({
                                 <h6>Количество:</h6>
                                 <div className="card-counter-product">
                                     <BasketCartListCounter
-                                        prodId={product._id}
+                                        prodId={prodId}
                                         handleDecrement={handleDecrement}
-                                        handleIncrement={handleIncrement}
+                                        handleIncrement={() =>
+                                            handleIncrement(prodId)
+                                        }
                                         product={product}
                                     />
                                 </div>
@@ -69,6 +72,7 @@ const BasketCartList = ({
 
 BasketCartList.propTypes = {
     product: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+    prodId: PropTypes.string,
     handleIncrement: PropTypes.func,
     handleDecrement: PropTypes.func,
     // product: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node)]),
