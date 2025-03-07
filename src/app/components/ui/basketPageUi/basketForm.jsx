@@ -11,17 +11,18 @@ import {
     loadBasketList
 } from "../../../store/basket";
 
-const BasketForm = () => {
+const BasketForm = ({ handleIncrement, handleDecrement }) => {
     const dispatch = useDispatch();
 
     const productsItems = useSelector(getBaskets());
+    // console.log(productsItems);
 
     useEffect(() => {
         dispatch(loadBasketList(productsItems));
     }, []);
 
     const handleDelete = (prodId) => {
-        console.log("basketForm delete", prodId);
+        // console.log("basketForm delete", prodId);
         dispatch(getBasketDeleteIds(prodId));
     };
 
@@ -32,9 +33,35 @@ const BasketForm = () => {
         return newOrderPay;
     };
 
+    const renderProducts = () => {
+        // if (productsItems.length === 0) return "Товары в корзине отсутствуют";
+        return (
+            <div className="col">
+                {productsItems.length !== 0
+                    ? productsItems.map((product, index) => (
+                          <BasketCartList
+                              product={product}
+                              prodId={product._id}
+                              key={index}
+                              handleIncrement={() =>
+                                  handleIncrement(product._id)
+                              }
+                              handleDecrement={() =>
+                                  handleDecrement(product._id)
+                              }
+                              handleDelete={handleDelete}
+                              {...product}
+                          />
+                      ))
+                    : "Товары в корзине отсутствуют"}
+            </div>
+        );
+    };
+
     const handleClick = () => {
         console.log("click");
     };
+
     if (productsItems) {
         return (
             <div className="d-flex justify-content-center">
@@ -42,17 +69,20 @@ const BasketForm = () => {
                     <h1>Корзина</h1>
                     <div className="d-flex flex-row">
                         <div className="row cols-row-1 cols-row-md-3 g-0">
-                            <div className="col">
+                            {renderProducts()}
+                            {/* <div className="col">
                                 {productsItems.map((product, index) => (
                                     <BasketCartList
                                         product={product}
+                                        prodId={product._id}
                                         key={index}
-                                        productsItems={productsItems}
+                                        handleIncrement={() => handleIncrement(product._id)}
+                                        handleDecrement={() => handleDecrement(product._id)}
                                         handleDelete={handleDelete}
                                         {...product}
                                     />
                                 ))}
-                            </div>
+                            </div> */}
                         </div>
                         <BasketOrder
                             itemPrice={itemPrice}
@@ -75,7 +105,9 @@ const BasketForm = () => {
 BasketForm.propTypes = {
     prodId: PropTypes.string,
     onAddProduct: PropTypes.func,
-    onRemoveProduct: PropTypes.func
+    onRemoveProduct: PropTypes.func,
+    handleIncrement: PropTypes.func,
+    handleDecrement: PropTypes.func
 };
 
 export default BasketForm;

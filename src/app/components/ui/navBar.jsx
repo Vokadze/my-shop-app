@@ -4,9 +4,12 @@ import { Link } from "react-router-dom";
 import { BiCartAlt } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { getIsLoggedIn } from "../../store/users";
-// import NavProfile from "./navProfile";
-// d-flex flex-row border border-warning justify-content-center mb-2
+import { getUserId } from "../../service/localStorage.service";
+
 const NavBar = ({ countCartItems }) => {
+    const userId = getUserId();
+    console.log(userId);
+
     const isLoggedIn = useSelector(getIsLoggedIn());
 
     return (
@@ -41,7 +44,7 @@ const NavBar = ({ countCartItems }) => {
                                 <Link
                                     className="nav-link"
                                     aria-current="page"
-                                    to="/admin"
+                                    to={`/admin/${userId}`}
                                 >
                                     Admin
                                 </Link>
@@ -93,7 +96,8 @@ const NavBar = ({ countCartItems }) => {
 };
 
 NavBar.propTypes = {
-    countCartItems: PropTypes.number
+    countCartItems: PropTypes.number,
+    userId: PropTypes.string
 };
 
 export default NavBar;
