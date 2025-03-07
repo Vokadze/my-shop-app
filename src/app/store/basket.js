@@ -69,6 +69,7 @@ export const loadBasketList = () => async (dispatch) => {
 
 export const getBasketById = (prodId) => (state) => {
     if (state.basket.entities) {
+        console.log(state.basket.entities);
         return state.basket.entities.find((p) => p._id === prodId);
     }
 };

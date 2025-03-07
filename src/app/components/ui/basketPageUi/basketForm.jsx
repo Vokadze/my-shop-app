@@ -33,9 +33,35 @@ const BasketForm = ({ handleIncrement, handleDecrement }) => {
         return newOrderPay;
     };
 
+    const renderProducts = () => {
+        // if (productsItems.length === 0) return "Товары в корзине отсутствуют";
+        return (
+            <div className="col">
+                {productsItems.length !== 0
+                    ? productsItems.map((product, index) => (
+                          <BasketCartList
+                              product={product}
+                              prodId={product._id}
+                              key={index}
+                              handleIncrement={() =>
+                                  handleIncrement(product._id)
+                              }
+                              handleDecrement={() =>
+                                  handleDecrement(product._id)
+                              }
+                              handleDelete={handleDelete}
+                              {...product}
+                          />
+                      ))
+                    : "Товары в корзине отсутствуют"}
+            </div>
+        );
+    };
+
     const handleClick = () => {
         console.log("click");
     };
+
     if (productsItems) {
         return (
             <div className="d-flex justify-content-center">
@@ -43,19 +69,20 @@ const BasketForm = ({ handleIncrement, handleDecrement }) => {
                     <h1>Корзина</h1>
                     <div className="d-flex flex-row">
                         <div className="row cols-row-1 cols-row-md-3 g-0">
-                            <div className="col">
+                            {renderProducts()}
+                            {/* <div className="col">
                                 {productsItems.map((product, index) => (
                                     <BasketCartList
                                         product={product}
                                         prodId={product._id}
                                         key={index}
-                                        handleIncrement={handleIncrement}
-                                        handleDecrement={handleDecrement}
+                                        handleIncrement={() => handleIncrement(product._id)}
+                                        handleDecrement={() => handleDecrement(product._id)}
                                         handleDelete={handleDelete}
                                         {...product}
                                     />
                                 ))}
-                            </div>
+                            </div> */}
                         </div>
                         <BasketOrder
                             itemPrice={itemPrice}

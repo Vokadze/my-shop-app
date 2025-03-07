@@ -34,14 +34,16 @@ export const countDecrementUpdateRequested = createAction(
 export const getCountIncrement =
     ({ _id, counter, count }) =>
     async (dispatch) => {
-        dispatch(countIncrementUpdateRequested());
+        dispatch(countIncrementUpdateRequested(counter));
         try {
             const { content } = await basketService.incCount(
                 _id,
                 counter,
                 count
             );
+            console.log(content);
             dispatch(increment(content));
+            // }
         } catch (error) {
             console.log(error.message);
         }
@@ -51,16 +53,14 @@ export const getCountDecrement =
     ({ _id, counter, count }) =>
     async (dispatch) => {
         console.log(counter);
-        dispatch(countDecrementUpdateRequested());
+        dispatch(countDecrementUpdateRequested(counter));
         try {
-            const { content } = await basketService.incCount(
+            const { content } = await basketService.decCount(
                 _id,
                 counter,
                 count
             );
-            // if (counter < 0) {
-            //     counter = 0;
-            // };
+            console.log(content);
             dispatch(decrement(content));
         } catch (error) {
             console.log(error.message);
