@@ -5,12 +5,15 @@ import { BiCartAlt } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { getIsLoggedIn } from "../../store/users";
 import { getUserId } from "../../service/localStorage.service";
+import { getBaskets } from "../../store/basket";
 
-const NavBar = ({ countCartItems }) => {
+const NavBar = () => {
     const userId = getUserId();
     console.log(userId);
 
     const isLoggedIn = useSelector(getIsLoggedIn());
+
+    const countCartItems = useSelector(getBaskets(userId));
 
     return (
         <nav className="navbar">
@@ -54,7 +57,7 @@ const NavBar = ({ countCartItems }) => {
                                     className="nav-link text-center"
                                     href="#/cart"
                                     aria-current="page"
-                                    to="/basket"
+                                    to={`/basket/${userId}`}
                                 >
                                     <div className="position-relative">
                                         <BiCartAlt

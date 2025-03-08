@@ -4,13 +4,17 @@ import { FaPlus } from "react-icons/fa6";
 import { HiMinus } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 // import { useDispatch, useSelector } from "react-redux";
-import { getBasketById, getBasketCountById, loadBasketList } from "../../../store/basket";
+import {
+    getBasketById,
+    getBasketCountById,
+    loadBasketList
+} from "../../../store/basket";
 // // import basketService from "../../../service/basket.servise";
 import {
     getCountDecrement,
     getCountIncrement,
-//     getCountDecrement,
-//     getCountIncrement,
+    //     getCountDecrement,
+    //     getCountIncrement,
     selectCount
 } from "../../../store/counterSlice";
 import basketService from "../../../service/basket.servise";
@@ -93,10 +97,7 @@ const BasketCartListCounter = ({ prodId }) => {
 
     return (
         <>
-            <div
-                onClick={handleDecrement}
-                role="button"
-            >
+            <div onClick={handleDecrement} role="button">
                 <HiMinus
                     size={20}
                     style={{
@@ -106,10 +107,7 @@ const BasketCartListCounter = ({ prodId }) => {
                 />
             </div>
             <span className={getBadgeClasses()}>{formatCount()}</span>
-            <div
-                onClick={handleIncrement}
-                role="button"
-            >
+            <div onClick={handleIncrement} role="button">
                 <FaPlus
                     size={20}
                     style={{

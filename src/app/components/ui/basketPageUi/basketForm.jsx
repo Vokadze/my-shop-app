@@ -10,6 +10,7 @@ import {
     getBaskets,
     loadBasketList
 } from "../../../store/basket";
+// import NavBar from "../navBar";
 
 const BasketForm = ({ handleIncrement, handleDecrement }) => {
     const dispatch = useDispatch();
@@ -33,31 +34,6 @@ const BasketForm = ({ handleIncrement, handleDecrement }) => {
         return newOrderPay;
     };
 
-    const renderProducts = () => {
-        // if (productsItems.length === 0) return "Товары в корзине отсутствуют";
-        return (
-            <div className="col">
-                {productsItems.length !== 0
-                    ? productsItems.map((product, index) => (
-                          <BasketCartList
-                              product={product}
-                              prodId={product._id}
-                              key={index}
-                              handleIncrement={() =>
-                                  handleIncrement(product._id)
-                              }
-                              handleDecrement={() =>
-                                  handleDecrement(product._id)
-                              }
-                              handleDelete={handleDelete}
-                              {...product}
-                          />
-                      ))
-                    : "Товары в корзине отсутствуют"}
-            </div>
-        );
-    };
-
     const handleClick = () => {
         console.log("click");
     };
@@ -65,24 +41,30 @@ const BasketForm = ({ handleIncrement, handleDecrement }) => {
     if (productsItems) {
         return (
             <div className="d-flex justify-content-center">
+                {/* <NavBar countCartItems={productsItems.length}/> */}
                 <div className="d-flex flex-column w-100">
                     <h1>Корзина</h1>
                     <div className="d-flex flex-row">
                         <div className="row cols-row-1 cols-row-md-3 g-0">
-                            {renderProducts()}
-                            {/* <div className="col">
-                                {productsItems.map((product, index) => (
-                                    <BasketCartList
-                                        product={product}
-                                        prodId={product._id}
-                                        key={index}
-                                        handleIncrement={() => handleIncrement(product._id)}
-                                        handleDecrement={() => handleDecrement(product._id)}
-                                        handleDelete={handleDelete}
-                                        {...product}
-                                    />
-                                ))}
-                            </div> */}
+                            <div className="col">
+                                {productsItems.length !== 0
+                                    ? productsItems.map((product, index) => (
+                                          <BasketCartList
+                                              product={product}
+                                              prodId={product._id}
+                                              key={index}
+                                              handleIncrement={() =>
+                                                  handleIncrement(product._id)
+                                              }
+                                              handleDecrement={() =>
+                                                  handleDecrement(product._id)
+                                              }
+                                              handleDelete={handleDelete}
+                                              {...product}
+                                          />
+                                      ))
+                                    : "Товары в корзине отсутствуют"}
+                            </div>
                         </div>
                         <BasketOrder
                             itemPrice={itemPrice}
